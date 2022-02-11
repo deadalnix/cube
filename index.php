@@ -313,7 +313,7 @@ render_set(array(
 			"R' U R' U' R' U' R' U R U R2",
 		)),
 		new Pll('H', "M2' U M2' U2 M2' U M2'", 1),
-		new Pll('Z', "M U M2' U M2' U M U2 M2'", 2),
+		new Pll('Z', "M U M2' U M2' U M U2 M2' U'", 2),
 	),
 	'CPLL' => array(
 		new Pll('Aa', "l R D2 R' U' R D2 R' U l'", 4, "", array(
