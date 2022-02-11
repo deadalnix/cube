@@ -357,10 +357,10 @@ echo "<p>Because the Dot cases are the worse, we'll try to avoid them by doign p
 
 render_set(array(
 	'All edges oriented' => array(
-		new Oll('Sune', "R' U2 R U R' U R", 4),
-		new Oll('Anti Sune', "R U2 R' U' R U' R'", 4),
+		new Oll('Sune', "R U R' U R U2' R'", 4),
+		new Oll('Anti Sune', "R U2' R' U' R U' R'", 4),
 		new Oll('H', "R U2 R' U' R U R' U' R U' R'", 2),
-		new Oll('Pi', "R U2 R2 U' R2 U' R2 U2 R", 4),
+		new Oll('Pi', "R U2' R2' U' R2 U' R2' U2' R", 4),
 		new Oll('T', "R U R D R' U' R D' R2'", 4),
 		new Oll('L', "R2' D' R U' R' D R U R", 4),
 		new Oll('U', "R2' D' R U2 R' D R U2' R", 4),
@@ -370,8 +370,8 @@ render_set(array(
 		new Oll('T9', "R U R' U' R' F R F'", 4),
 	),
 	'Square shapess' => array(
-		new Oll('', "r U2 R' U' R U' r'", 4),
-		new Oll('', "r' U2 R U R' U r", 4),
+		new Oll('', "r U2' R' U' R U' r'", 4),
+		new Oll('', "r' U2' R U R' U r", 4),
 	),
 	'C shapes' => array(
 		new Oll('', "R U R2 U' R' F R U R U' F'", 4, "Do F' with the right ring finger."),
@@ -379,7 +379,7 @@ render_set(array(
 	),
 	'W shapes' => array(
 		new Oll('', "R U R' U R U' R' U' R' F R F'", 4),
-		new Oll('', "R' U' R U' R' U R U l U' R' U x", 4),
+		new Oll('', "R' U' R U' R' U2' R2 U R' U' R' F R F'", 4),
 	),
 	'Edge flips' => array(
 		new Oll('', "r U R' U' M U R U' R'", 4),
@@ -394,8 +394,8 @@ render_set(array(
 	'I shapes' => array(
 		new Oll('', "F U R U' R' U R U' R' F'", 4),
 		new Oll('', "r' U' r U' R' U R U' R' U R r' U r", 2),
-		new Oll('', "R' U' R U' R' d R' U R B", 4, "You can do the final B using your right index finger."),
-		new Oll('', "r U2 R' U' R2 r' U R' U' r U' r'", 2),
+		new Oll('', "R U R' U R U' B U' B' R'", 4, "You can do the final Bs using your right index finger."),
+		new Oll('', "r U2' R' U' R2 r' U R' U' r U' r'", 2),
 	),
 	'Fish shapes' => array(
 		new Oll('', "R U R' U' R' F R2 U R' U' F'", 4),
