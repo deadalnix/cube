@@ -316,38 +316,37 @@ render_set(array(
 		new Pll('Z', "M U M2' U M2' U M U2 M2' U'", 2),
 	),
 	'CPLL' => array(
-		new Pll('Aa', "l R D2 R' U' R D2 R' U l'", 4, "", array(
+		new Pll('Aa', "r2 F2' r' U' r F2' r' U r'", 4, "The F2' are done with the right hand ring and pinky", array(
 			"l' U R' D2 R U' R' D2 R2 R l",
 		)),
-		new Pll('Ab', "l R U2 R D R' U2 R D' R x", 4, "", array(
-			"l U' R D2 R' U R D2 R' l'",
-			"L r u2 R' U' r u2 r' F L'",
+		new Pll('Ab', "r2' B2' r U r' B2' r U' r", 4, "", array(
+			"l U' R D2' R' U R D2' R2'",
 		)),
 		new Pll('E', "l U' R' D R U R' D' R U R' D R U' R' D' x", 2),
 	),
 	'G perms' => array(
 		new Pll('Ga', "R2 U R' U R' U' R U' R2 U' D R' U R D'", 4),
-		new Pll('Gb', "R' U' R U D' R2 U R' U R U' R U' R2 D", 4),
-		new Pll('Gc', "R2 U' R U' R U R' U R2 U D' R U' R' D", 4),
-		new Pll('Gd', "R U R' U' D R2 U' R U' R' U R' U R2 D'", 4),
+		new Pll('Gb', "D R' U' R U D' R2 U R' U R U' R U' R2'", 4),
+		new Pll('Gc', "R2' U' R U' R U R' U R2 U D' R U' R' D", 4),
+		new Pll('Gd', "D' R U R' U' D R2 U' R U' R' U R' U R2", 4),
 	),
 	'Adjacent' => array(
 		new Pll('Ra', "R U' R' U' R U R D R' U' R D' R' U2 R'", 4),
-		new Pll('Rb', "R2 F R U R U' R' F' R U2 R' U2 R", 4),
-		new Pll('Ja', "l' R' F R F' R U2 r' U r U2 x'", 4),
+		new Pll('Rb', "R2' F R U R U' R' F' R U2' R' U2 R", 4),
+		new Pll('Ja', "l' R' F R F' R U2' r' U r U2' x'", 4),
 		new Pll('Jb', "R U R' F' R U R' U' R' F R2 U' R'", 4),
 		new Pll('T', "R U R' U' R' F R2 U' R' U' R U R' F'", 4),
 		new Pll('F', "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R", 4, "", array(
-			"R' U2 R' d' R' F' R2 U' R' U R' F R U' F",
+			"R' U2' R' d' R' F' R2 U' R' U R' F R U' F",
 		)),
 	),
 	'Diagonal' => array(
-		new Pll('V', "R' U R' d' R' F' R2 U' R' U R' F R F", 4),
-		new Pll('Y', "F R U' R' U' R U R' F' R U R' U' R' F R F'", 4),
-		new Pll('Na', "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'", 1, '', array(
-			"z U R' D R2 U' R U D' R' D R2 U' R D' z'"
+		new Pll('V', "R U' R U R' D R D' R U' D R2' U R2' D' R2", 4, "", array(
+			"R' U R' d' R' F' R2 U' R' U R' F R F"
 		)),
-		new Pll('Nb', "z U' R D' R2 U R' U' D R D' R2 U R' D z'", 1),
+		new Pll('Y', "F R U' R' U' R U R' F' R U R' U' R' F R F'", 4),
+		new Pll('Na', "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'", 1),
+		new Pll('Nb', "r' D' F r U' r' F' D r2 U r' U' r' F r F'", 1),
 	),
 
 ));
