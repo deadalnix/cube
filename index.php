@@ -302,18 +302,18 @@ echo "<p>Diagonal cases are the worst, so it is worth trying to avoid them. this
 
 render_set(array(
 	'EPLL' => array(
-		new Pll('Ua', "M2 U M U2 M' U M2", 4, "", array(
-			"M2 U M' U2 M U M2",
+		new Pll('Ua', "M2' U M U2 M' U M2'", 4, "", array(
+			"M2' U M' U2 M U M2'",
 			"R U' R U R U R U' R' U' R2",
 			"R2 U' R' U' R U R U R U' R",
 		)),
-		new Pll('Ub', "M2 U' M U2 M' U' M2", 4, "", array(
-			"M2 U' M' U2 M U' M2",
+		new Pll('Ub', "M2' U' M U2 M' U' M2'", 4, "", array(
+			"M2' U' M' U2 M U' M2'",
 			"R2 U R U R' U' R' U' R' U R'",
 			"R' U R' U' R' U' R' U R U R2",
 		)),
-		new Pll('H', "M2 U M2 U2 M2 U M2", 1),
-		new Pll('Z', "M' U M2 U M2 U M' U2 M2", 2),
+		new Pll('H', "M2' U M2' U2 M2' U M2'", 1),
+		new Pll('Z', "M U M2' U M2' U M U2 M2'", 2),
 	),
 	'CPLL' => array(
 		new Pll('Aa', "l R D2 R' U' R D2 R' U l'", 4, "", array(
