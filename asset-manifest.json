@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cube/static/css/main.c124b6f8.css",
-    "main.js": "/cube/static/js/main.cb407bb9.js",
+    "main.js": "/cube/static/js/main.ad8665a0.js",
     "static/js/787.315b0fc9.chunk.js": "/cube/static/js/787.315b0fc9.chunk.js",
     "index.html": "/cube/index.html",
     "main.c124b6f8.css.map": "/cube/static/css/main.c124b6f8.css.map",
-    "main.cb407bb9.js.map": "/cube/static/js/main.cb407bb9.js.map",
+    "main.ad8665a0.js.map": "/cube/static/js/main.ad8665a0.js.map",
     "787.315b0fc9.chunk.js.map": "/cube/static/js/787.315b0fc9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c124b6f8.css",
-    "static/js/main.cb407bb9.js"
+    "static/js/main.ad8665a0.js"
   ]
 }
