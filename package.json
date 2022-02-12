@@ -7,15 +7,17 @@
         "@testing-library/jest-dom": "^5.16.2",
         "@testing-library/react": "^12.1.2",
         "@testing-library/user-event": "^13.5.0",
+        "flow-enums-runtime": "^0.0.6",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "5.0.0",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
+        "flow": "flow",
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "test": "react-app-rewired test",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
@@ -35,5 +37,13 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "babel-plugin-transform-flow-enums": "^0.0.2",
+        "customize-cra": "^1.0.0",
+        "eslint-plugin-fb-flow": "^0.0.4",
+        "eslint-plugin-ft-flow": "^2.0.1",
+        "flow-bin": "^0.171.0",
+        "react-app-rewired": "^2.1.11"
     }
 }

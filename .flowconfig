@@ -1,0 +1,16 @@
+[ignore]
+
+[include]
+
+[declarations]
+<PROJECT_ROOT>/node_modules/.*
+
+[libs]
+
+[lints]
+
+[options]
+enums=true
+react.runtime=automatic
+
+[strict]
