@@ -1,30 +1,29 @@
 // @flow
 import type { Node } from "react";
-
-type Point2D = [number, number];
-type Point3D = [number, number, number];
+import type { Point2D, Point3D } from "./Point.js";
+import { Quaternion } from "./Quaternion.js";
 
 type Face = "R" | "U" | "F" | "L" | "D" | "B";
 
 // 3D manipulation functions
-const offset = (p: Point3D, o: number, f: number): Point3D => [
-    (p[0] + o) * f,
-    (p[1] + o) * f,
-    (p[2] + o) * f,
+const offset = ([px, py, pz]: Point3D, o: number, f: number): Point3D => [
+    (px + o) * f,
+    (py + o) * f,
+    (pz + o) * f,
 ];
 
-const project = (p: Point3D, d: number): Point2D => {
-    let z = p[2] + d;
-    return [(p[0] * d) / z, (p[1] * d) / z];
+const project = ([px, py, pz]: Point3D, d: number): Point2D => {
+    let z = pz + d;
+    return [(px * d) / z, (py * d) / z];
 };
 
 // Scale a point relative to the center of the view.
-const scale = (p: Point2D, f: number): Point2D => [p[0] * f, p[1] * f];
+const scale = ([px, py]: Point2D, f: number): Point2D => [px * f, py * f];
 
 // Scale point relative to origin
-const rescale = (p: Point2D, o: Point2D, f: number): Point2D => [
-    (p[0] - o[0]) * f + o[0],
-    (p[1] - o[1]) * f + o[1],
+const rescale = ([px, py]: Point2D, [ox, oy]: Point2D, f: number): Point2D => [
+    (px - ox) * f + ox,
+    (py - oy) * f + oy,
 ];
 
 // Random utility
@@ -150,6 +149,27 @@ const SvgCube = ({
 
     const FaceVertices: { [Face]: ?Array<Array<Point2D>> } = (() => {
         const R = new Rotator(alpha, beta);
+        const Q = new Quaternion().rotateY(beta).rotateX(-alpha);
+
+        console.log("New values");
+
+        console.log(R.rotate([1, 0, 0]));
+        console.log(Q.rotate([1, 0, 0]));
+
+        console.log(R.rotate([0, 1, 0]));
+        console.log(Q.rotate([0, 1, 0]));
+
+        console.log(R.rotate([0, 0, 1]));
+        console.log(Q.rotate([0, 0, 1]));
+
+        console.log(R.rotate([1, 1, 0]));
+        console.log(Q.rotate([1, 1, 0]));
+
+        console.log(R.rotate([0, 1, 1]));
+        console.log(Q.rotate([0, 1, 1]));
+
+        console.log(R.rotate([1, 0, 1]));
+        console.log(Q.rotate([1, 0, 1]));
 
         const VISIBILITY_THRESOLD = -0.105;
 
