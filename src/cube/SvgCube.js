@@ -1,30 +1,10 @@
 // @flow
 import type { Node } from "react";
-import type { Point2D, Point3D } from "./Point.js";
+
+import { Point2D, Point3D, midpoint } from "./Point.js";
 import { Quaternion } from "./Quaternion.js";
 
 type Face = "R" | "U" | "F" | "L" | "D" | "B";
-
-// 3D manipulation functions
-const offset = ([px, py, pz]: Point3D, o: number, f: number): Point3D => [
-    (px + o) * f,
-    (py + o) * f,
-    (pz + o) * f,
-];
-
-const project = ([px, py, pz]: Point3D, d: number): Point2D => {
-    let z = pz + d;
-    return [(px * d) / z, (py * d) / z];
-};
-
-// Scale a point relative to the center of the view.
-const scale = ([px, py]: Point2D, f: number): Point2D => [px * f, py * f];
-
-// Scale point relative to origin
-const rescale = ([px, py]: Point2D, [ox, oy]: Point2D, f: number): Point2D => [
-    (px - ox) * f + ox,
-    (py - oy) * f + oy,
-];
 
 // Random utility
 function objectMap<K, V1, V2>(
@@ -39,39 +19,6 @@ function objectMap<K, V1, V2>(
     }
 
     return result;
-}
-
-class Rotator {
-    CosA: number;
-    SinA: number;
-
-    CosB: number;
-    SinB: number;
-
-    constructor(alpha: number, beta: number) {
-        const Alpha = (Math.PI * alpha) / 180;
-        this.CosA = Math.cos(Alpha);
-        this.SinA = Math.sin(Alpha);
-
-        const Beta = (Math.PI * beta) / 180;
-        this.CosB = Math.cos(Beta);
-        this.SinB = Math.sin(Beta);
-    }
-
-    rotate(p: Point3D): Point3D {
-        const p2 = p[2] * this.CosB - p[0] * this.SinB;
-        return [
-            p[0] * this.CosB + p[2] * this.SinB,
-            p2 * this.SinA + p[1] * this.CosA,
-            p2 * this.CosA - p[1] * this.SinA,
-        ];
-    }
-
-    rotateZ(p: Point3D): number {
-        return (
-            (p[2] * this.CosB - p[0] * this.SinB) * this.CosA - p[1] * this.SinA
-        );
-    }
 }
 
 // Produce point array for a cube in default position and cache it.
@@ -101,12 +48,12 @@ const CubeVerticesCache = new (class {
         // Fill the face vertices in the default orientation.
         for (let i = 0; i <= dimention; i++) {
             for (let j = 0; j <= dimention; j++) {
-                v.R[i][j] = [dimention, j, i];
-                v.U[i][j] = [i, 0, dimention - j];
-                v.F[i][j] = [i, j, 0];
-                v.L[i][j] = [0, j, dimention - i];
-                v.D[i][j] = [i, dimention, j];
-                v.B[i][j] = [dimention - i, j, dimention];
+                v.R[i][j] = new Point3D(dimention, j, i);
+                v.U[i][j] = new Point3D(i, 0, dimention - j);
+                v.F[i][j] = new Point3D(i, j, 0);
+                v.L[i][j] = new Point3D(0, j, dimention - i);
+                v.D[i][j] = new Point3D(i, dimention, j);
+                v.B[i][j] = new Point3D(dimention - i, j, dimention);
             }
         }
 
@@ -115,7 +62,7 @@ const CubeVerticesCache = new (class {
         const Scale = 1 / dimention;
 
         return (this.cache[dimention] = objectMap(v, pf =>
-            pf.map(pi => pi.map(p => offset(p, CenterOffset, Scale)))
+            pf.map(pi => pi.map(p => p.offset(CenterOffset, Scale)))
         ));
     }
 })();
@@ -148,42 +95,21 @@ const SvgCube = ({
     };
 
     const FaceVertices: { [Face]: ?Array<Array<Point2D>> } = (() => {
-        const R = new Rotator(alpha, beta);
         const Q = new Quaternion().rotateY(beta).rotateX(-alpha);
-
-        console.log("New values");
-
-        console.log(R.rotate([1, 0, 0]));
-        console.log(Q.rotate([1, 0, 0]));
-
-        console.log(R.rotate([0, 1, 0]));
-        console.log(Q.rotate([0, 1, 0]));
-
-        console.log(R.rotate([0, 0, 1]));
-        console.log(Q.rotate([0, 0, 1]));
-
-        console.log(R.rotate([1, 1, 0]));
-        console.log(Q.rotate([1, 1, 0]));
-
-        console.log(R.rotate([0, 1, 1]));
-        console.log(Q.rotate([0, 1, 1]));
-
-        console.log(R.rotate([1, 0, 1]));
-        console.log(Q.rotate([1, 0, 1]));
 
         const VISIBILITY_THRESOLD = -0.105;
 
         // Compute normal vectors for each face and do backface culling.
         const FaceVisibilities = objectMap(
             {
-                R: [1, 0, 0],
-                U: [0, -1, 0],
-                F: [0, 0, -1],
-                L: [-1, 0, 0],
-                D: [0, 1, 0],
-                B: [0, 0, 1],
+                R: new Point3D(1, 0, 0),
+                U: new Point3D(0, -1, 0),
+                F: new Point3D(0, 0, -1),
+                L: new Point3D(-1, 0, 0),
+                D: new Point3D(0, 1, 0),
+                B: new Point3D(0, 0, 1),
             },
-            (n: Point3D) => R.rotateZ(n) < VISIBILITY_THRESOLD
+            (n: Point3D) => n.rotateZ(Q) < VISIBILITY_THRESOLD
         );
 
         return objectMap(CubeVerticesCache.get(dimention), (pf, f) => {
@@ -192,14 +118,7 @@ const SvgCube = ({
             }
 
             const Depth = 5;
-
-            return pf.map(pi =>
-                pi
-                    // Rotate as requested.
-                    .map(p => R.rotate(p))
-                    // Project the 3D point in 2D
-                    .map(p => project(p, Depth))
-            );
+            return pf.map(pi => pi.map(p => p.rotate(Q).project(Depth)));
         });
     })();
 
@@ -215,7 +134,7 @@ const SvgCube = ({
             Vertices[dimention][0],
             Vertices[dimention][dimention],
             Vertices[0][dimention],
-        ].map(p => scale(p, OutlineScale));
+        ].map(p => p.scale(OutlineScale));
 
         return <polygon fill="#000000" stroke="#000000" points={Points} />;
     };
@@ -237,15 +156,12 @@ const SvgCube = ({
                 const P4 = Vertices[j][i + 1];
 
                 // Find centre point of facelet
-                const FaceletCenter = [
-                    (P1[0] + P3[0]) / 2,
-                    (P1[1] + P3[1]) / 2,
-                ];
+                const FaceletCenter = midpoint(P1, P3);
 
                 // Scale points in towards centre
                 const FaceLetScale = 0.85;
                 const Points = [P1, P2, P3, P4].map(p =>
-                    rescale(p, FaceletCenter, FaceLetScale)
+                    p.rescale(FaceletCenter, FaceLetScale)
                 );
 
                 const Key = i * dimention + j;

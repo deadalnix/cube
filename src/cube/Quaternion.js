@@ -1,6 +1,4 @@
 // @flow
-import type { Point3D } from "./Point.js";
-
 const Theta = (angle: number) => (Math.PI * angle) / 360;
 
 export class Quaternion {
@@ -8,26 +6,6 @@ export class Quaternion {
     x: number = 0;
     y: number = 0;
     z: number = 0;
-
-    rotate(p: Point3D): Point3D {
-        const qw = this.w;
-        const qx = this.x;
-        const qy = this.y;
-        const qz = this.z;
-
-        const [vx, vy, vz] = p;
-
-        // t = 2q x v
-        const tx = 2 * (qy * vz - qz * vy);
-        const ty = 2 * (qz * vx - qx * vz);
-        const tz = 2 * (qx * vy - qy * vx);
-
-        return [
-            vx + qw * tx + qy * tz - qz * ty,
-            vy + qw * ty + qz * tx - qx * tz,
-            vz + qw * tz + qx * ty - qy * tx,
-        ];
-    }
 
     combine(q: Quaternion): this {
         const qw = q.w;
