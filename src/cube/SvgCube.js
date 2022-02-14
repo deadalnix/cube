@@ -63,10 +63,11 @@ const CubeVerticesCache = new (class {
     }
 })();
 
+type Orientation = Quaternion | {| alpha: number, beta: number |};
+
 type Props = {
     dimention: number,
-    alpha: number,
-    beta: number,
+    orientation: Orientation,
     size: string,
     colorList: { [string]: string },
     stickers?: { [Face]: string },
@@ -74,13 +75,11 @@ type Props = {
 
 const SvgCube = ({
     dimention,
-    alpha,
-    beta,
+    orientation,
     size,
     colorList,
     stickers,
 }: Props): Node => {
-    const Plans = dimention + 1;
     const StickersPerFace = dimention * dimention;
     const Stickers = stickers || {
         R: "r".repeat(StickersPerFace),
@@ -91,9 +90,14 @@ const SvgCube = ({
         B: "b".repeat(StickersPerFace),
     };
 
-    const FaceVertices: { [Face]: ?Array<Point2D> } = (() => {
-        const Q = new Quaternion().rotateY(beta).rotateX(-alpha);
+    const Q =
+        orientation instanceof Quaternion
+            ? orientation
+            : new Quaternion()
+                  .rotateY(orientation.beta)
+                  .rotateX(-orientation.alpha);
 
+    const FaceVertices: { [Face]: ?Array<Point2D> } = (() => {
         const VISIBILITY_THRESOLD = -0.105;
 
         // Compute normal vectors for each face and do backface culling.
@@ -118,6 +122,8 @@ const SvgCube = ({
             return pf.map(p => p.rotate(Q).project(Depth));
         });
     })();
+
+    const Plans = dimention + 1;
 
     const FaceOutline = ({ face }) => {
         const Vertices = FaceVertices[face];
@@ -205,8 +211,10 @@ const SvgCube = ({
 
 SvgCube.defaultProps = {
     dimention: 3,
-    alpha: -25,
-    beta: 45,
+    orientation: {
+        alpha: -25,
+        beta: 45,
+    },
     size: "200px",
     colorList: {
         r: "#8c000f",
