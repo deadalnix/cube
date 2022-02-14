@@ -82,7 +82,7 @@ const SvgCube = ({
 }: Props): Node => {
     const Plans = dimention + 1;
     const StickersPerFace = dimention * dimention;
-    let Stickers = stickers || {
+    const Stickers = stickers || {
         R: "r".repeat(StickersPerFace),
         U: "u".repeat(StickersPerFace),
         F: "f".repeat(StickersPerFace),
@@ -168,7 +168,7 @@ const SvgCube = ({
                 // Generate facelet polygon
                 facelets.push(
                     <polygon
-                        key={face + ColorIndex}
+                        key={ColorIndex}
                         fill={Color}
                         stroke="#000000"
                         points={Points}
@@ -191,12 +191,12 @@ const SvgCube = ({
         <svg viewBox="-0.9 -0.9 1.8 1.8" style={SvgStyle}>
             <g strokeWidth="0.1" strokeLinejoin="round">
                 {Faces.map(f => (
-                    <FaceOutline face={f} />
+                    <FaceOutline key={f} face={f} />
                 ))}
             </g>
             <g strokeWidth="0" strokeLinejoin="round">
                 {Faces.map(f => (
-                    <Facelets face={f} />
+                    <Facelets key={f} face={f} />
                 ))}
             </g>
         </svg>
