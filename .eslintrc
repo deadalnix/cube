@@ -1,4 +1,7 @@
 {
     "extends": ["react-app"],
-    "plugins": ["ft-flow", "fb-flow"]
+    "plugins": ["ft-flow", "fb-flow"],
+    "rules": {
+        "no-use-before-define": "off"
+    }
 }
