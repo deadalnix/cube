@@ -23,37 +23,33 @@ function objectMap<K, V1, V2>(
 
 // Produce point array for a cube in default position and cache it.
 const CubeVerticesCache = new (class {
-    cache: { [number]: { [Face]: Array<Array<Point3D>> } };
+    cache: { [number]: { [Face]: Array<Point3D> } } = {};
 
-    constructor() {
-        this.cache = {};
-    }
-
-    get(dimention: number): { [Face]: Array<Array<Point3D>> } {
+    get(dimention: number): { [Face]: Array<Point3D> } {
         if (dimention in this.cache) {
             return this.cache[dimention];
         }
 
-        const Line = Array(dimention + 1);
-        const Face = Line.fill(Line);
+        const StickersPerFace = dimention * dimention;
         let v = {
-            R: Face.map(l => [...l]),
-            U: Face.map(l => [...l]),
-            F: Face.map(l => [...l]),
-            L: Face.map(l => [...l]),
-            D: Face.map(l => [...l]),
-            B: Face.map(l => [...l]),
+            R: Array(StickersPerFace),
+            U: Array(StickersPerFace),
+            F: Array(StickersPerFace),
+            L: Array(StickersPerFace),
+            D: Array(StickersPerFace),
+            B: Array(StickersPerFace),
         };
 
         // Fill the face vertices in the default orientation.
         for (let i = 0; i <= dimention; i++) {
             for (let j = 0; j <= dimention; j++) {
-                v.R[i][j] = new Point3D(dimention, j, i);
-                v.U[i][j] = new Point3D(i, 0, dimention - j);
-                v.F[i][j] = new Point3D(i, j, 0);
-                v.L[i][j] = new Point3D(0, j, dimention - i);
-                v.D[i][j] = new Point3D(i, dimention, j);
-                v.B[i][j] = new Point3D(dimention - i, j, dimention);
+                const Index = i * dimention + i + j;
+                v.R[Index] = new Point3D(dimention, i, j);
+                v.U[Index] = new Point3D(j, 0, dimention - i);
+                v.F[Index] = new Point3D(j, i, 0);
+                v.L[Index] = new Point3D(0, i, dimention - j);
+                v.D[Index] = new Point3D(j, dimention, i);
+                v.B[Index] = new Point3D(dimention - j, i, dimention);
             }
         }
 
@@ -62,7 +58,7 @@ const CubeVerticesCache = new (class {
         const Scale = 1 / dimention;
 
         return (this.cache[dimention] = objectMap(v, pf =>
-            pf.map(pi => pi.map(p => p.offset(CenterOffset, Scale)))
+            pf.map(p => p.offset(CenterOffset, Scale))
         ));
     }
 })();
@@ -84,8 +80,9 @@ const SvgCube = ({
     colorList,
     stickers,
 }: Props): Node => {
+    const Plans = dimention + 1;
     const StickersPerFace = dimention * dimention;
-    const Stickers = stickers || {
+    let Stickers = stickers || {
         R: "r".repeat(StickersPerFace),
         U: "u".repeat(StickersPerFace),
         F: "f".repeat(StickersPerFace),
@@ -94,7 +91,7 @@ const SvgCube = ({
         B: "b".repeat(StickersPerFace),
     };
 
-    const FaceVertices: { [Face]: ?Array<Array<Point2D>> } = (() => {
+    const FaceVertices: { [Face]: ?Array<Point2D> } = (() => {
         const Q = new Quaternion().rotateY(beta).rotateX(-alpha);
 
         const VISIBILITY_THRESOLD = -0.105;
@@ -118,7 +115,7 @@ const SvgCube = ({
             }
 
             const Depth = 5;
-            return pf.map(pi => pi.map(p => p.rotate(Q).project(Depth)));
+            return pf.map(p => p.rotate(Q).project(Depth));
         });
     })();
 
@@ -130,10 +127,10 @@ const SvgCube = ({
 
         const OutlineScale = 0.94;
         const Points = [
-            Vertices[0][0],
-            Vertices[dimention][0],
-            Vertices[dimention][dimention],
-            Vertices[0][dimention],
+            Vertices[0],
+            Vertices[dimention],
+            Vertices[dimention * (Plans + 1)],
+            Vertices[dimention * Plans],
         ].map(p => p.scale(OutlineScale));
 
         return <polygon fill="#000000" stroke="#000000" points={Points} />;
@@ -150,10 +147,11 @@ const SvgCube = ({
         let facelets = [];
         for (let i = 0; i < dimention; i++) {
             for (let j = 0; j < dimention; j++) {
-                const P1 = Vertices[j][i];
-                const P2 = Vertices[j + 1][i];
-                const P3 = Vertices[j + 1][i + 1];
-                const P4 = Vertices[j][i + 1];
+                const Index = i * Plans + j;
+                const P1 = Vertices[Index];
+                const P2 = Vertices[Index + Plans];
+                const P3 = Vertices[Index + Plans + 1];
+                const P4 = Vertices[Index + 1];
 
                 // Find centre point of facelet
                 const FaceletCenter = midpoint(P1, P3);
@@ -164,13 +162,13 @@ const SvgCube = ({
                     p.rescale(FaceletCenter, FaceLetScale)
                 );
 
-                const Key = i * dimention + j;
-                const Color = colorList[StickerColors.charAt(Key)];
+                const ColorIndex = i * dimention + j;
+                const Color = colorList[StickerColors.charAt(ColorIndex)];
 
                 // Generate facelet polygon
                 facelets.push(
                     <polygon
-                        key={face + Key}
+                        key={face + ColorIndex}
                         fill={Color}
                         stroke="#000000"
                         points={Points}
