@@ -4,10 +4,26 @@ const Theta = (angle: number) => (Math.PI * angle) / 360;
 export type Orientation = Quaternion | {| alpha: number, beta: number |};
 
 export default class Quaternion {
-    w: number = 1;
-    x: number = 0;
-    y: number = 0;
-    z: number = 0;
+    #w: number = 1;
+    #x: number = 0;
+    #y: number = 0;
+    #z: number = 0;
+
+    get w(): number {
+        return this.#w;
+    }
+
+    get x(): number {
+        return this.#x;
+    }
+
+    get y(): number {
+        return this.#y;
+    }
+
+    get z(): number {
+        return this.#z;
+    }
 
     static fromOrientation(o: Orientation): Quaternion {
         if (o instanceof Quaternion) {
@@ -29,10 +45,10 @@ export default class Quaternion {
     ): Quaternion {
         const q = new Quaternion();
 
-        q.w = w;
-        q.x = x;
-        q.y = y;
-        q.z = z;
+        q.#w = w;
+        q.#x = x;
+        q.#y = y;
+        q.#z = z;
 
         return q;
     }
