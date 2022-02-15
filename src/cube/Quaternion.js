@@ -49,7 +49,7 @@ export class Quaternion {
         const tz = this.z;
 
         return Quaternion.fromCoordinates(
-            qw * tw + qx * tx + qy * ty + qz * tz,
+            qw * tw - qx * tx - qy * ty - qz * tz,
             qx * tw + qw * tx + qy * tz - qz * ty,
             qy * tw + qw * ty + qz * tx - qx * tz,
             qz * tw + qw * tz + qx * ty - qy * tx
@@ -67,7 +67,7 @@ export class Quaternion {
         const tz = this.z;
 
         return Quaternion.fromCoordinates(
-            C * tw + S * tx,
+            C * tw - S * tx,
             C * tx + S * tw,
             C * ty - S * tz,
             C * tz + S * ty
@@ -85,7 +85,7 @@ export class Quaternion {
         const tz = this.z;
 
         return Quaternion.fromCoordinates(
-            C * tw + S * ty,
+            C * tw - S * ty,
             C * tx + S * tz,
             C * ty + S * tw,
             C * tz - S * tx
@@ -103,7 +103,7 @@ export class Quaternion {
         const tz = this.z;
 
         return Quaternion.fromCoordinates(
-            C * tw + S * tz,
+            C * tw - S * tz,
             C * tx - S * ty,
             C * ty + S * tx,
             C * tz + S * tw
