@@ -1,5 +1,6 @@
 // @flow
 import type { Node } from "react";
+import type { Orientation } from "./Quaternion.js";
 
 import { Point2D, Point3D, midpoint } from "./Point.js";
 import { Quaternion } from "./Quaternion.js";
@@ -63,8 +64,6 @@ const CubeVerticesCache = new (class {
     }
 })();
 
-type Orientation = Quaternion | {| alpha: number, beta: number |};
-
 type Props = {
     dimention: number,
     orientation: Orientation,
@@ -90,12 +89,7 @@ const SvgCube = ({
         B: "b".repeat(StickersPerFace),
     };
 
-    const Q =
-        orientation instanceof Quaternion
-            ? orientation
-            : new Quaternion()
-                  .rotateY(orientation.beta)
-                  .rotateX(-orientation.alpha);
+    const Q = Quaternion.fromOrientation(orientation);
 
     const FaceVertices: { [Face]: ?Array<Point2D> } = (() => {
         const VISIBILITY_THRESOLD = -0.105;

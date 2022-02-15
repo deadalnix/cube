@@ -1,13 +1,43 @@
 // @flow
 const Theta = (angle: number) => (Math.PI * angle) / 360;
 
+export type Orientation = Quaternion | {| alpha: number, beta: number |};
+
 export class Quaternion {
     w: number = 1;
     x: number = 0;
     y: number = 0;
     z: number = 0;
 
-    combine(q: Quaternion): this {
+    static fromOrientation(o: Orientation): Quaternion {
+        if (o instanceof Quaternion) {
+            return o;
+        }
+
+        return Quaternion.fromAngles(o.alpha, o.beta);
+    }
+
+    static fromAngles(alpha: number, beta: number): Quaternion {
+        return new Quaternion().rotateY(beta).rotateX(-alpha);
+    }
+
+    static fromCoordinates(
+        w: number,
+        x: number,
+        y: number,
+        z: number
+    ): Quaternion {
+        const q = new Quaternion();
+
+        q.w = w;
+        q.x = x;
+        q.y = y;
+        q.z = z;
+
+        return q;
+    }
+
+    combine(q: Quaternion): Quaternion {
         const qw = q.w;
         const qx = q.x;
         const qy = q.y;
@@ -18,15 +48,15 @@ export class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        this.w = qw * tw + qx * tx + qy * ty + qz * tz;
-        this.x = qx * tw + qw * tx + qy * tz - qz * ty;
-        this.y = qy * tw + qw * ty + qz * tx - qx * tz;
-        this.z = qz * tw + qw * tz + qx * ty - qy * tx;
-
-        return this;
+        return Quaternion.fromCoordinates(
+            qw * tw + qx * tx + qy * ty + qz * tz,
+            qx * tw + qw * tx + qy * tz - qz * ty,
+            qy * tw + qw * ty + qz * tx - qx * tz,
+            qz * tw + qw * tz + qx * ty - qy * tx
+        );
     }
 
-    rotateX(angle: number): this {
+    rotateX(angle: number): Quaternion {
         const T = Theta(angle);
         const C = Math.cos(T);
         const S = Math.sin(T);
@@ -36,15 +66,15 @@ export class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        this.w = C * tw + S * tx;
-        this.x = C * tx + S * tw;
-        this.y = C * ty - S * tz;
-        this.z = C * tz + S * ty;
-
-        return this;
+        return Quaternion.fromCoordinates(
+            C * tw + S * tx,
+            C * tx + S * tw,
+            C * ty - S * tz,
+            C * tz + S * ty
+        );
     }
 
-    rotateY(angle: number): this {
+    rotateY(angle: number): Quaternion {
         const T = Theta(angle);
         const C = Math.cos(T);
         const S = Math.sin(T);
@@ -54,15 +84,15 @@ export class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        this.w = C * tw + S * ty;
-        this.x = C * tx + S * tz;
-        this.y = C * ty + S * tw;
-        this.z = C * tz - S * tx;
-
-        return this;
+        return Quaternion.fromCoordinates(
+            C * tw + S * ty,
+            C * tx + S * tz,
+            C * ty + S * tw,
+            C * tz - S * tx
+        );
     }
 
-    rotateZ(angle: number): this {
+    rotateZ(angle: number): Quaternion {
         const T = Theta(angle);
         const C = Math.cos(T);
         const S = Math.sin(T);
@@ -72,11 +102,11 @@ export class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        this.w = C * tw + S * tz;
-        this.x = C * tx - S * ty;
-        this.y = C * ty + S * tx;
-        this.z = C * tz + S * tw;
-
-        return this;
+        return Quaternion.fromCoordinates(
+            C * tw + S * tz,
+            C * tx - S * ty,
+            C * ty + S * tx,
+            C * tz + S * tw
+        );
     }
 }
