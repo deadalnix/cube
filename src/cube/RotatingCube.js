@@ -13,7 +13,7 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
     const [isRotating, setIsRotating] = useState(false);
 
     const [Q, setRotation] = useState(() => {
-        const o = orientation || SvgCube.defaultProps.orientation;
+        const o = orientation ?? SvgCube.defaultProps.orientation;
         return Quaternion.fromOrientation(o);
     });
 

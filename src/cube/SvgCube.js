@@ -69,6 +69,7 @@ export type CubeProps = {
     size: string,
     colorList: { [string]: string },
     stickers?: { [Face]: string },
+    ...
 };
 
 const SvgCube = ({
@@ -80,7 +81,7 @@ const SvgCube = ({
     ...props
 }: CubeProps): Node => {
     const StickersPerFace = dimention * dimention;
-    const Stickers = stickers || {
+    const Stickers = stickers ?? {
         R: "r".repeat(StickersPerFace),
         U: "u".repeat(StickersPerFace),
         F: "f".repeat(StickersPerFace),
@@ -163,7 +164,7 @@ const SvgCube = ({
                 );
 
                 const ColorIndex = i * dimention + j;
-                const Color = colorList[StickerColors.charAt(ColorIndex)];
+                const Color = colorList[StickerColors[ColorIndex]];
 
                 // Generate facelet polygon
                 facelets.push(
