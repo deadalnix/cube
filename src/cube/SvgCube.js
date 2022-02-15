@@ -1,8 +1,8 @@
 // @flow
-import type { Node } from "react";
+import React, { type Node } from "react";
 
 import { Point2D, Point3D, midpoint } from "./Point.js";
-import { Quaternion, type Orientation } from "./Quaternion.js";
+import Quaternion, { type Orientation } from "./Quaternion.js";
 
 type Face = "R" | "U" | "F" | "L" | "D" | "B";
 

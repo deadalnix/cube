@@ -3,7 +3,7 @@ const Theta = (angle: number) => (Math.PI * angle) / 360;
 
 export type Orientation = Quaternion | {| alpha: number, beta: number |};
 
-export class Quaternion {
+export default class Quaternion {
     w: number = 1;
     x: number = 0;
     y: number = 0;
