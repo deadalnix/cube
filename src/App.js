@@ -1,6 +1,6 @@
 // @flow
 import type { Node } from "react";
-import SvgCube from "./cube/SvgCube.js";
+import RotatingCube from "./cube/RotatingCube.js";
 
 import "./App.css";
 
@@ -16,7 +16,7 @@ const App = (): Node => (
             >
                 Start cubing!
             </a>
-            <SvgCube />
+            <RotatingCube />
         </header>
     </div>
 );

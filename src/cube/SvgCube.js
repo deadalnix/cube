@@ -1,9 +1,8 @@
 // @flow
 import type { Node } from "react";
-import type { Orientation } from "./Quaternion.js";
 
 import { Point2D, Point3D, midpoint } from "./Point.js";
-import { Quaternion } from "./Quaternion.js";
+import { Quaternion, type Orientation } from "./Quaternion.js";
 
 type Face = "R" | "U" | "F" | "L" | "D" | "B";
 
@@ -64,7 +63,7 @@ const CubeVerticesCache = new (class {
     }
 })();
 
-type Props = {
+export type CubeProps = {
     dimention: number,
     orientation: Orientation,
     size: string,
@@ -78,7 +77,8 @@ const SvgCube = ({
     size,
     colorList,
     stickers,
-}: Props): Node => {
+    ...props
+}: CubeProps): Node => {
     const StickersPerFace = dimention * dimention;
     const Stickers = stickers || {
         R: "r".repeat(StickersPerFace),
@@ -188,7 +188,7 @@ const SvgCube = ({
     const Faces: Array<Face> = ["R", "U", "F", "L", "D", "B"];
 
     return (
-        <svg viewBox="-0.9 -0.9 1.8 1.8" style={SvgStyle}>
+        <svg {...props} viewBox="-0.9 -0.9 1.8 1.8" style={SvgStyle}>
             <g strokeWidth="0.1" strokeLinejoin="round">
                 {Faces.map(f => (
                     <FaceOutline key={f} face={f} />
