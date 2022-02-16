@@ -1,5 +1,5 @@
 // @flow
-import { makeMoveParseFunction, type ParseAction } from "./AlgParser.js";
+import type { ParseAction } from "./AlgParser.js";
 
 export type NotationSpec = { [string]: ParseAction | string };
 
@@ -13,13 +13,7 @@ export const extendNotation = (
     notation: Notation,
     spec: NotationSpec
 ): Notation => {
-    const explode = (
-        k: string,
-        entry: NotationEntry | string
-    ): [string, NotationEntry] => {
-        let e =
-            typeof entry === "string" ? makeMoveParseFunction(entry) : entry;
-
+    const explode = (k: string, e: NotationEntry): [string, NotationEntry] => {
         if (k.length < 2) {
             // Nothing to do.
             return [k, e];

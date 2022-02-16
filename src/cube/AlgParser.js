@@ -13,7 +13,7 @@ import type { Notation } from "./AlgNotation.js";
 import { makeNotation, extendNotation } from "./AlgNotation.js";
 
 export type ParseFunction = (AlgParser, number) => Alg;
-export type ParseAction = ParseFunction | null;
+export type ParseAction = ParseFunction | string | null;
 
 const parseAlg = (input: string, notation: Notation): Alg => {
     return new AlgParser(input, notation).parse();
@@ -83,16 +83,15 @@ export class AlgParser {
 
             let start = this.index;
 
-            const a = this.parseAction();
-            if (typeof a === "undefined") {
+            const action = this.parseAction();
+            if (typeof action === "undefined") {
                 break;
             }
 
-            if (a === null) {
-                continue;
+            const alg = this.runParseAction(action, start);
+            if (alg !== null) {
+                algs.push(alg);
             }
-
-            algs.push(a(this, start));
         }
 
         this.skipWhitespace();
@@ -140,6 +139,20 @@ export class AlgParser {
 
         this.index = index;
         return next;
+    }
+
+    runParseAction(action: ParseAction, start: number): Alg | null {
+        if (action === null) {
+            return null;
+        }
+
+        if (typeof action === "function") {
+            return action(this, start);
+        }
+
+        // This is a move.
+        const count = this.parseCount() ?? 1;
+        return new Move(this.locationFrom(start), action, count);
     }
 
     parseCount(): number | null {
