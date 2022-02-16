@@ -2,20 +2,12 @@
 import Quaternion from "./Quaternion.js";
 
 export class Point2D {
-    #x: number;
-    #y: number;
-
-    get x(): number {
-        return this.#x;
-    }
-
-    get y(): number {
-        return this.#y;
-    }
+    +x: number;
+    +y: number;
 
     constructor(x: number, y: number) {
-        this.#x = x;
-        this.#y = y;
+        this.x = x;
+        this.y = y;
     }
 
     // Useful to stuff them into SVG tags.
@@ -40,26 +32,14 @@ export const midpoint = (p: Point2D, q: Point2D): Point2D =>
     new Point2D((p.x + q.x) / 2, (p.y + q.y) / 2);
 
 export class Point3D {
-    #x: number;
-    #y: number;
-    #z: number;
-
-    get x(): number {
-        return this.#x;
-    }
-
-    get y(): number {
-        return this.#y;
-    }
-
-    get z(): number {
-        return this.#z;
-    }
+    x: number;
+    y: number;
+    z: number;
 
     constructor(x: number, y: number, z: number) {
-        this.#x = x;
-        this.#y = y;
-        this.#z = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     offset(o: number, f: number): Point3D {
