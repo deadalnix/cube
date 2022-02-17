@@ -44,11 +44,11 @@ class AlgPrinter extends AlgVisitor<string> {
     }
 
     visitConjugate(c: Conjugate): string {
-        return "[" + this.print(c.setup) + ", " + this.print(c.moves) + "]";
+        return "[" + this.print(c.setup) + ": " + this.print(c.moves) + "]";
     }
 
     visitCommutator(c: Commutator): string {
-        return "[" + this.print(c.a) + ": " + this.print(c.b) + "]";
+        return "[" + this.print(c.a) + ", " + this.print(c.b) + "]";
     }
 }
 

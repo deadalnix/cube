@@ -1,3 +1,4 @@
+// @flow
 import parseAlg, { CubeNotation } from "./AlgParser.js";
 import printAlg from "./AlgPrinter.js";
 

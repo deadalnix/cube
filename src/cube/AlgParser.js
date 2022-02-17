@@ -252,7 +252,7 @@ export const BaseNotation: Notation = makeNotation({
 
         const location = parser.locationFrom(start);
 
-        return type === ","
+        return type === ":"
             ? new Conjugate(location, a, b, count)
             : new Commutator(location, a, b, count);
     },
