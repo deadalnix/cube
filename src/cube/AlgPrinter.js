@@ -3,7 +3,6 @@ import {
     type Alg,
     AlgVisitor,
     Move,
-    Repeat,
     Sequence,
     Conjugate,
     Commutator,
@@ -24,17 +23,16 @@ const appendCount = (alg: string, count: number): string => {
 
 class AlgPrinter extends AlgVisitor<string> {
     print(alg: Alg): string {
-        return alg instanceof Sequence
-            ? this.printSequence(alg.moves)
-            : this.visit(alg);
+        // Omit () if they are not needed.
+        if (alg.count === 1 && alg instanceof Sequence) {
+            return this.printSequence(alg.moves);
+        }
+
+        return appendCount(this.visit(alg), alg.count);
     }
 
     visitMove(m: Move): string {
-        return appendCount(m.move, m.count);
-    }
-
-    visitRepeat(r: Repeat): string {
-        return appendCount(this.visit(r.moves), r.count);
+        return m.move;
     }
 
     visitSequence(s: Sequence): string {

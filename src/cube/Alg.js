@@ -11,6 +11,7 @@ export class Location {
 
 export interface Alg {
     +location: Location;
+    +count: number;
 
     accept<T>(v: AlgVisitor<T>): T;
 }
@@ -34,29 +35,15 @@ export class Move implements Alg {
     }
 }
 
-export class Repeat implements Alg {
-    +location: Location;
-    +moves: Alg;
-    +count: number;
-
-    constructor(location: Location, moves: Alg, count: number) {
-        this.location = location;
-        this.moves = moves;
-        this.count = count;
-    }
-
-    accept<T>(v: AlgVisitor<T>): T {
-        return v.visitRepeat(this);
-    }
-}
-
 export class Sequence implements Alg {
     +location: Location;
     +moves: Array<Alg>;
+    +count: number;
 
-    constructor(location: Location, moves: Array<Alg>) {
+    constructor(location: Location, moves: Array<Alg>, count: number) {
         this.location = location;
         this.moves = moves;
+        this.count = count;
     }
 
     accept<T>(v: AlgVisitor<T>): T {
@@ -68,11 +55,13 @@ export class Conjugate implements Alg {
     +location: Location;
     +setup: Alg;
     +moves: Alg;
+    +count: number;
 
-    constructor(location: Location, setup: Alg, moves: Alg) {
+    constructor(location: Location, setup: Alg, moves: Alg, count: number) {
         this.location = location;
         this.setup = setup;
         this.moves = moves;
+        this.count = count;
     }
 
     accept<T>(v: AlgVisitor<T>): T {
@@ -84,11 +73,13 @@ export class Commutator implements Alg {
     +location: Location;
     +a: Alg;
     +b: Alg;
+    +count: number;
 
-    constructor(location: Location, a: Alg, b: Alg) {
+    constructor(location: Location, a: Alg, b: Alg, count: number) {
         this.location = location;
         this.a = a;
         this.b = b;
+        this.count = count;
     }
 
     accept<T>(v: AlgVisitor<T>): T {
@@ -106,10 +97,6 @@ export class AlgVisitor<T> {
 
     visitMove(m: Move): T {
         throw unimplemented(this, "Moves");
-    }
-
-    visitRepeat(r: Repeat): T {
-        throw unimplemented(this, "Repeats");
     }
 
     visitSequence(s: Sequence): T {

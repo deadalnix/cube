@@ -3,7 +3,6 @@ import {
     type Alg,
     Location,
     Move,
-    Repeat,
     Sequence,
     Conjugate,
     Commutator,
@@ -73,7 +72,7 @@ export class AlgParser {
             return algs[0];
         }
 
-        return new Sequence(this.locationFrom(start), algs);
+        return new Sequence(this.locationFrom(start), algs, 1);
     }
 
     parseSequence(): Array<Alg> {
@@ -202,19 +201,6 @@ export const makeMoveParseFunction =
         return new Move(parser.locationFrom(start), move, count);
     };
 
-export const makeCountableParseFunction =
-    (f: ParseFunction): ParseFunction =>
-    (parser: AlgParser, start: number): Alg => {
-        const alg = f(parser, start);
-
-        const count = parser.parseCount();
-        if (count === null) {
-            return alg;
-        }
-
-        return new Repeat(parser.locationFrom(start), alg, count);
-    };
-
 const WhitespaceNotation = makeNotation({
     " ": null,
     "\n": null,
@@ -222,7 +208,7 @@ const WhitespaceNotation = makeNotation({
 });
 
 export const BaseNotation: Notation = makeNotation({
-    "(": makeCountableParseFunction((parser: AlgParser, start: number): Alg => {
+    "(": (parser: AlgParser, start: number): Alg => {
         const algs = parser.parseSequence();
         const closingIndex = parser.index;
         if (
@@ -233,9 +219,11 @@ export const BaseNotation: Notation = makeNotation({
         }
 
         parser.index = closingIndex + 1;
-        return new Sequence(parser.locationFrom(start), algs);
-    }),
-    "[": makeCountableParseFunction((parser: AlgParser, start: number): Alg => {
+        const count = parser.parseCount() ?? 1;
+
+        return new Sequence(parser.locationFrom(start), algs, count);
+    },
+    "[": (parser: AlgParser, start: number): Alg => {
         const a = parser.parseAlg();
 
         const midIndex = parser.index;
@@ -260,12 +248,14 @@ export const BaseNotation: Notation = makeNotation({
         }
 
         parser.index = closingIndex + 1;
+        const count = parser.parseCount() ?? 1;
+
         const location = parser.locationFrom(start);
 
         return type === ","
-            ? new Conjugate(location, a, b)
-            : new Commutator(location, a, b);
-    }),
+            ? new Conjugate(location, a, b, count)
+            : new Commutator(location, a, b, count);
+    },
 });
 
 // prettier-ignore
