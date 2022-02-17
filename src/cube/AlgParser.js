@@ -81,17 +81,12 @@ export class AlgParser {
         while (true) {
             this.skipWhitespace();
 
-            let start = this.index;
-
-            const action = this.parseAction();
-            if (typeof action === "undefined") {
+            const alg = this.parseSubAlg();
+            if (!alg) {
                 break;
             }
 
-            const alg = this.runParseAction(action, start);
-            if (alg !== null) {
-                algs.push(alg);
-            }
+            algs.push(alg);
         }
 
         this.skipWhitespace();
@@ -99,51 +94,51 @@ export class AlgParser {
     }
 
     skipWhitespace(): void {
-        while (true) {
-            const a = this.parseAction(WhitespaceNotation);
-            if (typeof a === "undefined") {
-                break;
-            }
-        }
+        this.parseSubAlg(WhitespaceNotation);
     }
 
-    parseAction(
-        n: Notation = this.notation,
-        index: number = this.index
-    ): ?ParseAction {
-        const input = this.input;
-        if (index >= input.length) {
-            return;
-        }
-
-        const c = input[index];
-        if (c in n) {
-            let next = n[c];
-
-            if (next === null || typeof next !== "object") {
-                // This is a ParseAction.
-                this.index = index + 1;
-                return next;
+    parseSubAlg(notation: Notation = this.notation): ?Alg {
+        const findParseAction = (n: Notation, index: number): ?ParseAction => {
+            const input = this.input;
+            if (index >= input.length) {
+                return;
             }
 
-            let a = this.parseAction(next, index + 1);
-            if (a !== null) {
-                return a;
+            const c = input[index];
+            if (c in n) {
+                let next = n[c];
+
+                if (next === null || typeof next !== "object") {
+                    // This is a ParseAction.
+                    this.index = index + 1;
+                    return next;
+                }
+
+                let a = findParseAction(next, index + 1);
+                if (a !== null) {
+                    return a;
+                }
             }
+
+            let next = n[""];
+            if (typeof next === "undefined") {
+                return;
+            }
+
+            this.index = index;
+            return next;
+        };
+
+        let start = this.index;
+
+        let action = null;
+        while (action === null) {
+            start = this.index;
+            action = findParseAction(notation, start);
         }
 
-        let next = n[""];
-        if (typeof next === "undefined") {
+        if (typeof action == "undefined") {
             return;
-        }
-
-        this.index = index;
-        return next;
-    }
-
-    runParseAction(action: ParseAction, start: number): Alg | null {
-        if (action === null) {
-            return null;
         }
 
         if (typeof action === "function") {
