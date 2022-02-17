@@ -9,7 +9,7 @@ test("makeNotation", () => {
     ).toEqual({
         g: {
             "": null,
-            g: null,
+            "g": null,
         },
     });
 
@@ -21,7 +21,7 @@ test("makeNotation", () => {
     ).toEqual({
         g: {
             "": "",
-            g: "",
+            "g": "",
         },
     });
 });
@@ -39,7 +39,7 @@ test("extendsNotation", () => {
     expect(N2).toEqual({
         g: {
             "": null,
-            g: null,
+            "g": null,
         },
     });
 
@@ -48,6 +48,6 @@ test("extendsNotation", () => {
     });
 
     expect(N1).toEqual({ g: "" });
-    expect(N2).toEqual({ g: { "": null, g: null } });
-    expect(N3).toEqual({ g: { "": null, g: "gg" } });
+    expect(N2).toEqual({ g: { "": null, "g": null } });
+    expect(N3).toEqual({ g: { "": null, "g": "gg" } });
 });

@@ -1,6 +1,7 @@
 ---
 tabWidth: 4
 arrowParens: avoid
+quoteProps: consistent
 overrides:
     - files: "*.md"
       options:

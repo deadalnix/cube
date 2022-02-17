@@ -23,10 +23,10 @@ test("Basic moves", () => {
 
     const TestCases = {
         // Count of 1 gets skipped when printing.
-        R1: "R",
+        "R1": "R",
         "R1'": "R'",
         // Whitespace are ignored.
-        RUFLDB: "R U F L D B",
+        "RUFLDB": "R U F L D B",
         " R": "R",
         "\nR": "R",
         "\tR": "R",
