@@ -34,6 +34,7 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
             y: e.clientY,
             alpha: angles.alpha,
             beta: angles.beta,
+            alphaLocked: true,
             speed: RotateSpeedFactor / target.clientWidth,
         });
     };
@@ -71,25 +72,55 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
         setAnimation(id);
     };
 
-    const adjustQ = () => {
-        const reduceAngle = a => {
-            const aa = ((a - 45) % 90) + 45;
-            return aa > 45 ? aa - 90 : aa;
+    const stopRotating = e => {
+        setDragData(null);
+    };
+
+    const rotate = e => {
+        // If we aren't rotating, just do nothing.
+        if (!dragData) {
+            return;
+        }
+
+        const speed = dragData.speed;
+        const deltaX = (dragData.x - e.clientX) * speed;
+        const beta = dragData.beta + deltaX;
+
+        // It feels better to make the Y axis "snappy".
+        let deltaY = (e.clientY - dragData.y) * speed;
+
+        let alphaLocked = dragData.alphaLocked;
+        if (dragData.alphaLocked && Math.abs(deltaY) > 20) {
+            alphaLocked = false;
+            setDragData({ ...dragData, alphaLocked: alphaLocked });
+        }
+
+        if (alphaLocked) {
+            deltaY = 0;
+        }
+
+        const reduceAngle = (a, s) => {
+            const aa = ((a - s) % 90) + s;
+            return aa > s ? aa - 90 : aa;
         };
 
         // Check if alpha's value calls for an axis change.
-        const alpha = angles.alpha;
-        const newAlpha = reduceAngle(alpha);
+        const alpha = dragData.alpha + deltaY;
+        const newAlpha = reduceAngle(alpha, 55);
 
-        const deltaAlpha = newAlpha - alpha;
+        const deltaAlpha = alpha - newAlpha;
         if (Math.abs(deltaAlpha) < 1) {
             // We do not need to tweak the axis.
+            setAngles({
+                alpha: alpha,
+                beta: beta,
+            });
+
             return;
         }
 
         // Rotate the base to match beta.
-        const beta = angles.beta;
-        const newBeta = reduceAngle(beta);
+        const newBeta = reduceAngle(beta, 45);
 
         // New rotation after base adjustements.
         let newBase = baseQ.rotateY(beta - newBeta);
@@ -107,35 +138,18 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
             alpha: newAlpha,
             beta: 0,
         });
-    };
 
-    const stopRotating = e => {
-        setDragData(null);
-        adjustQ();
-    };
-
-    const rotate = e => {
-        // If we aren't rotating, just do nothing.
-        if (!dragData) {
-            return;
-        }
-
-        const speed = dragData.speed;
-        const deltaX = (dragData.x - e.clientX) * speed;
-
-        // It feels better to make the Y axis "snappy".
-        let deltaY = (dragData.y - e.clientY) * speed;
-        if (Math.abs(deltaY) < 12) {
-            deltaY = 0;
-        }
-
-        setAngles({
-            alpha: deltaY + dragData.alpha,
-            beta: deltaX + dragData.beta,
+        setDragData({
+            ...dragData,
+            x: e.clientX,
+            y: e.clientY,
+            alpha: newAlpha,
+            beta: 0,
+            alphaLocked: alphaLocked,
         });
     };
 
-    const rotation = currentQ.rotateY(angles.beta).rotateX(-angles.alpha);
+    const rotation = currentQ.rotateY(angles.beta).rotateX(angles.alpha);
 
     return (
         <SvgCube

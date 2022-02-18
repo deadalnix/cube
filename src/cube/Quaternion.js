@@ -29,7 +29,7 @@ export default class Quaternion {
     }
 
     static fromAngles(alpha: number, beta: number): Quaternion {
-        return new Quaternion().rotateY(beta).rotateX(-alpha);
+        return new Quaternion().rotateY(beta).rotateX(alpha);
     }
 
     scale(f: number): Quaternion {

@@ -207,7 +207,7 @@ const SvgCube = ({
 SvgCube.defaultProps = {
     dimention: 3,
     orientation: {
-        alpha: -25,
+        alpha: 25,
         beta: 45,
     },
     size: "200px",
