@@ -32,23 +32,31 @@ export default class Quaternion {
         return new Quaternion().rotateY(beta).rotateX(-alpha);
     }
 
-    combine(q: Quaternion): Quaternion {
-        const qw = q.w;
-        const qx = q.x;
-        const qy = q.y;
-        const qz = q.z;
+    scale(f: number): Quaternion {
+        return new Quaternion([this.w * f, this.x * f, this.y * f, this.z * f]);
+    }
 
+    multyply(q: Quaternion): Quaternion {
         const tw = this.w;
         const tx = this.x;
         const ty = this.y;
         const tz = this.z;
 
+        const qw = q.w;
+        const qx = q.x;
+        const qy = q.y;
+        const qz = q.z;
+
         return new Quaternion([
-            qw * tw - qx * tx - qy * ty - qz * tz,
-            qx * tw + qw * tx + qy * tz - qz * ty,
-            qy * tw + qw * ty + qz * tx - qx * tz,
-            qz * tw + qw * tz + qx * ty - qy * tx,
+            tw * qw - tx * qx - ty * qy - tz * qz,
+            tx * qw + tw * qx + ty * qz - tz * qy,
+            ty * qw + tw * qy + tz * qx - tx * qz,
+            tz * qw + tw * qz + tx * qy - ty * qx,
         ]);
+    }
+
+    combine(q: Quaternion): Quaternion {
+        return q.multyply(this);
     }
 
     rotateX(angle: number): Quaternion {
@@ -102,6 +110,56 @@ export default class Quaternion {
             C * tx - S * ty,
             C * ty + S * tx,
             C * tz + S * tw,
+        ]);
+    }
+}
+
+export class Slerp {
+    +a: Quaternion;
+    +b: Quaternion;
+
+    +cos: number;
+    +theta: number;
+    +isin: number;
+
+    constructor(a: Quaternion, b: Quaternion) {
+        let cos = a.w * b.w + a.x * b.x + a.y * b.y + a.z * b.z;
+        if (cos < 0) {
+            cos = -cos;
+            b = b.scale(-1);
+        }
+
+        this.a = a;
+        this.b = b;
+        this.cos = cos;
+        this.theta = Math.acos(cos);
+        this.isin = 1 / Math.sqrt(1 - cos * cos);
+    }
+
+    get(t: number): Quaternion {
+        // Interpolate linearly when the angle is very small
+        // to avoid singularities.
+        let fa = 1 - t;
+        let fb = t;
+
+        // If the angle is larger, then use trigo.
+        if (this.isin < 1000) {
+            const ttheta = t * this.theta;
+            const tcos = Math.cos(ttheta);
+            const tsin = Math.sin(ttheta);
+
+            fb = tsin * this.isin;
+            fa = tcos - this.cos * fb;
+        }
+
+        const a = this.a;
+        const b = this.b;
+
+        return new Quaternion([
+            a.w * fa + b.w * fb,
+            a.x * fa + b.x * fb,
+            a.y * fa + b.y * fb,
+            a.z * fa + b.z * fb,
         ]);
     }
 }

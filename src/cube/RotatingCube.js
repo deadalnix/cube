@@ -1,59 +1,149 @@
 // @flow
 import { useState, type Node } from "react";
 
-import Quaternion, { type Orientation } from "./Quaternion.js";
+import Quaternion, { Slerp } from "./Quaternion.js";
 import SvgCube, { type CubeProps } from "./SvgCube.js";
 
 type RotatingCubeProps = {
     ...?CubeProps,
-    orientation?: Orientation,
+    orientation?: {| alpha: number, beta: number |},
 };
 
 const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
-    const [isRotating, setIsRotating] = useState(false);
+    const [baseQ, setBaseQ] = useState(() => new Quaternion());
+    const [currentQ, setCurrentQ] = useState(() => new Quaternion());
 
-    const [Q, setRotation] = useState(() => {
-        const o = orientation ?? SvgCube.defaultProps.orientation;
-        return Quaternion.fromOrientation(o);
-    });
+    const [angles, setAngles] = useState(
+        () => orientation ?? SvgCube.defaultProps.orientation
+    );
 
-    const startRotating = e => {
+    const [dragData, setDragData] = useState(null);
+    const [animation, setAnimation] = useState(null);
+
+    const getCapture = e => {
         let target = e.target;
         if (target.tagName !== "svg") {
             target = target.nearestViewportElement;
         }
 
         target.setPointerCapture(e.pointerId);
-        setIsRotating(true);
+
+        const RotateSpeedFactor = 0.003;
+        setDragData({
+            x: e.clientX,
+            y: e.clientY,
+            alpha: angles.alpha,
+            beta: angles.beta,
+            speed: target.clientWidth * RotateSpeedFactor,
+        });
     };
 
-    const rotate = (x, y) => {
-        // If we aren't rotating, just do nothing.
-        if (!isRotating) {
+    const runAnimation = (from, to) => {
+        // Make sure we finish any in flight animation.
+        if (animation !== null) {
+            clearInterval(animation);
+            setAnimation(null);
+        }
+
+        const slerp = new Slerp(from, to);
+        const StartTime = new Date().getTime();
+
+        const id = setInterval(() => {
+            const ANIMATION_TIME = 200;
+
+            const time = new Date().getTime();
+            const t = (time - StartTime) / ANIMATION_TIME;
+            if (t < 1) {
+                setCurrentQ(slerp.get(t));
+                return;
+            }
+
+            // We reached our destination.
+            setCurrentQ(to);
+
+            // We are done, wrap it up.
+            clearInterval(id);
+            if (animation === id) {
+                setAnimation(null);
+            }
+        }, 16);
+
+        setAnimation(id);
+    };
+
+    const adjustQ = () => {
+        const reduceAngle = a => {
+            const aa = ((a - 45) % 90) + 45;
+            return aa > 45 ? aa - 90 : aa;
+        };
+
+        // Check if alpha's value calls for an axis change.
+        const alpha = angles.alpha;
+        const newAlpha = reduceAngle(alpha);
+
+        const deltaAlpha = newAlpha - alpha;
+        if (Math.abs(deltaAlpha) < 1) {
+            // We do not need to tweak the axis.
             return;
         }
 
-        const RotationSpeed = 0.7;
+        // Rotate the base to match beta.
+        const beta = angles.beta;
+        const newBeta = reduceAngle(beta);
 
-        let r = Q;
-        if (x !== 0) {
-            r = r.rotateY(x * -RotationSpeed);
-        }
+        // New rotation after base adjustements.
+        let newBase = baseQ.rotateY(beta - newBeta);
 
-        if (y !== 0) {
-            r = r.rotateX(y * RotationSpeed);
-        }
+        // We change the axis controlled by beta.
+        newBase = newBase.rotateX(deltaAlpha);
+        setBaseQ(newBase);
 
-        setRotation(r);
+        const newCurrent = currentQ.rotateY(beta).rotateX(deltaAlpha);
+        setCurrentQ(newCurrent);
+
+        runAnimation(newCurrent, newBase);
+
+        setAngles({
+            alpha: newAlpha,
+            beta: 0,
+        });
     };
+
+    const stopRotating = e => {
+        setDragData(null);
+        adjustQ();
+    };
+
+    const rotate = e => {
+        // If we aren't rotating, just do nothing.
+        if (!dragData) {
+            return;
+        }
+
+        const speed = dragData.speed;
+        const deltaX = (dragData.x - e.clientX) * speed;
+
+        // It feels better to make the Y axis "snappy".
+        let deltaY = (dragData.y - e.clientY) * speed;
+        if (Math.abs(deltaY) < 12) {
+            deltaY = 0;
+        }
+
+        setAngles({
+            alpha: deltaY + dragData.alpha,
+            beta: deltaX + dragData.beta,
+        });
+    };
+
+    const rotation = currentQ.rotateY(angles.beta).rotateX(-angles.alpha);
 
     return (
         <SvgCube
             {...props}
-            orientation={Q}
-            onPointerDown={startRotating}
-            onPointerUp={e => setIsRotating(false)}
-            onPointerMove={e => rotate(e.movementX, e.movementY)}
+            orientation={rotation}
+            onPointerDown={getCapture}
+            onLostPointerCapture={stopRotating}
+            onPointerMove={rotate}
         />
     );
 };
