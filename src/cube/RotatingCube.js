@@ -28,13 +28,13 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
 
         target.setPointerCapture(e.pointerId);
 
-        const RotateSpeedFactor = 0.003;
+        const RotateSpeedFactor = 150;
         setDragData({
             x: e.clientX,
             y: e.clientY,
             alpha: angles.alpha,
             beta: angles.beta,
-            speed: target.clientWidth * RotateSpeedFactor,
+            speed: RotateSpeedFactor / target.clientWidth,
         });
     };
 

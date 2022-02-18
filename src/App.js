@@ -16,7 +16,7 @@ const App = (): Node => (
             >
                 Start cubing!
             </a>
-            <RotatingCube />
+            <RotatingCube size="500px" />
         </header>
     </div>
 );
