@@ -34,7 +34,6 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
             y: e.clientY,
             alpha: angles.alpha,
             beta: angles.beta,
-            alphaLocked: true,
             speed: RotateSpeedFactor / target.clientWidth,
         });
     };
@@ -86,25 +85,13 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
         const deltaX = (dragData.x - e.clientX) * speed;
         const beta = dragData.beta + deltaX;
 
-        // It feels better to make the Y axis "snappy".
-        let deltaY = (e.clientY - dragData.y) * speed;
-
-        let alphaLocked = dragData.alphaLocked;
-        if (dragData.alphaLocked && Math.abs(deltaY) > 20) {
-            alphaLocked = false;
-            setDragData({ ...dragData, alphaLocked: alphaLocked });
-        }
-
-        if (alphaLocked) {
-            deltaY = 0;
-        }
-
         const reduceAngle = (a, s) => {
             const aa = ((a - s) % 90) + s;
             return aa > s ? aa - 90 : aa;
         };
 
         // Check if alpha's value calls for an axis change.
+        let deltaY = (e.clientY - dragData.y) * speed;
         const alpha = dragData.alpha + deltaY;
         const newAlpha = reduceAngle(alpha, 55);
 
@@ -145,7 +132,6 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
             y: e.clientY,
             alpha: newAlpha,
             beta: 0,
-            alphaLocked: alphaLocked,
         });
     };
 
