@@ -16,6 +16,10 @@ test("Basic moves", () => {
         "(R)'", "(R)3", "(R)3'",
         "[R, U]", "[R: U]", "[R U: [R', U]]",
         "[R, U]'", "[R, U]3", "[R, U]3'",
+        "[x': [R U' R', D] [R U R', D]]",
+        "[z: U' R D R' U R U' R D' R' U R2 D R2 D']",
+        "R' U2 R' U' y R' F' R2 U' R' U R' F R U' F",
+        "[R' U' R, U'] x' [R, U']",
     ];
 
     for (const alg of IdentityCases) {

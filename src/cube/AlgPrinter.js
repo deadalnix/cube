@@ -28,7 +28,11 @@ class AlgPrinter extends AlgVisitor<string> {
             return this.printSequence(alg.moves);
         }
 
-        return appendCount(this.visit(alg), alg.count);
+        return this.visit(alg);
+    }
+
+    visit(alg: Alg): string {
+        return appendCount(super.visit(alg), alg.count);
     }
 
     visitMove(m: Move): string {

@@ -267,7 +267,5 @@ export const PocketNotation: Notation = extendNotation(BaseNotation, {
 
 // prettier-ignore
 export const CubeNotation: Notation = extendNotation(PocketNotation, {
-    M: "M", m: "m",
-    E: "E", e: "e",
-    S: "S", s: "s",
+    M: "M", E: "E", S: "S",
 });

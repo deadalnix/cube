@@ -3,23 +3,8 @@ import React, { type Node } from "react";
 
 import { Point2D, Point3D, midpoint } from "./Point.js";
 import Quaternion, { type Orientation } from "./Quaternion.js";
-
-type Face = "R" | "U" | "F" | "L" | "D" | "B";
-
-// Random utility
-function objectMap<K, V1, V2>(
-    obj: { [K]: V1 },
-    fn: (V1, K) => V2
-): { [K]: V2 } {
-    let result = {};
-    for (const [k, v] of Object.entries(obj)) {
-        // We need type erasure here, because Object.entries's
-        // signature isn't precise enough.
-        result[k] = fn((v: any), (k: any));
-    }
-
-    return result;
-}
+import { type Face, objectMap } from "./CubeUtils.js";
+import { type Stickers, makeDefaultStickers } from "./Stickers.js";
 
 // Produce point array for a cube in default position and cache it.
 const CubeVerticesCache = new (class {
@@ -68,7 +53,7 @@ export type CubeProps = {
     orientation: Orientation,
     size: string,
     colorList: { [string]: string },
-    stickers?: { [Face]: string },
+    stickers?: Stickers,
     ...
 };
 
@@ -80,16 +65,7 @@ const SvgCube = ({
     stickers,
     ...props
 }: CubeProps): Node => {
-    const StickersPerFace = dimention * dimention;
-    const Stickers = stickers ?? {
-        R: "r".repeat(StickersPerFace),
-        U: "u".repeat(StickersPerFace),
-        F: "f".repeat(StickersPerFace),
-        L: "l".repeat(StickersPerFace),
-        D: "d".repeat(StickersPerFace),
-        B: "b".repeat(StickersPerFace),
-    };
-
+    const Stickers = stickers ?? makeDefaultStickers(dimention);
     const Q = Quaternion.fromOrientation(orientation);
 
     const FaceVertices: { [Face]: ?Array<Point2D> } = (() => {
