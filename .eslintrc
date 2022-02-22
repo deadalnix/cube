@@ -2,6 +2,7 @@
     "extends": ["react-app"],
     "plugins": ["ft-flow", "fb-flow"],
     "rules": {
+        "default-case": "off",
         "no-use-before-define": "off"
     }
 }
