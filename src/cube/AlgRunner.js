@@ -67,7 +67,7 @@ class AlgRunner extends AlgVisitor<void> {
         this.runOnAlg(
             s,
             () => s.moves.forEach(a => this.visit(a)),
-            () => s.moves.reverse().forEach(a => this.visitReverse(a))
+            () => [...s.moves].reverse().forEach(a => this.visitReverse(a))
         );
     }
 

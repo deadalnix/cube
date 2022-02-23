@@ -2,6 +2,8 @@
 import type { Node } from "react";
 import RotatingCube from "./cube/RotatingCube.js";
 
+import Plls from "./cube/PLL.js";
+
 import "./App.css";
 
 const App = (): Node => (
@@ -16,7 +18,7 @@ const App = (): Node => (
             >
                 Start cubing!
             </a>
-            <RotatingCube size="500px" />
+            <RotatingCube size="300px" stickers={Plls.Na.stickers} />
         </header>
     </div>
 );

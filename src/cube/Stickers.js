@@ -23,6 +23,23 @@ export const makeDefaultStickers = (dimention: number): Stickers => {
     };
 };
 
+export interface StickersRotator {
+    +dimention: number;
+
+    getStickers(): Stickers;
+
+    runAlg(alg: Alg): void;
+
+    turnCube(face: Face, direction: Direction): void;
+    turnFace(face: Face, direction: Direction): void;
+    turnSlice(face: Face, direction: Direction, n: number): void;
+}
+
+export const getStickersRotator = (
+    dimention: number,
+    stickers: ?Stickers
+): StickersRotator => new StickersGenerator(dimention, stickers);
+
 type AxisFaces = [Face, Face, Face, Face];
 type AxisDirections = [Direction, Direction, Direction, Direction];
 
@@ -63,12 +80,7 @@ const flipDirection = (direction: Direction): Direction =>
 const delta = (d0: Direction, d1: Direction): Direction =>
     getDirection(d0 - d1);
 
-export const getStickersForAlg = (
-    alg: Alg,
-    dimention: number,
-    base: ?Stickers
-): Stickers => {
-    const g = new StickersGenerator(dimention, base);
+const visitAlg = (alg: Alg, g: StickersRotator) =>
     runAlg(alg, (location: Location, move: string, count: number) => {
         const direction = getDirection(count);
 
@@ -106,7 +118,7 @@ export const getStickersForAlg = (
             case "E":
             case "S": {
                 const f = { M: "L", E: "D", S: "F" }[move];
-                for (let i = 1; i < dimention - 1; i++) {
+                for (let i = 1; i < g.dimention - 1; i++) {
                     g.turnSlice(f, direction, i);
                 }
                 break;
@@ -117,10 +129,17 @@ export const getStickersForAlg = (
         }
     });
 
+export const getStickersForAlg = (
+    alg: Alg,
+    dimention: number,
+    base: ?Stickers
+): Stickers => {
+    const g = getStickersRotator(dimention, base);
+    visitAlg(alg, g);
     return g.getStickers();
 };
 
-class StickersGenerator {
+class StickersGenerator implements StickersRotator {
     +dimention: number;
     stickers: { [Face]: Array<string> };
 
@@ -133,6 +152,10 @@ class StickersGenerator {
 
     getStickers(): Stickers {
         return objectMap(this.stickers, s => s.join(""));
+    }
+
+    runAlg(alg: Alg): void {
+        return visitAlg(alg, this);
     }
 
     turnCube(face: Face, direction: Direction): void {
@@ -199,7 +222,7 @@ class StickersGenerator {
 
     turnFace(face: Face, direction: Direction): void {
         this.rotateFace(face, direction);
-        this.turnSlice(face, direction, 0);
+        this.#turnSlice(face, direction, 0);
     }
 
     rotateFace(face: Face, direction: Direction): void {
@@ -221,6 +244,14 @@ class StickersGenerator {
     }
 
     turnSlice(face: Face, direction: Direction, n: number): void {
+        if (n < 1 || n >= this.dimention - 1) {
+            throw new Error("Invalid slice: " + n);
+        }
+
+        this.#turnSlice(face, direction, n);
+    }
+
+    #turnSlice(face: Face, direction: Direction, n: number): void {
         const axis = Axis[face];
         const faces = axis.faces;
         const directions = axis.directions;
