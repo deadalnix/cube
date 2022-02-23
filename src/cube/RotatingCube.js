@@ -10,8 +10,8 @@ type RotatingCubeProps = {
 };
 
 const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
-    const [baseQ, setBaseQ] = useState(() => new Quaternion());
-    const [currentQ, setCurrentQ] = useState(() => new Quaternion());
+    const [baseQ, setBaseQ] = useState(() => Quaternion.unit());
+    const [currentQ, setCurrentQ] = useState(() => Quaternion.unit());
 
     const [angles, setAngles] = useState(
         () => orientation ?? SvgCube.defaultProps.orientation

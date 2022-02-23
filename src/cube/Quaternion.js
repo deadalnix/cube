@@ -3,7 +3,7 @@ const Theta = (angle: number) => (Math.PI * angle) / 360;
 
 export type Orientation = Quaternion | {| alpha: number, beta: number |};
 
-opaque type QuaternionCoordiates = [number, number, number, number];
+opaque type QuaternionCoord = number;
 
 export default class Quaternion {
     +w: number = 1;
@@ -11,13 +11,20 @@ export default class Quaternion {
     +y: number = 0;
     +z: number = 0;
 
-    constructor(coords: ?QuaternionCoordiates) {
-        if (coords) {
-            this.w = coords[0];
-            this.x = coords[1];
-            this.y = coords[2];
-            this.z = coords[3];
-        }
+    constructor(
+        w: QuaternionCoord,
+        x: QuaternionCoord,
+        y: QuaternionCoord,
+        z: QuaternionCoord
+    ) {
+        this.w = w;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    static unit(): Quaternion {
+        return Unit;
     }
 
     static fromOrientation(o: Orientation): Quaternion {
@@ -29,11 +36,11 @@ export default class Quaternion {
     }
 
     static fromAngles(alpha: number, beta: number): Quaternion {
-        return new Quaternion().rotateY(beta).rotateX(alpha);
+        return Unit.rotateY(beta).rotateX(alpha);
     }
 
     scale(f: number): Quaternion {
-        return new Quaternion([this.w * f, this.x * f, this.y * f, this.z * f]);
+        return new Quaternion(this.w * f, this.x * f, this.y * f, this.z * f);
     }
 
     multyply(q: Quaternion): Quaternion {
@@ -47,12 +54,12 @@ export default class Quaternion {
         const qy = q.y;
         const qz = q.z;
 
-        return new Quaternion([
+        return new Quaternion(
             tw * qw - tx * qx - ty * qy - tz * qz,
             tx * qw + tw * qx + ty * qz - tz * qy,
             ty * qw + tw * qy + tz * qx - tx * qz,
-            tz * qw + tw * qz + tx * qy - ty * qx,
-        ]);
+            tz * qw + tw * qz + tx * qy - ty * qx
+        );
     }
 
     combine(q: Quaternion): Quaternion {
@@ -69,12 +76,12 @@ export default class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        return new Quaternion([
+        return new Quaternion(
             C * tw - S * tx,
             C * tx + S * tw,
             C * ty - S * tz,
-            C * tz + S * ty,
-        ]);
+            C * tz + S * ty
+        );
     }
 
     rotateY(angle: number): Quaternion {
@@ -87,12 +94,12 @@ export default class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        return new Quaternion([
+        return new Quaternion(
             C * tw - S * ty,
             C * tx + S * tz,
             C * ty + S * tw,
-            C * tz - S * tx,
-        ]);
+            C * tz - S * tx
+        );
     }
 
     rotateZ(angle: number): Quaternion {
@@ -105,12 +112,12 @@ export default class Quaternion {
         const ty = this.y;
         const tz = this.z;
 
-        return new Quaternion([
+        return new Quaternion(
             C * tw - S * tz,
             C * tx - S * ty,
             C * ty + S * tx,
-            C * tz + S * tw,
-        ]);
+            C * tz + S * tw
+        );
     }
 }
 
@@ -155,11 +162,13 @@ export class Slerp {
         const a = this.a;
         const b = this.b;
 
-        return new Quaternion([
+        return new Quaternion(
             a.w * fa + b.w * fb,
             a.x * fa + b.x * fb,
             a.y * fa + b.y * fb,
-            a.z * fa + b.z * fb,
-        ]);
+            a.z * fa + b.z * fb
+        );
     }
 }
+
+const Unit = new Quaternion(1, 0, 0, 0);
