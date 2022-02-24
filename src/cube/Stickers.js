@@ -1,5 +1,10 @@
 // @flow
-import { type Face, objectMap } from "./CubeUtils.js";
+import {
+    type Direction,
+    type Face,
+    getDirection,
+    objectMap,
+} from "./CubeUtils.js";
 
 import type { Location, Alg } from "./Alg.js";
 import runAlg from "./AlgRunner.js";
@@ -17,8 +22,6 @@ export const makeDefaultStickers = (dimention: number): Stickers => {
         B: "b".repeat(StickersPerFace),
     };
 };
-
-type Direction = -1 | 0 | 1 | 2;
 
 type AxisFaces = [Face, Face, Face, Face];
 type AxisDirections = [Direction, Direction, Direction, Direction];
@@ -52,16 +55,6 @@ const Axis: { [Face]: AxisDescriptor } = {
         faces: ["L", "D", "R", "U"],
         directions: [1, 2, -1, 0],
     },
-};
-
-const getDirection = (count: number): Direction => {
-    count = ((count - 2) % 4) + 2;
-    if (count > 2) {
-        count -= 4;
-    }
-
-    // Trust me buddy, the math is right.
-    return (count: any);
 };
 
 const flipDirection = (direction: Direction): Direction =>

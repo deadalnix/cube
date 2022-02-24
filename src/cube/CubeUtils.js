@@ -15,3 +15,15 @@ export function objectMap<K, V1, V2>(
 
     return result;
 }
+
+export type Direction = -1 | 0 | 1 | 2;
+
+export const getDirection = (count: number): Direction => {
+    count = ((count - 2) % 4) + 2;
+    if (count > 2) {
+        count -= 4;
+    }
+
+    // Trust me buddy, the math is right.
+    return (count: any);
+};
