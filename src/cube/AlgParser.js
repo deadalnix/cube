@@ -14,7 +14,7 @@ import { makeNotation, extendNotation } from "./AlgNotation.js";
 export type ParseFunction = (AlgParser, number) => Alg;
 export type ParseAction = ParseFunction | string | null;
 
-const parseAlg = (input: string, notation: Notation): Alg => {
+const parseAlg = (input: string, notation: Notation = CubeNotation): Alg => {
     return new AlgParser(input, notation).parse();
 };
 

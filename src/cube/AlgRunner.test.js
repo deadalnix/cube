@@ -1,7 +1,7 @@
 // @flow
 import { Location } from "./Alg.js";
 import runAlg from "./AlgRunner.js";
-import parseAlg, { CubeNotation } from "./AlgParser.js";
+import parseAlg from "./AlgParser.js";
 
 const expandAlg = (alg: string): string => {
     const formatMove = (move: string, count: number): string => {
@@ -20,12 +20,9 @@ const expandAlg = (alg: string): string => {
 
     let pieces = [];
 
-    runAlg(
-        parseAlg(alg, CubeNotation),
-        (location: Location, move: string, count: number) => {
-            pieces.push(formatMove(move, count));
-        }
-    );
+    runAlg(parseAlg(alg), (location: Location, move: string, count: number) => {
+        pieces.push(formatMove(move, count));
+    });
 
     return pieces.join(" ");
 };

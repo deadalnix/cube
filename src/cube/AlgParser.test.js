@@ -1,9 +1,8 @@
 // @flow
-import parseAlg, { CubeNotation } from "./AlgParser.js";
+import parseAlg from "./AlgParser.js";
 import printAlg from "./AlgPrinter.js";
 
-const parseAndPrint = (alg: string): string =>
-    printAlg(parseAlg(alg, CubeNotation));
+const parseAndPrint = (alg: string): string => printAlg(parseAlg(alg));
 
 test("Basic moves", () => {
     // prettier-ignore

@@ -1,5 +1,5 @@
 // @flow
-import parseAlg, { CubeNotation } from "./AlgParser.js";
+import parseAlg from "./AlgParser.js";
 import {
     type Stickers,
     getStickersForAlg,
@@ -7,7 +7,7 @@ import {
 } from "./Stickers.js";
 
 const getStickers = (alg: string): Stickers =>
-    getStickersForAlg(parseAlg(alg, CubeNotation), 3);
+    getStickersForAlg(parseAlg(alg), 3);
 
 test("getStickersForAlg", () => {
     const TestCases = {
