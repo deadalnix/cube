@@ -1,25 +1,19 @@
 // @flow
 import type { Node } from "react";
-import RotatingCube from "./cube/RotatingCube.js";
 
-import Plls from "./cube/PLL.js";
-
-import "./App.css";
+import HelloCube from "./HelloCube.js";
+import styles from "./App.scss";
 
 const App = (): Node => (
-    <div className="App">
-        <header className="App-header">
-            <p>Hello cube!</p>
-            <a
-                className="App-link"
-                href="http://cube.deadalnix.me/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Start cubing!
-            </a>
-            <RotatingCube size="300px" stickers={Plls.Na.stickers} />
-        </header>
+    <div className={styles.app}>
+        <a
+            href="http://cube.deadalnix.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Start cubing!
+        </a>
+        <HelloCube />
     </div>
 );
 
