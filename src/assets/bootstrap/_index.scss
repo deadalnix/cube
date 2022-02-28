@@ -1,0 +1,107 @@
+/*
+ =========================================================
+ * Black Dashboard React v1.2.0 based on Black Dashboard - v1.2.0
+ =========================================================
+
+ * Product Page: https://www.creative-tim.com/product/black-dashboard-react
+ * Copyright 2020 Creative Tim (https://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
+
+ * Coded by Creative Tim
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+// Core
+
+@import "custom/functions";
+@import "~bootstrap/scss/functions";
+
+@import "custom/variables";
+@import "~bootstrap/scss/variables";
+
+@import "custom/mixins";
+@import "~bootstrap/scss/mixins";
+
+// Bootstrap components
+
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";
+
+// Custom components
+
+@import "custom/alerts.scss";
+@import "custom/badges.scss";
+@import "custom/buttons.scss";
+@import "custom/dropdown.scss";
+@import "custom/forms.scss";
+@import "custom/images.scss";
+@import "custom/modal.scss";
+@import "custom/navbar.scss";
+@import "custom/type.scss";
+@import "custom/tables";
+@import "custom/checkboxes-radio";
+@import "custom/sidebar-and-main-panel.scss";
+@import "custom/misc.scss";
+@import "custom/input-group.scss";
+
+// Vendor / Plugins
+
+@import "custom/vendor/plugin-react-notification-alert.scss";
+
+// light mode
+
+@import "custom/white-content.scss";
+
+// Cards
+
+@import "custom/card";
+@import "custom/cards/card-chart";
+@import "custom/cards/card-map";
+@import "custom/cards/card-user";
+@import "custom/cards/card-task";
+@import "custom/cards/card-plain";
+
+// React differences
+@import "react-differences/react-differences";
+
+// Because this CSS code is intermingled with Fontawesome customization
+// this might as well be added here.
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";

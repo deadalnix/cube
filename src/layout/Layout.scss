@@ -1,0 +1,83 @@
+@use "assets/bootstrap";
+@use "./common";
+
+.wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+
+    overflow-x: hidden;
+
+    @media screen and (max-width: 991px) {
+        @include bootstrap.transition(
+            0.5s,
+            cubic-bezier(0.685, 0.0473, 0.346, 1)
+        );
+    }
+}
+
+:global(.white-content) .panel {
+    background: bootstrap.$light-bg;
+}
+
+.panel {
+    position: relative;
+    float: right;
+    width: bootstrap.$full-width;
+    height: 100vh;
+
+    display: flex;
+    flex-flow: column;
+
+    overflow: auto;
+    @extends common.%scrollable;
+
+    border-top: 2px solid bootstrap.$primary;
+    background: linear-gradient(
+        bootstrap.$background-black,
+        bootstrap.$background-states-black
+    );
+
+    @include bootstrap.transitions(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+
+    &[data="Blue"] {
+        border-top: 2px solid bootstrap.$info;
+    }
+
+    &[data="Green"] {
+        border-top: 2px solid bootstrap.$success;
+    }
+
+    &[data="Primary"] {
+        border-top: 2px solid bootstrap.$primary;
+    }
+
+    > :global(.navbar) {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 991px) {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .navopen .panel {
+        right: 0;
+        @include bootstrap.transform-translate-x(260px);
+    }
+}
+
+.content {
+    padding: 78px 30px 30px 280px;
+    flex: 1 1 auto;
+
+    @media screen and (max-width: 991px) {
+        padding-left: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}

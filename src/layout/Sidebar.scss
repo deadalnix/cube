@@ -1,0 +1,312 @@
+@use "assets/bootstrap";
+@use "./common";
+
+.wrapper ul li :global div.collapse ul li div.collapse ul li a {
+    margin-left: 25px;
+}
+
+.sidebar {
+    @include bootstrap.linear-gradient(
+        bootstrap.$primary-states,
+        bootstrap.$primary
+    );
+
+    height: calc(100vh - 90px);
+    width: 230px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-size: cover;
+    background-position: center center;
+    display: block;
+    box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);
+    margin-top: 80px;
+    margin-left: 20px;
+    border-radius: 5px;
+
+    .wrapper {
+        width: bootstrap.$full-width;
+        min-height: 100%;
+        max-height: calc(100vh - 705px);
+        z-index: 4;
+        position: relative;
+        overflow: auto;
+        @extends common.%scrollable;
+
+        :global(.dropdown) {
+            display: none !important;
+        }
+
+        // I have no idea what is at this time.
+        > :global(.nav),
+        .user .info {
+            [data-toggle="collapse"] ~ div > ul > li > a {
+                span {
+                    display: inline-block;
+                    // @extend .animation-transition-general;
+                }
+
+                i {
+                    font-size: 17px;
+                    line-height: 20px;
+                    width: 26px;
+                }
+            }
+        }
+    }
+
+    :global(.logo-tim) {
+        border-radius: 50%;
+        border: 1px solid #333;
+        display: block;
+        height: 61px;
+        width: 61px;
+        float: left;
+        overflow: hidden;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    :global(.nav) {
+        margin-top: 20px;
+        display: block;
+
+        // Not part of bootstrap, but used in other places.
+        :global(.caret) {
+            top: 14px;
+            position: absolute;
+            right: 10px;
+        }
+
+        li {
+            > a + div :global(.nav) {
+                margin-top: 5px;
+                li > a {
+                    margin-top: 0px;
+                    padding: 8px 8px;
+                }
+            }
+
+            > a {
+                margin: 10px 15px 0;
+                border-radius: bootstrap.$btn-round-radius;
+                color: bootstrap.$white;
+                display: block;
+                text-decoration: none;
+                position: relative;
+                text-transform: uppercase;
+                cursor: pointer;
+                font-size: bootstrap.$font-size-xs;
+                padding: 10px 8px;
+                line-height: bootstrap.$line-height-lg;
+            }
+
+            &:first-child > a {
+                margin: 0 15px;
+            }
+
+            &:hover:not(.active) > a,
+            &:focus:not(.active) > a {
+                p,
+                i {
+                    color: bootstrap.$white;
+                }
+            }
+
+            &:hover:not(.active) > a i,
+            &:focus:not(.active) > a i {
+                color: bootstrap.$white;
+            }
+
+            &.active > a:not([data-toggle="collapse"]) {
+                background: transparent;
+
+                i,
+                p {
+                    color: bootstrap.$white;
+                }
+
+                &:before {
+                    content: " ";
+                    position: absolute;
+                    height: 6px;
+                    width: 6px;
+                    top: 22px;
+                    left: -4px;
+                    background: bootstrap.$white;
+                    border-radius: 50%;
+                }
+            }
+
+            &.active > a[data-toggle="collapse"] {
+                background: transparent;
+                box-shadow: none;
+                color: bootstrap.$white;
+
+                i {
+                    color: bootstrap.$white;
+                }
+
+                & + div :global(.nav) .active a {
+                    box-shadow: none;
+
+                    &:before {
+                        content: " ";
+                        position: absolute;
+                        height: 6px;
+                        width: 6px;
+                        top: 17px;
+                        left: -4px;
+                        background: bootstrap.$white;
+                        border-radius: 50%;
+                    }
+                }
+                &:before {
+                    content: " ";
+                    position: absolute;
+                    height: 6px;
+                    width: 6px;
+                    top: 22px;
+                    left: -4px;
+                    background: rgba(bootstrap.$white, 0.6);
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        p {
+            margin: 0;
+            line-height: 30px;
+            position: relative;
+            display: block;
+            height: auto;
+            white-space: nowrap;
+            @extend .animation-transition-general;
+        }
+
+        i {
+            font-size: 20px;
+            float: left;
+            margin-right: 12px;
+            line-height: 30px;
+            width: 34px;
+            text-align: center;
+            color: bootstrap.$opacity-8;
+            position: relative;
+        }
+    }
+
+    .logo {
+        position: relative;
+        padding: bootstrap.$padding-base-vertical
+            bootstrap.$padding-base-horizontal;
+        z-index: 4;
+
+        a.logomini,
+        a.logonormal {
+            @extend .animation-transition-general;
+        }
+
+        a.logomini {
+            opacity: 1;
+            float: left;
+            width: 34px;
+            text-align: center;
+            margin-left: 12px;
+            margin-right: 12px;
+            img {
+                border-radius: 50%;
+                width: 30px;
+            }
+        }
+
+        a.logonormal {
+            display: block;
+            opacity: 1;
+            @include bootstrap.transform-translate-x(0px);
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 15px;
+            height: 1px;
+            width: calc(100% - 30px);
+            background: bootstrap.$opacity-5;
+        }
+
+        p {
+            float: left;
+            font-size: 20px;
+            margin: 10px 10px;
+            color: bootstrap.$white;
+            line-height: 20px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .simpletext {
+            text-transform: uppercase;
+            padding: bootstrap.$padding-base-vertical 0;
+            display: block;
+            white-space: nowrap;
+            // font-size: bootstrap.$font-size-base;
+            color: bootstrap.$white;
+            text-decoration: none;
+            font-weight: bootstrap.$font-weight-normal;
+            line-height: 30px;
+            overflow: hidden;
+        }
+    }
+
+    &[data="Blue"] {
+        @include bootstrap.linear-gradient(
+            bootstrap.$info-states,
+            bootstrap.$info
+        );
+    }
+    &[data="Green"] {
+        @include bootstrap.linear-gradient(
+            bootstrap.$success-states,
+            bootstrap.$success
+        );
+    }
+
+    &.navopen {
+        @media screen and (max-width: 991px) {
+            @include bootstrap.transition(
+                0.5s cubic-bezier(0.685, 0.0473, 0.346, 1)
+            );
+            @include bootstrap.transform-translate-x(0px);
+            &:before {
+                content: unset;
+            }
+        }
+    }
+
+    transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+
+    @media screen and (max-width: 991px) {
+        position: fixed;
+        display: block;
+        top: 0;
+        height: 100%;
+        width: 260px;
+        right: auto;
+        left: 0;
+        margin: 0;
+        border-radius: 0;
+        z-index: 1032;
+        visibility: visible;
+        overflow-y: visible;
+        padding: 0;
+        @include bootstrap.transition(
+            0.5s cubic-bezier(0.685, 0.0473, 0.346, 1)
+        );
+        @include bootstrap.transform-translate-x(-260px);
+    }
+}

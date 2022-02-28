@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import "index.scss";
 
-import Bootstrap from "bootstrap/scss/bootstrap.scss";
+import Bootstrap from "assets/bootstrap/global.scss";
 import { Util } from "reactstrap";
 
 Util.setGlobalCssModule(Bootstrap);
