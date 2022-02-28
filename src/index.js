@@ -1,8 +1,14 @@
+// @flow
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
+import Bootstrap from "bootstrap/scss/bootstrap.scss";
+import { Util } from "reactstrap";
+
+Util.setGlobalCssModule(Bootstrap);
 
 ReactDOM.render(
     <React.StrictMode>
