@@ -1,4 +1,4 @@
-import { makeNotation, extendNotation } from "./AlgNotation.js";
+import { makeNotation, extendNotation } from "cube/AlgNotation";
 
 test("makeNotation", () => {
     expect(

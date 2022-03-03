@@ -1,8 +1,8 @@
 // @flow
 import type { Node } from "react";
-import RotatingCube from "./cube/RotatingCube.js";
+import RotatingCube from "cube/RotatingCube";
 
-import Plls from "./cube/PLL.js";
+import Plls from "cube/PLL";
 
 const HelloCube = (): Node => (
     <>

@@ -1,7 +1,7 @@
 // @flow
-import { Location } from "./Alg.js";
-import runAlg from "./AlgRunner.js";
-import parseAlg from "./AlgParser.js";
+import { Location } from "cube/Alg";
+import runAlg from "cube/AlgRunner";
+import parseAlg from "cube/AlgParser";
 
 const expandAlg = (alg: string): string => {
     const formatMove = (move: string, count: number): string => {

@@ -1,10 +1,10 @@
 // @flow
 import React, { type Node } from "react";
 
-import { Point2D, Point3D, midpoint } from "./Point.js";
-import Quaternion, { type Orientation } from "./Quaternion.js";
-import { type Face, objectMap } from "./CubeUtils.js";
-import { type Stickers, makeDefaultStickers } from "./Stickers.js";
+import { Point2D, Point3D, midpoint } from "cube/Point";
+import Quaternion, { type Orientation } from "cube/Quaternion";
+import { type Face, objectMap } from "cube/CubeUtils";
+import { type Stickers, makeDefaultStickers } from "cube/Stickers";
 
 // Produce point array for a cube in default position and cache it.
 const CubeVerticesCache = new (class {

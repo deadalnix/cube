@@ -1,6 +1,6 @@
 // @flow
-import parseAlg from "./AlgParser.js";
-import printAlg from "./AlgPrinter.js";
+import parseAlg from "cube/AlgParser";
+import printAlg from "cube/AlgPrinter";
 
 const parseAndPrint = (alg: string): string => printAlg(parseAlg(alg));
 

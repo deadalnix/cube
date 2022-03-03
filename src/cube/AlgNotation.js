@@ -1,5 +1,5 @@
 // @flow
-import type { ParseAction } from "./AlgParser.js";
+import type { ParseAction } from "cube/AlgParser";
 
 export type NotationSpec = { [string]: ParseAction | string };
 

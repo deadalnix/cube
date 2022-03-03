@@ -1,9 +1,10 @@
 // @flow
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
-import App from "./App";
+import App from "App";
 import reportWebVitals from "./reportWebVitals";
+
+import "index.scss";
 
 import Bootstrap from "bootstrap/scss/bootstrap.scss";
 import { Util } from "reactstrap";

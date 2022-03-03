@@ -7,7 +7,7 @@ import {
     Sequence,
     Conjugate,
     Commutator,
-} from "./Alg.js";
+} from "cube/Alg";
 
 type AlgRunnerCallback = (Location, string, number) => void;
 

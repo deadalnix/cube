@@ -1,9 +1,9 @@
 // @flow
-import PLLs, { findCanonicalStickers } from "./PLL.js";
+import PLLs, { findCanonicalStickers } from "cube/PLL";
 
-import { objectMap } from "./CubeUtils.js";
-import parseAlg from "./AlgParser.js";
-import printAlg from "./AlgPrinter.js";
+import { objectMap } from "cube/CubeUtils";
+import parseAlg from "cube/AlgParser";
+import printAlg from "cube/AlgPrinter";
 
 test("CanonicalRepresentation", () => {
     const Rotations = (() => {

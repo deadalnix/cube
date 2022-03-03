@@ -6,10 +6,10 @@ import {
     Sequence,
     Conjugate,
     Commutator,
-} from "./Alg.js";
+} from "cube/Alg";
 
-import type { Notation } from "./AlgNotation.js";
-import { makeNotation, extendNotation } from "./AlgNotation.js";
+import type { Notation } from "cube/AlgNotation";
+import { makeNotation, extendNotation } from "cube/AlgNotation";
 
 export type ParseFunction = (AlgParser, number) => Alg;
 export type ParseAction = ParseFunction | string | null;

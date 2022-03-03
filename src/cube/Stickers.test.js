@@ -1,10 +1,10 @@
 // @flow
-import parseAlg from "./AlgParser.js";
+import parseAlg from "cube/AlgParser";
 import {
     type Stickers,
     getStickersForAlg,
     makeDefaultStickers,
-} from "./Stickers.js";
+} from "cube/Stickers";
 
 const getStickers = (alg: string): Stickers =>
     getStickersForAlg(parseAlg(alg), 3);

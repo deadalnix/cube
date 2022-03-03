@@ -6,9 +6,9 @@ import {
     Sequence,
     Conjugate,
     Commutator,
-} from "./Alg.js";
+} from "cube/Alg";
 
-import { getDirection } from "./CubeUtils.js";
+import { getDirection } from "cube/CubeUtils";
 
 class AlgInverter extends AlgVisitor<Alg> {
     visitMove(m: Move): Move {

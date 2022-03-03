@@ -1,8 +1,8 @@
 // @flow
-import { Location } from "./Alg.js";
-import invertAlg from "./AlgInverter.js";
-import parseAlg from "./AlgParser.js";
-import printAlg from "./AlgPrinter.js";
+import { Location } from "cube/Alg";
+import invertAlg from "cube/AlgInverter";
+import parseAlg from "cube/AlgParser";
+import printAlg from "cube/AlgPrinter";
 
 const parseAndInvert = a => printAlg(invertAlg(parseAlg(a)));
 

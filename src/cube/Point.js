@@ -1,5 +1,5 @@
 // @flow
-import Quaternion from "./Quaternion.js";
+import Quaternion from "cube/Quaternion";
 
 export class Point2D {
     +x: number;

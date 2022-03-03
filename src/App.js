@@ -2,7 +2,7 @@
 import type { Node } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import HelloCube from "./HelloCube.js";
+import HelloCube from "HelloCube";
 
 const App = (): Node => (
     <Router basename={process.env.PUBLIC_URL}>

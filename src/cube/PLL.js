@@ -1,11 +1,11 @@
 // @flow
-import { objectMap, getDirection, type Direction } from "./CubeUtils.js";
+import { objectMap, getDirection, type Direction } from "cube/CubeUtils";
 
-import { type Alg } from "./Alg.js";
+import { type Alg } from "cube/Alg";
 
-import { type Stickers, getStickersRotator } from "./Stickers.js";
-import parseAlg from "./AlgParser.js";
-import invertAlg from "./AlgInverter.js";
+import { type Stickers, getStickersRotator } from "cube/Stickers";
+import parseAlg from "cube/AlgParser";
+import invertAlg from "cube/AlgInverter";
 
 // prettier-ignore
 export type PllName =

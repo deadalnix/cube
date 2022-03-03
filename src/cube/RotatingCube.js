@@ -1,8 +1,8 @@
 // @flow
 import { useState, type Node } from "react";
 
-import Quaternion, { Slerp } from "./Quaternion.js";
-import SvgCube, { type CubeProps } from "./SvgCube.js";
+import Quaternion, { Slerp } from "cube/Quaternion";
+import SvgCube, { type CubeProps } from "cube/SvgCube";
 
 type RotatingCubeProps = {
     ...?CubeProps,

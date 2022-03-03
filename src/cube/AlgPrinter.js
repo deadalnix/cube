@@ -6,7 +6,7 @@ import {
     Sequence,
     Conjugate,
     Commutator,
-} from "./Alg.js";
+} from "cube/Alg";
 
 const appendCount = (alg: string, count: number): string => {
     const acount = Math.abs(count);

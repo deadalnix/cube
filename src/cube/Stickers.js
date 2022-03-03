@@ -4,10 +4,10 @@ import {
     type Face,
     getDirection,
     objectMap,
-} from "./CubeUtils.js";
+} from "cube/CubeUtils";
 
-import type { Location, Alg } from "./Alg.js";
-import runAlg from "./AlgRunner.js";
+import type { Location, Alg } from "cube/Alg";
+import runAlg from "cube/AlgRunner";
 
 export type Stickers = { [Face]: string };
 
