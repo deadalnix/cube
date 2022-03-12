@@ -2,20 +2,19 @@
 import { useState, type Node } from "react";
 
 import Quaternion, { Slerp } from "cube/Quaternion";
-import SvgCube, { type CubeProps } from "cube/SvgCube";
+import Cube, { type CubeProps } from "cube/svg/Cube";
+import { DefaultOrientation } from "cube/svg/Props";
 
 type RotatingCubeProps = {
     ...?CubeProps,
-    orientation?: {| alpha: number, beta: number |},
+    orientation: {| alpha: number, beta: number |},
 };
 
 const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
     const [baseQ, setBaseQ] = useState(() => Quaternion.unit());
     const [currentQ, setCurrentQ] = useState(() => Quaternion.unit());
 
-    const [angles, setAngles] = useState(
-        () => orientation ?? SvgCube.defaultProps.orientation
-    );
+    const [angles, setAngles] = useState(orientation);
 
     const [dragData, setDragData] = useState(null);
     const [animation, setAnimation] = useState(null);
@@ -138,7 +137,7 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
     const rotation = currentQ.rotateY(angles.beta).rotateX(angles.alpha);
 
     return (
-        <SvgCube
+        <Cube
             {...props}
             orientation={rotation}
             onPointerDown={getCapture}
@@ -146,6 +145,10 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
             onPointerMove={rotate}
         />
     );
+};
+
+RotatingCube.defaultProps = {
+    orientation: DefaultOrientation,
 };
 
 export default RotatingCube;

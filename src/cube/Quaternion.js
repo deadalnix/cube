@@ -27,6 +27,10 @@ export default class Quaternion {
         return Unit;
     }
 
+    static face(): Quaternion {
+        return Face;
+    }
+
     static fromOrientation(o: Orientation): Quaternion {
         if (o instanceof Quaternion) {
             return o;
@@ -172,3 +176,4 @@ export class Slerp {
 }
 
 const Unit = new Quaternion(1, 0, 0, 0);
+const Face = Unit.rotateX(90);

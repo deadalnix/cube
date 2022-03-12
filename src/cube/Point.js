@@ -26,6 +26,10 @@ export class Point2D {
         const oy = o.y;
         return new Point2D((this.x - ox) * f + ox, (this.y - oy) * f + oy);
     }
+
+    translate(tx: number, ty: number): Point2D {
+        return new Point2D(this.x + tx, this.y + ty);
+    }
 }
 
 export const midpoint = (p: Point2D, q: Point2D): Point2D =>
