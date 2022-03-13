@@ -1,5 +1,5 @@
 // @flow
-import PLLs, { findCanonicalStickers } from "cube/PLL";
+import PLL, { findCanonicalStickers } from "cube/Pll";
 
 import { objectMap } from "cube/CubeUtils";
 import parseAlg from "cube/AlgParser";
@@ -17,7 +17,7 @@ test("CanonicalRepresentation", () => {
         return rs;
     })();
 
-    objectMap(PLLs, d => {
+    objectMap(PLL, d => {
         const alg = printAlg(d.alg);
         const e = d.stickers;
 

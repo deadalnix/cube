@@ -2,6 +2,7 @@
 import { type Node } from "react";
 
 import HelloCube from "views/HelloCube";
+import Pll from "views/Pll";
 
 export type Route = {|
     path: string,
@@ -16,6 +17,12 @@ const routes: Array<Route> = [
         name: "Cube",
         icon: "tim-icons icon-app",
         Component: HelloCube,
+    },
+    {
+        path: "pll",
+        name: "PLL",
+        icon: "tim-icons icon-app",
+        Component: Pll,
     },
 ];
 

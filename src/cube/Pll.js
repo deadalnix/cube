@@ -41,7 +41,7 @@ const DefaulPLLs = {
     Gd: "D'RUR'U'DR2U'RU'R'UR'UR2",
     Y: "FRU'R'U'RUR'F'RUR'U'R'FRF'",
     V: "RU'RUR'DRD'RU'DR2'UR2'D'R2",
-    Na: "RUR'URUR'F'RUR'U'R'FR2U'R'U2RU'R'U",
+    Na: "RFU'R'URUF'R2'F'RURU'R'F",
     Nb: "r'D'FrU'r'F'Dr2Ur'U'r'FrF'",
 };
 
