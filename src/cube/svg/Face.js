@@ -35,7 +35,7 @@ const Face = ({
     let sideOutlines = [];
     let sideFacelets = [];
 
-    let tx = 0.2;
+    let tx = 0.8 / Plans;
     let ty = 0;
 
     for (const f of ["R", "F", "L", "B"]) {
