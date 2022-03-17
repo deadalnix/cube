@@ -2,10 +2,10 @@
 
 :global {
     // For nucleo icons:
-    @include meta.load-css("assets/css/nucleo-icons.css");
+    @include meta.load-css("assets/nucleo/icons.css");
 
     // For demo:
-    @include meta.load-css("assets/css/demo.css");
+    @include meta.load-css("assets/demo.css");
 
     // For demo:
     @include meta.load-css("assets/gfont/poppins.css");

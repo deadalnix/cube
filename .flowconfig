@@ -15,7 +15,7 @@ react.runtime=automatic
 
 module.name_mapper='^\([^\.].*\)$' -> '<PROJECT_ROOT>/src/\1'
 
-module.name_mapper.extension='sass' -> '<PROJECT_ROOT>/src/assets/scss.js.flow'
-module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/src/assets/scss.js.flow'
+module.name_mapper.extension='sass' -> '<PROJECT_ROOT>/src/flow/scss.js.flow'
+module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/src/flow/scss.js.flow'
 
 [strict]
