@@ -42,7 +42,7 @@ export class Sequence implements Alg {
 
     constructor(location: Location, moves: Array<Alg>, count: number) {
         this.location = location;
-        this.moves = moves;
+        this.moves = Object.freeze(moves);
         this.count = count;
     }
 

@@ -17,6 +17,7 @@ export type PllName =
 
 export type PllInfo = {
     name: PllName,
+    patterns: Array<string>,
     stickers: Stickers,
     alg: Alg,
 };
@@ -228,17 +229,38 @@ export const findCanonicalStickers = (alg: Alg): Stickers => {
     return sr.getStickers();
 };
 
+export const findPatterns = (alg: Alg): Array<string> => {
+    const inv = invertAlg(alg);
+
+    let patterns = new Set();
+
+    for (let i = 0; i < 4; i++) {
+        let sr = getStickersRotator(3);
+        sr.turnFace("U", i);
+        sr.runAlg(inv);
+
+        for (let j = 0; j < 4; j++) {
+            sr.turnFace("U", i);
+            const s = sr.getStickers();
+            patterns.add(
+                [s.F, s.R, s.B, s.L].map(f => f.substring(0, 3)).join("")
+            );
+        }
+    }
+
+    return [...patterns];
+};
+
 const loadPLL = (): { [PllName]: PllInfo } =>
     objectMap(DefaulPLLs, (algstr, name) => {
         const alg = parseAlg(algstr);
-        const stickers = findCanonicalStickers(alg);
 
-        // TODO: Add a way to override default PLLs using local storage.
-        return {
+        return Object.freeze({
             name: name,
-            stickers: stickers,
+            stickers: findCanonicalStickers(alg),
+            patterns: findPatterns(alg),
             alg: alg,
-        };
+        });
     });
 
 const PLLData: { [PllName]: PllInfo } = loadPLL();

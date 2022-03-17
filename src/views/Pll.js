@@ -53,7 +53,7 @@ const PllGroup = ({ title, plls }): Node => (
         <CardBody>
             <Row>
                 {plls.map(p => (
-                    <Col md="3" className={styles.algCell}>
+                    <Col md="3" key={p.name} className={styles.algCell}>
                         <PllCard pll={p} />
                     </Col>
                 ))}

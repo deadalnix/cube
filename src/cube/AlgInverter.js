@@ -23,7 +23,7 @@ class AlgInverter extends AlgVisitor<Alg> {
 
         return new Sequence(
             s.location,
-            [...s.moves].reverse().map(a => this.visit(a)),
+            s.moves.map(a => this.visit(a)).reverse(),
             s.count
         );
     }
