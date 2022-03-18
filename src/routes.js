@@ -3,6 +3,7 @@ import { type Node } from "react";
 
 import HelloCube from "views/HelloCube";
 import Pll from "views/Pll";
+import PllTrainer from "views/PllTrainer";
 
 export type Route = {|
     path: string,
@@ -23,6 +24,12 @@ const routes: Array<Route> = [
         name: "PLL",
         icon: "tim-icons icon-app",
         Component: Pll,
+    },
+    {
+        path: "plltrainer",
+        name: "PLL trainer",
+        icon: "tim-icons icon-app",
+        Component: PllTrainer,
     },
 ];
 
