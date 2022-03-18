@@ -35,14 +35,16 @@ export class Move implements Alg {
     }
 }
 
+export type Moves = $ReadOnlyArray<Alg>;
+
 export class Sequence implements Alg {
     +location: Location;
-    +moves: Array<Alg>;
+    +moves: Moves;
     +count: number;
 
-    constructor(location: Location, moves: Array<Alg>, count: number) {
+    constructor(location: Location, moves: Moves, count: number) {
         this.location = location;
-        this.moves = Object.freeze(moves);
+        this.moves = moves;
         this.count = count;
     }
 

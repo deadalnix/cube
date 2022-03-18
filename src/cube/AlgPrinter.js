@@ -1,6 +1,7 @@
 // @flow
 import {
     type Alg,
+    type Moves,
     AlgVisitor,
     Move,
     Sequence,
@@ -43,8 +44,8 @@ class AlgPrinter extends AlgVisitor<string> {
         return "(" + this.printSequence(s.moves) + ")";
     }
 
-    printSequence(algs: Array<Alg>): string {
-        return algs.map(a => this.visit(a)).join(" ");
+    printSequence(moves: Moves): string {
+        return moves.map(a => this.visit(a)).join(" ");
     }
 
     visitConjugate(c: Conjugate): string {
