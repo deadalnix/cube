@@ -251,7 +251,7 @@ export const findPatterns = (alg: Alg): Array<string> => {
     return [...patterns];
 };
 
-const loadPLL = (): { [PllName]: PllInfo } =>
+const loadPllInfos = (): { [PllName]: PllInfo } =>
     objectMap(DefaulPLLs, (algstr, name) => {
         const alg = parseAlg(algstr);
 
@@ -263,5 +263,20 @@ const loadPLL = (): { [PllName]: PllInfo } =>
         });
     });
 
-const PLLData: { [PllName]: PllInfo } = loadPLL();
-export default PLLData;
+const PllData: { [PllName]: PllInfo } = loadPllInfos();
+export default PllData;
+
+const loadPllPatterns = (): { [string]: PllInfo } => {
+    let patterns = {};
+
+    for (const mixedPll of Object.values(PllData)) {
+        const pll: PllInfo = (mixedPll: any);
+        for (const p of pll.patterns) {
+            patterns[p] = pll;
+        }
+    }
+
+    return Object.freeze(patterns);
+};
+
+export const PllPatterns: { [string]: PllInfo } = loadPllPatterns();
