@@ -51,11 +51,8 @@ const Layout = ({ children }: LayoutProps): Node => {
                 <Sidebar
                     color={color}
                     routes={routes}
-                    logo={{
-                        link: "https://deadalnix.github.io/cube/",
-                        text: "Twisty Space",
-                        imgSrc: logo,
-                    }}
+                    text="Twisty Space"
+                    img={logo}
                     opened={sidebarOpened}
                     close={() => setsidebarOpened(false)}
                 />
