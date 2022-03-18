@@ -30,7 +30,7 @@
     flex-flow: column;
 
     overflow: auto;
-    @extends common.%scrollable;
+    @extend %scrollable;
 
     border-top: 2px solid bootstrap.$primary;
     background: linear-gradient(

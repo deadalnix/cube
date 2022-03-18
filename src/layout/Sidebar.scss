@@ -5,6 +5,17 @@
     margin-left: 25px;
 }
 
+%active-before {
+    content: " ";
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    top: 22px;
+    left: -4px;
+    background: bootstrap.$white;
+    border-radius: 50%;
+}
+
 .sidebar {
     @include bootstrap.linear-gradient(
         bootstrap.$primary-states,
@@ -32,7 +43,7 @@
         z-index: 4;
         position: relative;
         overflow: auto;
-        @extends common.%scrollable;
+        @extend %scrollable;
 
         :global(.dropdown) {
             display: none !important;
@@ -91,6 +102,16 @@
                 }
             }
 
+            &:hover,
+            &:focus {
+                > a:not(.active) {
+                    p,
+                    i {
+                        color: bootstrap.$white;
+                    }
+                }
+            }
+
             > a {
                 margin: 10px 15px 0;
                 border-radius: bootstrap.$btn-round-radius;
@@ -103,78 +124,44 @@
                 font-size: bootstrap.$font-size-xs;
                 padding: 10px 8px;
                 line-height: bootstrap.$line-height-lg;
+
+                &.active {
+                    background: transparent;
+
+                    i {
+                        color: bootstrap.$white;
+                    }
+
+                    &:before {
+                        @extend %active-before;
+                    }
+
+                    &[data-toggle="collapse"] {
+                        box-shadow: none;
+                        color: bootstrap.$white;
+
+                        & + div :global(.nav) .active a {
+                            box-shadow: none;
+
+                            &:before {
+                                @extend %active-before;
+                            }
+                        }
+                        &:before {
+                            background: rgba(bootstrap.$white, 0.6);
+                        }
+                    }
+
+                    &:not([data-toggle="collapse"]) {
+                        p {
+                            color: bootstrap.$white;
+                        }
+                    }
+                }
             }
 
             &:first-child > a {
                 margin: 0 15px;
-            }
-
-            &:hover:not(.active) > a,
-            &:focus:not(.active) > a {
-                p,
-                i {
-                    color: bootstrap.$white;
-                }
-            }
-
-            &:hover:not(.active) > a i,
-            &:focus:not(.active) > a i {
-                color: bootstrap.$white;
-            }
-
-            &.active > a:not([data-toggle="collapse"]) {
-                background: transparent;
-
-                i,
-                p {
-                    color: bootstrap.$white;
-                }
-
-                &:before {
-                    content: " ";
-                    position: absolute;
-                    height: 6px;
-                    width: 6px;
-                    top: 22px;
-                    left: -4px;
-                    background: bootstrap.$white;
-                    border-radius: 50%;
-                }
-            }
-
-            &.active > a[data-toggle="collapse"] {
-                background: transparent;
-                box-shadow: none;
-                color: bootstrap.$white;
-
-                i {
-                    color: bootstrap.$white;
-                }
-
-                & + div :global(.nav) .active a {
-                    box-shadow: none;
-
-                    &:before {
-                        content: " ";
-                        position: absolute;
-                        height: 6px;
-                        width: 6px;
-                        top: 17px;
-                        left: -4px;
-                        background: bootstrap.$white;
-                        border-radius: 50%;
-                    }
-                }
-                &:before {
-                    content: " ";
-                    position: absolute;
-                    height: 6px;
-                    width: 6px;
-                    top: 22px;
-                    left: -4px;
-                    background: rgba(bootstrap.$white, 0.6);
-                    border-radius: 50%;
-                }
             }
         }
 
