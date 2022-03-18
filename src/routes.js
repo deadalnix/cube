@@ -13,7 +13,7 @@ export type Route = {|
 
 const routes: Array<Route> = [
     {
-        path: "cube",
+        path: "",
         name: "Cube",
         icon: "tim-icons icon-app",
         Component: HelloCube,

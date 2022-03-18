@@ -1,7 +1,7 @@
 // @flow
 import { type Node } from "react";
 import { Nav } from "reactstrap";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import type Color from "layout/Color";
 
@@ -45,20 +45,20 @@ const Sidebar = ({
         >
             <div className={styles.wrapper}>
                 <div className={styles.logo}>
-                    <Link
-                        to={logo.link}
+                    <a
+                        href={logo.link}
                         className={cx(styles.simpletext, styles.logomini)}
                         onClick={close}
                     >
                         <img src={logo.imgSrc} alt="react-logo" />
-                    </Link>
-                    <Link
-                        to={logo.link}
+                    </a>
+                    <a
+                        href={logo.link}
                         className={cx(styles.simpletext, styles.logonormal)}
                         onClick={close}
                     >
                         {logo.text}
-                    </Link>
+                    </a>
                 </div>
                 <Nav>
                     {routes.map((prop, key) => (

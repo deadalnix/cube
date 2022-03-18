@@ -19,7 +19,7 @@ const App = (): Node => {
                     {routes.map(({ path, Component }, key) => (
                         <Route path={path} element={<Component />} key={key} />
                     ))}
-                    <Route path="*" element={<Navigate to="/cube" />} />
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Layout>
         </Router>

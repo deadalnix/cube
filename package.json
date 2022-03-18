@@ -15,6 +15,7 @@
         "react-notification-alert": "^0.0.13",
         "react-router-dom": "^6.2.1",
         "react-scripts": "5.0.0",
+        "react-snap": "^1.23.0",
         "reactstrap": "^8.10.1",
         "sass": "^1.49.9",
         "web-vitals": "^2.1.4"
@@ -23,6 +24,7 @@
         "flow": "flow",
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
+        "postbuild": "react-snap",
         "test": "react-app-rewired test",
         "eject": "react-scripts eject"
     },
