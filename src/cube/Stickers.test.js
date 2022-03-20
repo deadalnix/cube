@@ -3,6 +3,7 @@ import parseAlg from "cube/AlgParser";
 import {
     type Stickers,
     getStickersForAlg,
+    getStickersRotator,
     makeDefaultStickers,
 } from "cube/Stickers";
 
@@ -228,4 +229,48 @@ test("getStickersForAlg", () => {
     for (const [a, e] of Object.entries(TestCases)) {
         expect(getStickers(a)).toEqual(e);
     }
+});
+
+test("getStickersForMove", () => {
+    const sr = getStickersRotator(3);
+
+    sr.turnFace("U", 0);
+    expect(sr.getStickers()).toEqual({
+        R: "rrrrrrrrr",
+        U: "uuuuuuuuu",
+        F: "fffffffff",
+        L: "lllllllll",
+        D: "ddddddddd",
+        B: "bbbbbbbbb",
+    });
+
+    sr.turnFace("U", 1);
+    expect(sr.getStickers()).toEqual({
+        R: "bbbrrrrrr",
+        U: "uuuuuuuuu",
+        F: "rrrffffff",
+        L: "fffllllll",
+        D: "ddddddddd",
+        B: "lllbbbbbb",
+    });
+
+    sr.turnFace("U", -1);
+    expect(sr.getStickers()).toEqual({
+        R: "rrrrrrrrr",
+        U: "uuuuuuuuu",
+        F: "fffffffff",
+        L: "lllllllll",
+        D: "ddddddddd",
+        B: "bbbbbbbbb",
+    });
+
+    sr.turnFace("U", 2);
+    expect(sr.getStickers()).toEqual({
+        R: "lllrrrrrr",
+        U: "uuuuuuuuu",
+        F: "bbbffffff",
+        L: "rrrllllll",
+        D: "ddddddddd",
+        B: "fffbbbbbb",
+    });
 });

@@ -234,13 +234,13 @@ export const findPatterns = (alg: Alg): Array<string> => {
 
     let patterns = new Set();
 
-    for (let i = 0; i < 4; i++) {
-        let sr = getStickersRotator(3);
+    for (let i = -1; i <= 2; i++) {
+        const sr = getStickersRotator(3);
         sr.turnFace("U", i);
         sr.runAlg(inv);
 
         for (let j = 0; j < 4; j++) {
-            sr.turnFace("U", i);
+            sr.turnFace("U", 1);
             const s = sr.getStickers();
             patterns.add(
                 [s.F, s.R, s.B, s.L].map(f => f.substring(0, 3)).join("")
