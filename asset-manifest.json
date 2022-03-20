@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/cube/static/css/main.ec5381af.css",
-    "main.js": "/cube/static/js/main.6a912717.js",
-    "static/js/787.315b0fc9.chunk.js": "/cube/static/js/787.315b0fc9.chunk.js",
+    "main.js": "/cube/static/js/main.92936b30.js",
+    "static/js/787.a70a1d16.chunk.js": "/cube/static/js/787.a70a1d16.chunk.js",
     "static/media/fa-solid-900.ttf": "/cube/static/media/fa-solid-900.79da213423ac0def2058.ttf",
     "static/media/fa-brands-400.ttf": "/cube/static/media/fa-brands-400.0a1b701f5563c2288281.ttf",
     "static/media/fa-solid-900.woff2": "/cube/static/media/fa-solid-900.4896d4b04430cc3dfb06.woff2",
@@ -34,11 +34,11 @@
     "static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.63d2a69665d58b22ceea.woff2",
     "index.html": "/cube/index.html",
     "main.ec5381af.css.map": "/cube/static/css/main.ec5381af.css.map",
-    "main.6a912717.js.map": "/cube/static/js/main.6a912717.js.map",
-    "787.315b0fc9.chunk.js.map": "/cube/static/js/787.315b0fc9.chunk.js.map"
+    "main.92936b30.js.map": "/cube/static/js/main.92936b30.js.map",
+    "787.a70a1d16.chunk.js.map": "/cube/static/js/787.a70a1d16.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ec5381af.css",
-    "static/js/main.6a912717.js"
+    "static/js/main.92936b30.js"
   ]
 }
