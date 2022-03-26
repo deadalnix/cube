@@ -14,8 +14,8 @@ module.exports = override(
             use: [idk, css, postcss, resolve, processor],
         } = sl;
 
-        const modules = css?.options?.modules;
-        if (modules?.mode === "local") {
+        const modules = css.options.modules;
+        if (modules.mode === "local") {
             return;
         }
 
