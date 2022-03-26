@@ -233,7 +233,7 @@ class StickersGenerator implements StickersRotator {
         const dimention = this.dimention;
         const f = this.stickers[face];
 
-        let newFace = Array(dimention * dimention);
+        let newFace = [...f];
 
         for (let i = 0; i < this.dimention; i++) {
             const slice = getSlice(i, direction, f, dimention);
@@ -322,35 +322,37 @@ const getSlice = (
     face: Array<string>,
     dimention: number
 ): Array<string> => {
-    let slice = Array(dimention);
+    let slice = [];
     switch (direction) {
         case 0:
             for (let i = 0; i < dimention; i++) {
-                slice[i] = face[n * dimention + i];
+                slice.push(face[n * dimention + i]);
             }
 
             break;
 
-        case 1:
+        case 1: {
+            const base = (dimention - 1) * dimention + n;
             for (let i = 0; i < dimention; i++) {
-                slice[dimention - i - 1] = face[i * dimention + n];
+                slice.push(face[base - i * dimention]);
             }
 
             break;
+        }
 
         case -1: {
             const base = dimention - n - 1;
             for (let i = 0; i < dimention; i++) {
-                slice[i] = face[i * dimention + base];
+                slice.push(face[i * dimention + base]);
             }
 
             break;
         }
 
         case 2: {
-            const base = (dimention - n - 1) * dimention;
+            const base = (dimention - n) * dimention;
             for (let i = 0; i < dimention; i++) {
-                slice[dimention - i - 1] = face[base + i];
+                slice.push(face[base - i - 1]);
             }
 
             break;
