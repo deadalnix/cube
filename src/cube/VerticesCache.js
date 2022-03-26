@@ -1,5 +1,5 @@
 // @flow
-import { Point3D } from "cube/Point";
+import { Point3D } from "math/Point";
 import { type Face, objectMap } from "cube/CubeUtils";
 
 // Produce point array for a cube in default position and cache it.

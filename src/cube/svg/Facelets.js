@@ -1,6 +1,6 @@
 // @flow
 import type { Node } from "react";
-import { Point2D, midpoint } from "cube/Point";
+import { Point2D, midpoint } from "math/Point";
 
 export type FaceletProps = {
     vertices: [Point2D, Point2D, Point2D, Point2D],

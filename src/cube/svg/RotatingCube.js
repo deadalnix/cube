@@ -1,7 +1,8 @@
 // @flow
 import { useState, type Node } from "react";
 
-import Quaternion, { Slerp } from "cube/Quaternion";
+import Quaternion, { Slerp } from "math/Quaternion";
+
 import Cube, { type CubeProps } from "cube/svg/Cube";
 import { DefaultOrientation } from "cube/svg/Props";
 

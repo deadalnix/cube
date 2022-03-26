@@ -1,8 +1,9 @@
 // @flow
 import type { Node } from "react";
 
+import Quaternion from "math/Quaternion";
+
 import { makeDefaultStickers } from "cube/Stickers";
-import Quaternion from "cube/Quaternion";
 import VerticesCache from "cube/VerticesCache";
 
 import { type SvgProps, DefaultSvgProps } from "cube/svg/Props";

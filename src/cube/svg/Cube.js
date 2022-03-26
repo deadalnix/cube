@@ -1,8 +1,9 @@
 // @flow
 import type { Node } from "react";
 
-import { Point3D } from "cube/Point";
-import Quaternion, { type Orientation } from "cube/Quaternion";
+import { Point3D } from "math/Point";
+import Quaternion, { type Orientation } from "math/Quaternion";
+
 import { objectMap } from "cube/CubeUtils";
 import { makeDefaultStickers } from "cube/Stickers";
 import VerticesCache from "cube/VerticesCache";

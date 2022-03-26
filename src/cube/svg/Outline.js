@@ -1,6 +1,6 @@
 // @flow
 import type { Node } from "react";
-import { Point2D } from "cube/Point";
+import { Point2D } from "math/Point";
 
 export type OutlineProps = {
     vertices: [Point2D, Point2D, Point2D, Point2D],
