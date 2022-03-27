@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { hydrate, render } from "react-dom";
+import { render } from "react-dom";
 import App from "App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -11,18 +11,12 @@ import { Util } from "reactstrap";
 
 Util.setGlobalCssModule(Bootstrap);
 
-const root = document.getElementById("root");
-const content = (
+render(
     <React.StrictMode>
         <App />
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
-
-if (root?.hasChildNodes()) {
-    hydrate(content, root);
-} else {
-    render(content, root);
-}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
