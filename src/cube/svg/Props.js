@@ -29,6 +29,6 @@ export type SvgProps = {
 
 export const DefaultSvgProps = Object.freeze({
     dimention: 3,
-    size: "200px",
+    size: "500px",
     colorList: DefaultColorList,
 });
