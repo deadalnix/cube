@@ -9,6 +9,8 @@ import CubePLL, { type PllInfo, PllPatterns } from "cube/Pll";
 import { makeDefaultStickers } from "cube/Stickers";
 import { objectMap } from "cube/CubeUtils";
 
+import ClientSide from "components/ClientSide";
+
 import {
     Row,
     Col,
@@ -105,7 +107,9 @@ const PllTrainer = (): Node => {
     return (
         <Row>
             <Col md="6" className="text-center">
-                <Cube stickers={position.stickers} colorList={colorList} />
+                <ClientSide>
+                    <Cube stickers={position.stickers} colorList={colorList} />
+                </ClientSide>
             </Col>
             <Col md="6">
                 <Card className={"card-plain"}>
