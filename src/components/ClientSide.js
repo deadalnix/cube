@@ -1,12 +1,16 @@
 // @flow
 import { type Node, useState, useLayoutEffect } from "react";
 
+// This ensures that we only go through static rendering once at startup.
+let clientSideLatch = false;
+
 export const useClientSide = (): boolean => {
-    const [isClient, setClient] = useState(false);
+    const [isClient, setClient] = useState(clientSideLatch);
 
     useLayoutEffect(() => {
-        if (navigator.userAgent !== "ReactSnap") {
+        if (!isClient && navigator.userAgent !== "ReactSnap") {
             setClient(true);
+            clientSideLatch = true;
         }
     }, [isClient]);
 
