@@ -95,10 +95,7 @@ const XNavbar = ({
                                 />
                             </NavbarToggler>
                         </div>
-                        <NavbarBrand
-                            href="#pablo"
-                            onClick={e => e.preventDefault()}
-                        >
+                        <NavbarBrand onClick={e => e.preventDefault()}>
                             {brandText}
                         </NavbarBrand>
                     </div>

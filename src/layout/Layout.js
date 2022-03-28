@@ -1,6 +1,6 @@
 // @flow
 import { type Node, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, matchPath } from "react-router-dom";
 
 import cx from "classnames";
 import styles from "layout/Layout.scss";
@@ -33,7 +33,7 @@ const Layout = ({ children }: LayoutProps): Node => {
 
     const title = (() => {
         for (const r of routes) {
-            if (location.pathname === "/" + r.path) {
+            if (matchPath(r.path, location.pathname)) {
                 return r.name;
             }
         }
