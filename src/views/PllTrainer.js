@@ -68,7 +68,7 @@ const PllCard = ({
 }): Node => (
     <Button
         className="text-center"
-        style={{ width: "125px" }}
+        style={{ width: "200px" }}
         onClick={onClick}
     >
         <Row>

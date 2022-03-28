@@ -123,12 +123,14 @@ const findBestAUF = (hlt: HeadlightType, s: Stickers): Direction => {
         for (const face of ["F", "R", "B", "L"]) {
             const f = s[face];
             const e = f[1];
-            if (e !== f[4]) {
-                // The edge doesn't match.
-                continue;
+            const c = f[4];
+            if (e === c) {
+                blocks += 2 * ((f[0] === e) + (f[2] === e));
             }
 
-            blocks += (f[0] === e) + (f[2] === e);
+            if (f[0] === c) {
+                blocks += f[0] === f[2] ? 3 : 0;
+            }
         }
 
         if (blocks > score) {
