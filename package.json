@@ -34,6 +34,30 @@
             "react-app/jest"
         ]
     },
+    "reactSnap": {
+        "skipThirdPartyRequests": true,
+        "inlineCss": true,
+        "minifyCss": {
+            "level": {
+                "1": {
+                    "specialComments": false
+                },
+                "2": {
+                    "restructureRules": true
+                }
+            }
+        }
+    },
+    "cssnano": {
+        "preset": [
+            "advanced",
+            {
+                "discardComments": {
+                    "removeAll": true
+                }
+            }
+        ]
+    },
     "browserslist": {
         "production": [
             ">0.2%",
@@ -48,6 +72,7 @@
     },
     "devDependencies": {
         "babel-plugin-transform-flow-enums": "^0.0.2",
+        "cssnano-preset-advanced": "^5.3.1",
         "customize-cra": "^1.0.0",
         "eslint-plugin-fb-flow": "^0.0.4",
         "eslint-plugin-ft-flow": "^2.0.1",

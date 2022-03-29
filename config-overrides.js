@@ -1,5 +1,6 @@
 const { override, useBabelRc, adjustStyleLoaders } = require("customize-cra");
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = override(
     useBabelRc(),
@@ -7,20 +8,19 @@ module.exports = override(
         config.plugins.find(
             p => p.key === "ESLintWebpackPlugin"
         ).options.useEslintrc = true;
+
         return config;
     },
-    adjustStyleLoaders(sl => {
-        const {
-            use: [idk, css, postcss, resolve, processor],
-        } = sl;
+    adjustStyleLoaders(
+        ({ use: [minicss, css, postcss, resolve, processor] }) => {
+            const modules = css.options.modules;
+            if (modules.mode === "local") {
+                return;
+            }
 
-        const modules = css.options.modules;
-        if (modules.mode === "local") {
-            return;
+            // Let's change this to use CSS modules.
+            modules.mode = "local";
+            modules.getLocalIdent = getCSSModuleLocalIdent;
         }
-
-        // Let's change this to use CSS modules.
-        modules.mode = "local";
-        modules.getLocalIdent = getCSSModuleLocalIdent;
-    })
+    )
 );
