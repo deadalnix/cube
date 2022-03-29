@@ -13,8 +13,6 @@
     li > a,
     :global(.badge) {
         transition: all 0.34s;
-        -webkit-transition: all 0.34s;
-        -moz-transition: all 0.34s;
     }
 
     :global(.fa-cog) {
@@ -41,10 +39,6 @@
         padding: 0 10px;
         background: linear-gradient(bootstrap.$black, bootstrap.$black-states);
 
-        -webkit-transform: translateY(-15%);
-        -moz-transform: translateY(-15%);
-        -o-transform: translateY(-15%);
-        -ms-transform: translateY(-15%);
         transform: translateY(-15%);
         top: 27px;
         opacity: 0;
@@ -67,8 +61,6 @@
             top: 74px;
             width: 16px;
             transform: translateY(-50%);
-            -webkit-transform: translateY(-50%);
-            -moz-transform: translateY(-50%);
         }
 
         &:before {
@@ -110,13 +102,7 @@
 
     &.show :global(.dropdown-menu) {
         opacity: 1;
-
-        -webkit-transform: translateY(-13%);
-        -moz-transform: translateY(-13%);
-        -o-transform: translateY(-13%);
-        -ms-transform: translateY(-13%);
         transform: translateY(-13%);
-
         transform-origin: 0 0;
     }
 

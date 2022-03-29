@@ -1,4 +1,4 @@
-@use "assets/bootstrap";
+@use "assets/bootstrap/core" as bootstrap;
 @use "./common";
 
 .wrapper ul li :global div.collapse ul li div.collapse ul li a {
@@ -14,6 +14,13 @@
     left: -4px;
     background: bootstrap.$white;
     border-radius: 50%;
+}
+
+%animation-transition-general {
+    @include bootstrap.transitions(
+        bootstrap.$general-transition-time,
+        bootstrap.$transition-ease
+    );
 }
 
 .sidebar {
@@ -55,7 +62,7 @@
             [data-toggle="collapse"] ~ div > ul > li > a {
                 span {
                     display: inline-block;
-                    // @extend .animation-transition-general;
+                    // @extend %animation-transition-general;
                 }
 
                 i {
@@ -172,7 +179,7 @@
             display: block;
             height: auto;
             white-space: nowrap;
-            @extend .animation-transition-general;
+            @extend %animation-transition-general;
         }
 
         i {
@@ -195,7 +202,7 @@
 
         a.logomini,
         a.logonormal {
-            @extend .animation-transition-general;
+            @extend %animation-transition-general;
         }
 
         a.logomini {

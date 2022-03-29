@@ -2,11 +2,8 @@
     -webkit-overflow-scrolling: touch;
 
     @media (min-width: 991px) {
-        -webkit-transition-property: top, bottom, width;
         transition-property: top, bottom, width;
-        -webkit-transition-duration: 0.2s, 0.2s, 0.35s;
         transition-duration: 0.2s, 0.2s, 0.35s;
-        -webkit-transition-timing-function: linear, linear, ease;
         transition-timing-function: linear, linear, ease;
     }
 }

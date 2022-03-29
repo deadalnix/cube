@@ -6,10 +6,8 @@
 .sidebar .nav a i,
 .sidebar .nav p,
 .navbar-collapse .navbar-nav .nav-link,
-.animation-transition-general,
 .tag,
-.tag [data-role="remove"],
-.animation-transition-general {
+.tag [data-role="remove"] {
     @include transitions($general-transition-time, $transition-ease);
 }
 
