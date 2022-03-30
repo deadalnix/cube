@@ -7,7 +7,7 @@ import styles from "layout/Footer.scss";
 const Footer = (): Node => (
     <footer className={styles.footer}>
         <Container fluid>
-            <Nav>
+            <Nav className={styles.navbar}>
                 <NavItem>
                     <NavLink href="about">About</NavLink>
                 </NavItem>
