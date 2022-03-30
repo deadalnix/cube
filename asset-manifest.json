@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/cube/static/css/main.389b9a48.css",
+    "main.css": "/cube/static/css/main.a009ef9d.css",
     "main.js": "/cube/static/js/main.531eaf06.js",
     "static/js/787.a70a1d16.chunk.js": "/cube/static/js/787.a70a1d16.chunk.js",
     "static/media/fa-solid-900.ttf": "/cube/static/media/fa-solid-900.e615bbcb258550973c16.ttf",
@@ -33,12 +33,12 @@
     "static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.b0bb003afc8483bd32d2.woff2",
     "static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.63d2a69665d58b22ceea.woff2",
     "index.html": "/cube/index.html",
-    "main.389b9a48.css.map": "/cube/static/css/main.389b9a48.css.map",
+    "main.a009ef9d.css.map": "/cube/static/css/main.a009ef9d.css.map",
     "main.531eaf06.js.map": "/cube/static/js/main.531eaf06.js.map",
     "787.a70a1d16.chunk.js.map": "/cube/static/js/787.a70a1d16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.389b9a48.css",
+    "static/css/main.a009ef9d.css",
     "static/js/main.531eaf06.js"
   ]
 }
