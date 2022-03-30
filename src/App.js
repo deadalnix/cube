@@ -14,18 +14,22 @@ import routes from "routes.js";
 import Layout from "layout/Layout";
 
 import RotatingCube from "cube/svg/RotatingCube";
+import { useClientSide } from "components/ClientSide";
 
 const InvalidRoute = (): Node => {
     const navigate = useNavigate();
     const location = useLocation();
+    const isClientSide = useClientSide();
 
-    const m = location.pathname.match(/^(.*)\/index\.html$/);
-    if (m) {
-        return <Navigate to={m[1]} />;
+    if (isClientSide) {
+        const m = location.pathname.match(/^(.*)\/index\.html$/);
+        if (m) {
+            return <Navigate to={m[1]} />;
+        }
+
+        // Redirect to home after a while.
+        setTimeout(() => navigate(""), 5000);
     }
-
-    // Redirect to home after a while.
-    setTimeout(() => navigate(""), 5000);
 
     return (
         <div className="w-100 text-center">
