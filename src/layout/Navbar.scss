@@ -300,8 +300,8 @@
     }
 
     :global(.navbar) {
-        &.bg-white:not(.transparent) .togglerBar {
-            background-color: bootstrap.$default;
+        &:global(.bg-white):not(.transparent) .togglerBar {
+            background-color: bootstrap.$default !important;
         }
 
         & .toggled .togglerBar {
