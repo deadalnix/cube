@@ -1,7 +1,9 @@
 @use "sass:meta";
 
-// Because we are using CSS modules, we want bootstrap as a whole to be global
-// so that we can use bootstrap identifiers in the codebase.
-:global {
-    @include meta.load-css("./_index.scss");
+@layer bootstrap {
+    // Because we are using CSS modules, we want bootstrap as a whole to be global
+    // so that we can use bootstrap identifiers in the codebase.
+    :global {
+        @include meta.load-css("./_index.scss");
+    }
 }
