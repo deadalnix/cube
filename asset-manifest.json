@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cube/static/css/main.5f099f23.css",
-    "main.js": "/cube/static/js/main.d7bfe3a2.js",
+    "main.css": "/cube/static/css/main.a421ce00.css",
+    "main.js": "/cube/static/js/main.a80c2b5e.js",
     "static/js/787.a70a1d16.chunk.js": "/cube/static/js/787.a70a1d16.chunk.js",
     "static/media/fa-solid-900.ttf": "/cube/static/media/fa-solid-900.e615bbcb258550973c16.ttf",
     "static/media/fa-brands-400.ttf": "/cube/static/media/fa-brands-400.b823fc0dbb5a5f0c21bb.ttf",
@@ -33,12 +33,12 @@
     "static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.b0bb003afc8483bd32d2.woff2",
     "static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.63d2a69665d58b22ceea.woff2",
     "index.html": "/cube/index.html",
-    "main.5f099f23.css.map": "/cube/static/css/main.5f099f23.css.map",
-    "main.d7bfe3a2.js.map": "/cube/static/js/main.d7bfe3a2.js.map",
+    "main.a421ce00.css.map": "/cube/static/css/main.a421ce00.css.map",
+    "main.a80c2b5e.js.map": "/cube/static/js/main.a80c2b5e.js.map",
     "787.a70a1d16.chunk.js.map": "/cube/static/js/787.a70a1d16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f099f23.css",
-    "static/js/main.d7bfe3a2.js"
+    "static/css/main.a421ce00.css",
+    "static/js/main.a80c2b5e.js"
   ]
 }
