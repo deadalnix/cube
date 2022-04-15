@@ -22,13 +22,14 @@ export const DefaultColorList: { [string]: string } = Object.freeze({
 
 export type SvgProps = {
     dimention: number,
-    size: string,
+    size?: string | number,
+    style: {},
     colorList: { [string]: string },
     stickers?: Stickers,
 };
 
 export const DefaultSvgProps = Object.freeze({
     dimention: 3,
-    size: "500px",
+    style: ({}: {}),
     colorList: DefaultColorList,
 });
