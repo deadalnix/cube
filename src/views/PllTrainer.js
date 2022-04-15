@@ -21,6 +21,8 @@ import {
     CardBody,
 } from "reactstrap";
 
+import styles from "views/PllTrainer.scss";
+
 const computeStickerPatterns = () => {
     const ret = [];
     for (const p in PllPatterns) {
@@ -59,18 +61,14 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
-const PllCard = ({
+const PllButton = ({
     pll,
     onClick,
 }: {
     pll: PllInfo,
     onClick: () => void,
 }): Node => (
-    <Button
-        className="text-center"
-        style={{ width: "200px" }}
-        onClick={onClick}
-    >
+    <Button className="text-center" onClick={onClick}>
         <Row>
             <Col>
                 <Face size="100%" stickers={pll.stickers} />
@@ -101,22 +99,24 @@ const PllTrainer = (): Node => {
     };
 
     const buttons = objectMap(CubePLL, pll => (
-        <PllCard key={pll.name} pll={pll} onClick={() => selectAnswer(pll)} />
+        <PllButton key={pll.name} pll={pll} onClick={() => selectAnswer(pll)} />
     ));
 
     return (
         <Row>
-            <Col md="6" className="text-center">
+            <Col md="4" className="text-center">
                 <ClientSide>
                     <Cube stickers={position.stickers} colorList={colorList} />
                 </ClientSide>
             </Col>
-            <Col md="6">
+            <Col md="8">
                 <Card className={"card-plain"}>
                     <CardHeader>
                         <CardTitle tag="h3">PLL recognition trainer</CardTitle>
                     </CardHeader>
-                    <CardBody>{Object.values(buttons)}</CardBody>
+                    <CardBody className={styles.buttonGrid}>
+                        {Object.values(buttons)}
+                    </CardBody>
                 </Card>
             </Col>
         </Row>
