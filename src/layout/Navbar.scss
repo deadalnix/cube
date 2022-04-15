@@ -5,29 +5,26 @@
     align-items: center;
 }
 
-:global(.navbar) {
-    &:global(.bg-white) {
-        :global(.navbar-nav) {
-            .searchBar:global(.input-group) {
-                i {
-                    color: bootstrap.$black;
-                }
+:global(.bg-white) {
+    .searchBar:global(.input-group) {
+        i {
+            color: bootstrap.$black;
+        }
 
-                :global(.form-control) {
-                    background: rgba(bootstrap.$black, 0.1);
-                    border-radius: 4px;
-                }
-            }
+        :global(.form-control) {
+            background: rgba(bootstrap.$black, 0.1);
+            border-radius: 4px;
         }
     }
+}
 
-    .toggle button:focus {
-        outline: none;
-    }
+.toggle button:focus {
+    outline: none;
 }
 
 .searchBar {
     margin-left: bootstrap.$margin-lg-vertical;
+
     :global(.btn) {
         margin: 0;
     }
@@ -48,14 +45,14 @@
         i {
             font-size: 20px;
             color: bootstrap.$white;
-            margin-top: 0 !important;
+            margin-top: 0;
         }
 
         input {
             background: transparent;
-            border: none !important;
+            border: none;
             border-radius: 0;
-            padding: 12px !important;
+            padding: 12px;
             font-size: 12px;
             opacity: 0.5;
             &:focus {
@@ -73,34 +70,13 @@
     }
 }
 
-:global(.dropdown-menu).dropdownNavbar {
-    left: -80px;
-    &:before,
-    &:after {
-        left: auto;
-        right: 17px;
-    }
-}
-
-.photo {
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    vertical-align: middle;
-    overflow: hidden;
-    img {
-        width: 100%;
-    }
-}
-
 .absolute {
     position: absolute;
     z-index: 1050;
 }
 
 .transparent {
-    background: transparent !important;
+    background: transparent;
 }
 
 .notification {
@@ -148,8 +124,8 @@
     }
 
     :global(.modal-header) :global(.close) {
-        color: bootstrap.$dark-background !important;
-        top: 30px !important;
+        color: bootstrap.$dark-background;
+        top: 30px;
     }
 
     :global(.modal-footer) {
@@ -168,38 +144,89 @@
         padding: 0 40px;
     }
 
-    .bar1,
-    .bar3 {
+    .kebab {
+        display: block;
+        position: relative;
+
+        height: 4px;
+        width: 4px;
+        margin-bottom: 3px;
+        border-radius: 50%;
+        background: bootstrap.$white;
+
+        & + .kebab {
+            margin-top: 0px;
+        }
+    }
+
+    :global(.bg-white):not(.transparent) {
+        %toggle-bar,
+        .kebab {
+            background-color: bootstrap.$default;
+        }
+    }
+
+    %toggle-bar {
+        display: block;
+        position: relative;
+        width: 22px;
+        height: 1px;
+        border-radius: 1px;
+        background: bootstrap.$white;
+
         outline: 1px solid transparent;
         animation-fill-mode: forwards;
+
+        & + %toggle-bar {
+            margin-top: 7px;
+        }
     }
 
     .bar1 {
-        top: 0px;
+        @extend %toggle-bar;
         @include bar-animation(bootstrap.$topbar-back);
+
+        top: 0px;
     }
 
     .bar2 {
-        outline: 1px solid transparent;
+        @extend %toggle-bar;
+
         opacity: 1;
+        width: 17px;
+        transition: width 0.2s linear;
     }
 
     .bar3 {
-        bottom: 0px;
+        @extend %toggle-bar;
         @include bar-animation(bootstrap.$bottombar-back);
+
+        bottom: 0px;
     }
 
     .toggled {
-        .bar1 {
-            top: 6px;
-            @include bar-animation(bootstrap.$topbar-x);
+        %toggle-bar {
+            width: 24px;
+
+            & + %toggle-bar {
+                margin-top: 5px;
+            }
         }
+
+        .bar1 {
+            @include bar-animation(bootstrap.$topbar-x);
+
+            top: 6px;
+        }
+
         .bar2 {
             opacity: 0;
         }
+
         .bar3 {
-            bottom: 6px;
             @include bar-animation(bootstrap.$bottombar-x);
+
+            bottom: 6px;
         }
     }
 
@@ -269,54 +296,11 @@
             transform: rotate(0);
         }
     }
-
-    .togglerBar {
-        display: block;
-        position: relative;
-        width: 22px;
-        height: 1px;
-        border-radius: 1px;
-        background: bootstrap.$white;
-
-        &.kebab {
-            height: 4px;
-            width: 4px;
-            margin-bottom: 3px;
-            border-radius: 50%;
-        }
-
-        & + .togglerBar {
-            margin-top: 7px;
-        }
-
-        & + .togglerBar.kebab {
-            margin-top: 0px;
-        }
-
-        &.bar2 {
-            width: 17px;
-            transition: width 0.2s linear;
-        }
-    }
-
-    :global(.navbar) {
-        &:global(.bg-white):not(.transparent) .togglerBar {
-            background-color: bootstrap.$default !important;
-        }
-
-        & .toggled .togglerBar {
-            width: 24px;
-
-            & + .togglerBar {
-                margin-top: 5px;
-            }
-        }
-    }
 }
 
 @media screen and (min-width: 992px) {
     :global(.navbar-collapse) {
-        background: none !important;
+        background: none;
     }
 
     .toggle {
@@ -331,23 +315,21 @@
             margin-left: 0;
         }
     }
-    :global(.navbar-expand-lg) :global(.navbar-nav) :global(.nav-link) {
+    :global(.navbar-expand-lg) .navbarNav :global(.nav-link) {
         padding-right: 0.5rem;
         padding-left: 0.5rem;
     }
 }
 
 @media screen and (max-width: 576px) {
-    .wrapper {
-        .toggle {
-            transition: all 1s;
+    .toggle {
+        transition: all 1s;
+    }
 
-            &.toggled {
-                left: -20px;
-                position: relative;
-                right: unset;
-                transition: all 1s;
-            }
-        }
+    .toggled {
+        left: -20px;
+        position: relative;
+        right: unset;
+        transition: all 1s;
     }
 }

@@ -21,6 +21,8 @@
 }
 
 .panel {
+    @extend %scrollable;
+
     position: relative;
     float: right;
     width: bootstrap.$full-width;
@@ -30,8 +32,6 @@
     flex-flow: column;
 
     overflow: auto;
-    @extend %scrollable;
-
     border-top: 2px solid bootstrap.$primary;
     background: linear-gradient(
         bootstrap.$background-black,

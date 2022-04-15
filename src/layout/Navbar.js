@@ -75,24 +75,9 @@ const XNavbar = ({
                             })}
                         >
                             <NavbarToggler onClick={toggleSidebar}>
-                                <span
-                                    className={cx(
-                                        styles.togglerBar,
-                                        styles.bar1
-                                    )}
-                                />
-                                <span
-                                    className={cx(
-                                        styles.togglerBar,
-                                        styles.bar2
-                                    )}
-                                />
-                                <span
-                                    className={cx(
-                                        styles.togglerBar,
-                                        styles.bar3
-                                    )}
-                                />
+                                <span className={styles.bar1} />
+                                <span className={styles.bar2} />
+                                <span className={styles.bar3} />
                             </NavbarToggler>
                         </div>
                         <NavbarBrand onClick={e => e.preventDefault()}>
@@ -100,12 +85,12 @@ const XNavbar = ({
                         </NavbarBrand>
                     </div>
                     <NavbarToggler onClick={toggleCollapse}>
-                        <span className={cx(styles.togglerBar, styles.kebab)} />
-                        <span className={cx(styles.togglerBar, styles.kebab)} />
-                        <span className={cx(styles.togglerBar, styles.kebab)} />
+                        <span className={styles.kebab} />
+                        <span className={styles.kebab} />
+                        <span className={styles.kebab} />
                     </NavbarToggler>
                     <Collapse navbar isOpen={collapseOpen}>
-                        <Nav className="ml-auto" navbar>
+                        <Nav className={cx("ml-auto", styles.navbarNav)} navbar>
                             <InputGroup
                                 className={cx("search-bar", styles.searchBar)}
                             >
