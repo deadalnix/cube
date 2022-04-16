@@ -204,7 +204,7 @@
         bottom: 0px;
     }
 
-    .toggled {
+    .navopen {
         %toggle-bar {
             width: 24px;
 
@@ -326,7 +326,7 @@
         transition: all 1s;
     }
 
-    .toggled {
+    .navopen {
         left: -20px;
         position: relative;
         right: unset;

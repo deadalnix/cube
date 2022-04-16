@@ -29,19 +29,29 @@
         bootstrap.$primary
     );
 
-    height: calc(100vh - 90px);
-    width: 230px;
+    @media screen and (max-width: 991px) {
+        @include bootstrap.transition(
+            0.5s cubic-bezier(0.685, 0.0473, 0.346, 1)
+        );
+        @include bootstrap.transform-translate-x(-260px);
+    }
+
+    height: 100%;
+    width: 260px;
     position: fixed;
+    z-index: 1032;
     top: 0;
+    right: auto;
     left: 0;
-    z-index: 1;
     background-size: cover;
     background-position: center center;
     display: block;
     box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);
-    margin-top: 80px;
-    margin-left: 20px;
-    border-radius: 5px;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+    visibility: visible;
+    overflow-y: visible;
 
     :global(.logo-tim) {
         border-radius: 50%;
@@ -176,42 +186,14 @@
             bootstrap.$success
         );
     }
+}
 
-    &.navopen {
-        @media screen and (max-width: 991px) {
-            @include bootstrap.transition(
-                0.5s cubic-bezier(0.685, 0.0473, 0.346, 1)
-            );
-            @include bootstrap.transform-translate-x(0px);
+.navopen {
+    @include bootstrap.transition(0.5s cubic-bezier(0.685, 0.0473, 0.346, 1));
+    @include bootstrap.transform-translate-x(0px);
 
-            &:before {
-                content: unset;
-            }
-        }
-    }
-
-    transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
-
-    @media screen and (max-width: 991px) {
-        @include bootstrap.transition(
-            0.5s cubic-bezier(0.685, 0.0473, 0.346, 1)
-        );
-
-        @include bootstrap.transform-translate-x(-260px);
-
-        position: fixed;
-        display: block;
-        top: 0;
-        height: 100%;
-        width: 260px;
-        right: auto;
-        left: 0;
-        margin: 0;
-        border-radius: 0;
-        z-index: 1032;
-        visibility: visible;
-        overflow-y: visible;
-        padding: 0;
+    &:before {
+        content: unset;
     }
 }
 

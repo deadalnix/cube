@@ -65,13 +65,12 @@ const XNavbar = ({
 
     return (
         <>
-            <Navbar className={cx(styles.absolute, color)} expand="lg">
+            <Navbar className={cx(styles.absolute, color)}>
                 <Container fluid>
                     <div className={styles.wrapper}>
                         <div
                             className={cx(styles.toggle, "d-inline", {
-                                toggled: sidebarOpened,
-                                [styles.toggled]: sidebarOpened,
+                                [styles.navopen]: sidebarOpened,
                             })}
                         >
                             <NavbarToggler onClick={toggleSidebar}>

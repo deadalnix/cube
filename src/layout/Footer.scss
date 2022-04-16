@@ -1,7 +1,7 @@
 @use "assets/bootstrap/core" as bootstrap;
 
 .footer {
-    padding: 24px 0 24px 250px;
+    padding: 24px 0;
 
     [class*="container-"] {
         padding: 0;
@@ -54,10 +54,6 @@ ul.navbar {
 }
 
 @media screen and (max-width: 991px) {
-    .footer {
-        padding-left: 0px;
-    }
-
     .copyright {
         text-align: right;
         margin-right: 15px;
