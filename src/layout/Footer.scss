@@ -1,76 +1,25 @@
-@use "assets/bootstrap/core" as bootstrap;
-
 .footer {
-    padding: 24px 0;
+    display: flex;
+    flex-wrap: wrap;
 
-    [class*="container-"] {
-        padding: 0;
-    }
+    padding: 1.5rem 2rem;
 
-    &:after {
-        display: table;
-        clear: both;
-        content: " ";
-    }
+    color: white;
+    font-size: 0.75rem;
 }
 
-ul.navbar {
-    display: inline-block;
-    float: left;
-    margin-bottom: 0;
-    padding-left: 30px;
-    list-style: none;
+.navbar {
+    flex: 1 1 auto;
 
-    > li {
-        display: inline-block;
+    display: flex;
+    gap: 1rem;
 
-        &:first-child a {
-            padding-left: 0;
-        }
-
-        > a {
-            color: bootstrap.$white;
-            padding: 0 bootstrap.$padding-base-vertical;
-            font-size: bootstrap.$font-size-sm;
-            text-transform: uppercase;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: none;
-            }
-        }
+    a {
+        color: white;
+        text-transform: uppercase;
     }
 }
 
 .copyright {
-    font-size: bootstrap.$font-size-sm;
-    line-height: 1.8;
-    color: bootstrap.$white;
-
-    @media screen and (min-width: 992px) {
-        float: right;
-        padding-right: 30px;
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .copyright {
-        text-align: right;
-        margin-right: 15px;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .footer {
-        text-align: center;
-    }
-
-    ul.navbar {
-        float: none;
-        padding-left: 0;
-    }
-
-    .copyright {
-        text-align: center;
-    }
+    text-align: center;
 }

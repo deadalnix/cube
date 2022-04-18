@@ -1,85 +1,303 @@
-@use "assets/bootstrap/core" as bootstrap;
-@use "./common";
+$sidebar_width: 260px;
+$transition_duration: 300ms;
+
+$default: #344675;
+$primary: #e14eca;
+$secondary: #f4f5f7;
+$success: #00f2c3;
+$info: #1d8cf8;
+$warning: #ff8d72;
+$danger: #fd5d93;
+$black: #222a42;
+
+// gradient
+$default-states: #263148;
+$primary-states: #ba54f5;
+$success-states: #0098f0;
+$info-states: #3358f4;
+$warning-states: #ff6491;
+$danger-states: #ec250d;
+$black-states: #1d253b;
+
+// Background
+$background-black: #1e1e24;
+$background-states-black: #1e1e2f;
+
+%sidebar-transition {
+    transition: all $transition_duration cubic-bezier(0.685, 0.0473, 0.346, 1);
+}
 
 .wrapper {
-    position: relative;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.sidebar {
+    @extend %sidebar-transition;
+
+    position: fixed;
     top: 0;
-    height: 100vh;
+    left: 0;
 
-    overflow-x: hidden;
+    height: 100%;
+    width: $sidebar_width;
 
-    @media screen and (max-width: 991px) {
-        @include bootstrap.transition(
-            0.5s,
-            cubic-bezier(0.685, 0.0473, 0.346, 1)
-        );
+    // Make it scrollable in case it is too long.
+    scrollbar-width: thin;
+    overflow: hidden;
+
+    &:hover {
+        overflow-y: auto;
+    }
+
+    > * {
+        width: inherit;
     }
 }
 
-:global(.white-content) .panel {
-    background: bootstrap.$light-bg;
-}
-
 .panel {
-    @extend %scrollable;
-
-    position: absolute;
-    float: right;
-    width: calc(100% - 260px);
-    height: 100vh;
-    left: 260px;
+    @extend %sidebar-transition;
 
     display: flex;
     flex-flow: column;
 
+    position: relative;
+    top: 0;
+    left: $sidebar_width;
+
+    width: calc(100% - $sidebar_width);
+    height: 100vh;
     overflow: auto;
-    border-top: 2px solid bootstrap.$primary;
-    background: linear-gradient(
-        bootstrap.$background-black,
-        bootstrap.$background-states-black
-    );
 
-    @include bootstrap.transitions(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+    background: linear-gradient($background-states-black, $background-black);
+}
 
-    &[data="Blue"] {
-        border-top: 2px solid bootstrap.$info;
+[data="Primary"] {
+    .sidebar {
+        background: linear-gradient(0deg, $primary-states 0%, $primary 100%);
     }
 
-    &[data="Green"] {
-        border-top: 2px solid bootstrap.$success;
-    }
-
-    &[data="Primary"] {
-        border-top: 2px solid bootstrap.$primary;
-    }
-
-    > :global(.navbar) {
-        margin-bottom: 0;
+    .panel {
+        border-top: 2px solid $primary;
     }
 }
 
-@media screen and (max-width: 991px) {
-    .panel {
-        width: 100%;
-        left: 0;
+[data="Blue"] {
+    .sidebar {
+        background: linear-gradient(0deg, $info-states 0%, $info 100%);
     }
 
-    .navopen .panel {
-        right: 0;
-        @include bootstrap.transform-translate-x(260px);
+    .panel {
+        border-top: 2px solid $info;
+    }
+}
+
+[data="Green"] {
+    .sidebar {
+        background: linear-gradient(0deg, $success-states 0%, $success 100%);
+    }
+
+    .panel {
+        border-top: 2px solid $success;
+    }
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.5rem 2em;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+
+    > h1 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 2em;
+        text-transform: uppercase;
+    }
+}
+
+%navbar-toggle {
+    display: none;
+
+    font-size: 2rem;
+    line-height: 2rem;
+    color: white;
+
+    border: 0;
+    background: transparent;
+}
+
+.sidebarToggle {
+    @extend %navbar-toggle;
+
+    padding: 1rem;
+}
+
+.menuToggle {
+    @extend %navbar-toggle;
+
+    padding: 0 1rem;
+}
+
+// Usually, we'd prefer to design mobile first and then
+// special case for larger screen, but in this case,
+// .sidebarOpen doesn't do anything on large screen
+// and caceling its effet is error prone.
+@media screen and (max-width: 1080px) {
+    .sidebarOpen {
+        .sidebar,
+        .panel {
+            transform: translate($sidebar_width, 0);
+        }
+    }
+
+    .sidebar {
+        left: -$sidebar_width;
+    }
+
+    .panel {
+        left: 0;
+        width: 100%;
+    }
+
+    .navbar {
+        padding-left: 1rem;
+    }
+
+    %navbar-toggle {
+        display: block;
     }
 }
 
 .content {
-    padding: 78px 30px 30px 280px;
     flex: 1 1 auto;
+    padding: 1.5rem;
+}
 
-    @media screen and (max-width: 991px) {
-        padding-left: 30px;
+/**
+ * Sidebar navigation
+ */
+.brand {
+    display: block;
+
+    text-transform: uppercase;
+    padding: 1rem 0.7rem;
+    white-space: nowrap;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 2rem;
+    overflow: hidden;
+
+    &:after {
+        display: block;
+        margin: 1rem auto 0 auto;
+
+        content: "";
+        height: 1px;
+        width: calc(100% - 2rem);
+        background: white;
+        opacity: 0.5;
     }
 
-    @media screen and (max-width: 768px) {
-        padding-left: 15px;
-        padding-right: 15px;
+    img {
+        border-radius: 50%;
+        width: 2rem;
+        margin: 0 1rem;
+    }
+}
+
+.sidebarNav {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+.navLink {
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+
+    color: white;
+    text-transform: uppercase;
+
+    // Slight transparency except for the active one.
+    opacity: 0.8;
+
+    &.active,
+    &:hover {
+        opacity: 1;
+        font-weight: 400;
+    }
+}
+
+.navIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+}
+
+/**
+ * Toggle bar icon
+ */
+%toggle-bar {
+    @extend %sidebar-transition;
+
+    display: block;
+    position: relative;
+    height: 1px;
+    border-radius: 1px;
+    background: white;
+    outline: 1px solid transparent;
+}
+
+.bar1 {
+    @extend %toggle-bar;
+
+    transform: rotate(0);
+    width: 0.75em;
+    top: -0.25em;
+}
+
+.bar2 {
+    @extend %toggle-bar;
+
+    opacity: 1;
+    width: 0.5em;
+    left: 0;
+}
+
+.bar3 {
+    @extend %toggle-bar;
+
+    transform: rotate(0);
+    width: 0.75em;
+    top: 0.25em;
+}
+
+.sidebarOpen {
+    .bar1 {
+        transform: rotate(135deg);
+        width: 1em;
+        top: 1px;
+    }
+
+    .bar2 {
+        opacity: 0;
+        width: 0;
+        left: 0.38em;
+    }
+
+    .bar3 {
+        transform: rotate(-135deg);
+        width: 1em;
+        top: -1px;
     }
 }

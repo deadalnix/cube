@@ -1,6 +1,8 @@
 // @flow
 import { type Node } from "react";
 
+import { faCube, faGamepad } from "@fortawesome/free-solid-svg-icons";
+
 import HelloCube from "views/HelloCube";
 import Pll from "views/Pll";
 import PllTrainer from "views/PllTrainer";
@@ -16,19 +18,19 @@ const routes: Array<Route> = [
     {
         path: "",
         name: "Cube",
-        icon: "tim-icons icon-app",
+        icon: faCube,
         Component: HelloCube,
     },
     {
         path: "pll",
         name: "PLL",
-        icon: "tim-icons icon-app",
+        icon: faCube,
         Component: Pll,
     },
     {
         path: "plltrainer",
         name: "PLL trainer",
-        icon: "tim-icons icon-app",
+        icon: faGamepad,
         Component: PllTrainer,
     },
 ];

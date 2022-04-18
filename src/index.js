@@ -4,8 +4,6 @@ import { hydrate, render } from "react-dom";
 import App from "App";
 import reportWebVitals from "./reportWebVitals";
 
-import "index.scss";
-
 import Bootstrap from "assets/bootstrap/global.scss";
 import { Util } from "reactstrap";
 
