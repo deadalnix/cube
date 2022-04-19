@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cube/static/css/main.77f8d775.css",
-    "main.js": "/cube/static/js/main.7f5fae26.js",
+    "main.css": "/cube/static/css/main.483a910a.css",
+    "main.js": "/cube/static/js/main.65f4b21c.js",
     "static/js/787.a70a1d16.chunk.js": "/cube/static/js/787.a70a1d16.chunk.js",
     "static/media/fa-solid-900.ttf": "/cube/static/media/fa-solid-900.e615bbcb258550973c16.ttf",
     "static/media/fa-brands-400.ttf": "/cube/static/media/fa-brands-400.b823fc0dbb5a5f0c21bb.ttf",
@@ -9,36 +9,14 @@
     "static/media/fa-brands-400.woff2": "/cube/static/media/fa-brands-400.ebb7a127d2d8ee6f1832.woff2",
     "static/media/fa-regular-400.ttf": "/cube/static/media/fa-regular-400.0d03b1bbd1d62c1e1284.ttf",
     "static/media/react-logo.png": "/cube/static/media/react-logo.561f1671ed326d663356.png",
-    "static/media/pxiEyp8kv8JHgFVrJJbecmNE.woff2": "/cube/static/media/pxiEyp8kv8JHgFVrJJbecmNE.64d5f06ee726edd58ca3.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDz8Z11lFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDz8Z11lFc-K.8236e953c7367362a568.woff2",
-    "static/media/pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLEj6Z11lFc-K.3343afa6b8c01e48a23b.woff2",
-    "static/media/pxiByp8kv8JHgFVrLFj_Z11lFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLFj_Z11lFc-K.36828c2aa518db3d9dfe.woff2",
-    "static/media/pxiByp8kv8JHgFVrLCz7Z11lFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z11lFc-K.349ed9fa39221b45ae9a.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDD4Z11lFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDD4Z11lFc-K.5e8f879de58d6f900998.woff2",
-    "static/media/nucleo.eot": "/cube/static/media/nucleo.bd5cce8bf40be5947637.eot",
-    "static/media/nucleo.ttf": "/cube/static/media/nucleo.35b08447277ca7bf9f09.ttf",
     "static/media/fa-regular-400.woff2": "/cube/static/media/fa-regular-400.0caf4c6cf244a90efcc5.woff2",
-    "static/media/nucleo.woff": "/cube/static/media/nucleo.5c65ef4d6434bb8062a3.woff",
-    "static/media/nucleo.woff2": "/cube/static/media/nucleo.6dfb4833e3a0132fd1fc.woff2",
-    "static/media/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLEj6Z1xlFQ.91145014c0350c248ed2.woff2",
-    "static/media/pxiByp8kv8JHgFVrLFj_Z1xlFQ.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLFj_Z1xlFQ.7498246ad20e0ba71240.woff2",
-    "static/media/pxiEyp8kv8JHgFVrJJfecg.woff2": "/cube/static/media/pxiEyp8kv8JHgFVrJJfecg.405055dd680fa1dcdfa2.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDz8Z1xlFQ.39576fe9df8a22cc1bcc.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDD4Z1xlFQ.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDD4Z1xlFQ.ca6a92cea2062ebec667.woff2",
-    "static/media/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z1xlFQ.d86662fe776dae29ea78.woff2",
-    "static/media/pxiEyp8kv8JHgFVrJJnecmNE.woff2": "/cube/static/media/pxiEyp8kv8JHgFVrJJnecmNE.4f38b4331448d2313adc.woff2",
-    "static/media/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.d08f0891e438248ce419.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDD4Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDD4Z1JlFc-K.321c80e54f0ca44d12ad.woff2",
-    "static/media/pxiByp8kv8JHgFVrLFj_Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLFj_Z1JlFc-K.81aeafc015f493f18d85.woff2",
-    "static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.b0bb003afc8483bd32d2.woff2",
-    "static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2": "/cube/static/media/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.63d2a69665d58b22ceea.woff2",
     "index.html": "/cube/index.html",
-    "main.77f8d775.css.map": "/cube/static/css/main.77f8d775.css.map",
-    "main.7f5fae26.js.map": "/cube/static/js/main.7f5fae26.js.map",
+    "main.483a910a.css.map": "/cube/static/css/main.483a910a.css.map",
+    "main.65f4b21c.js.map": "/cube/static/js/main.65f4b21c.js.map",
     "787.a70a1d16.chunk.js.map": "/cube/static/js/787.a70a1d16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.77f8d775.css",
-    "static/js/main.7f5fae26.js"
+    "static/css/main.483a910a.css",
+    "static/js/main.65f4b21c.js"
   ]
 }
