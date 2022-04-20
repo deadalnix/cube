@@ -1,6 +1,11 @@
 // @flow
 import { type Node, useState, useLayoutEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+
+import styles from "components/ClientSide.scss";
+
 // This ensures that we only go through static rendering once at startup.
 let clientSideLatch = false;
 
@@ -21,7 +26,7 @@ const ClientSide = ({ children }: { children: Node }): Node =>
     useClientSide() ? (
         children
     ) : (
-        <i className="tim-icons icon-refresh-02 tim-icons-is-spinning" />
+        <FontAwesomeIcon className={styles.spinner} icon={faSpinner} spin />
     );
 
 export default ClientSide;
