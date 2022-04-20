@@ -54,6 +54,7 @@ const Layout = ({ children }: LayoutProps): Node => {
                 <nav className={styles.sidebarNav}>
                     {routes.map((prop, key) => (
                         <NavLink
+                            key={key}
                             to={prop.path}
                             className={({ isActive }) =>
                                 cx(styles.navLink, {
