@@ -107,7 +107,7 @@ $background-states-black: #1e1e2f;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0.5rem 1.5em;
+    padding: 0.5rem 1.5rem;
 }
 
 .breadcrumb {
@@ -167,7 +167,7 @@ $background-states-black: #1e1e2f;
     }
 
     .navbar {
-        padding-left: 0;
+        padding: 0.5rem 0;
     }
 
     %navbar-toggle {
