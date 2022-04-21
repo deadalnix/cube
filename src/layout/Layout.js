@@ -22,9 +22,8 @@ const Layout = ({ children }: LayoutProps): Node => {
     const location = useLocation();
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
+    const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+    const closeSidebar = () => setSidebarOpen(false);
 
     // eslint-disable-next-line no-unused-vars
     const [color, setColor] = useState(Color.Blue);
@@ -56,6 +55,7 @@ const Layout = ({ children }: LayoutProps): Node => {
                         <NavLink
                             key={key}
                             to={prop.path}
+                            onClick={closeSidebar}
                             className={({ isActive }) =>
                                 cx(styles.navLink, {
                                     [styles.active]: isActive,
