@@ -103,23 +103,25 @@ const PllTrainer = (): Node => {
     ));
 
     return (
-        <Row>
-            <Col md="4" className="text-center">
+        <div className={styles.container}>
+            <div className={styles.topPanel}>
                 <ClientSide>
-                    <Cube stickers={position.stickers} colorList={colorList} />
+                    <Cube
+                        stickers={position.stickers}
+                        colorList={colorList}
+                        className={styles.cube}
+                    />
                 </ClientSide>
-            </Col>
-            <Col md="8">
-                <Card className={"card-plain"}>
-                    <CardHeader>
-                        <CardTitle tag="h3">PLL recognition trainer</CardTitle>
-                    </CardHeader>
-                    <CardBody className={styles.buttonGrid}>
-                        {Object.values(buttons)}
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
+            </div>
+            <Card className={"card-plain"}>
+                <CardHeader>
+                    <CardTitle tag="h3">PLL recognition trainer</CardTitle>
+                </CardHeader>
+                <CardBody className={styles.buttonGrid}>
+                    {Object.values(buttons)}
+                </CardBody>
+            </Card>
+        </div>
     );
 };
 
