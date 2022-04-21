@@ -1,5 +1,6 @@
 $sidebar_width: 16rem;
 $transition_duration: 300ms;
+$transition_function: cubic-bezier(0.685, 0.0473, 0.346, 1);
 
 $default: #344675;
 $primary: #e14eca;
@@ -24,7 +25,7 @@ $background-black: #1e1e24;
 $background-states-black: #1e1e2f;
 
 %sidebar-transition {
-    transition: all $transition_duration cubic-bezier(0.685, 0.0473, 0.346, 1);
+    transition: transform $transition_duration $transition_function;
 }
 
 .wrapper {
@@ -248,7 +249,7 @@ $background-states-black: #1e1e2f;
  * Toggle bar icon
  */
 %toggle-bar {
-    @extend %sidebar-transition;
+    transition: all $transition_duration $transition_function;
 
     display: block;
     position: relative;
