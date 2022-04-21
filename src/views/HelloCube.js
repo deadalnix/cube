@@ -7,8 +7,8 @@ import PLL from "cube/Pll";
 
 const HelloCube = (): Node => (
     <>
-        <RotatingCube size="500px" stickers={PLL.Rb.stickers} />
-        <Face size="500px" stickers={PLL.Rb.stickers} />
+        <RotatingCube style={{ height: "500px" }} stickers={PLL.Rb.stickers} />
+        <Face style={{ height: "500px" }} stickers={PLL.Rb.stickers} />
     </>
 );
 

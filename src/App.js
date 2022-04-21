@@ -34,7 +34,7 @@ const InvalidRoute = (): Node => {
     return (
         <div className="w-100 text-center">
             <h1>Oooops!</h1>
-            <RotatingCube size={400} />
+            <RotatingCube />
             <p>We can't find what you're looking for.</p>
         </div>
     );

@@ -32,7 +32,10 @@ const PllCard = ({ pll: { name, alg } }: { pll: PllInfo }): Node => {
             <CardBody>
                 <Row>
                     <Col className="text-center">
-                        <Face size="200px" stickers={sr.getStickers()} />
+                        <Face
+                            style={{ height: "200px" }}
+                            stickers={sr.getStickers()}
+                        />
                     </Col>
                 </Row>
                 <Row>

@@ -26,8 +26,6 @@ export type CubeProps = {
 const Cube = ({
     dimention,
     orientation,
-    size,
-    style,
     colorList,
     stickers,
     ...props
@@ -87,15 +85,8 @@ const Cube = ({
         );
     }
 
-    if (size != null) {
-        style = Object.assign({}, style, {
-            width: size,
-            height: size,
-        });
-    }
-
     return (
-        <svg {...props} viewBox="-0.9 -0.9 1.8 1.8" style={style}>
+        <svg {...props} viewBox="-0.9 -0.9 1.8 1.8">
             <g strokeWidth="0.1" strokeLinejoin="round">
                 {outlines}
             </g>

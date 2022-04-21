@@ -17,7 +17,6 @@ type FaceProps = {
 
 const Face = ({
     dimention,
-    size,
     colorList,
     stickers,
     ...props
@@ -74,13 +73,8 @@ const Face = ({
         [tx, ty] = [-ty, tx];
     }
 
-    const SvgStyle = {
-        width: size,
-        height: size,
-    };
-
     return (
-        <svg {...props} viewBox="-0.9 -0.9 1.8 1.8" style={SvgStyle}>
+        <svg {...props} viewBox="-0.9 -0.9 1.8 1.8">
             <g strokeWidth="0.1" strokeLinejoin="round">
                 <Outline
                     vertices={[
