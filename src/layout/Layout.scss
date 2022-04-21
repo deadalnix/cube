@@ -29,7 +29,10 @@ $background-states-black: #1e1e2f;
 
 .wrapper {
     width: 100vw;
-    overflow: hidden;
+    height: 100vh;
+    overflow-x: hidden;
+
+    background: linear-gradient($background-states-black, $background-black);
 }
 
 .sidebar {
@@ -66,10 +69,7 @@ $background-states-black: #1e1e2f;
     left: $sidebar_width;
 
     width: calc(100% - $sidebar_width);
-    height: 100vh;
-    overflow: auto;
-
-    background: linear-gradient($background-states-black, $background-black);
+    height: 100%;
 }
 
 [data="Primary"] {
