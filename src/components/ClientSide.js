@@ -26,7 +26,9 @@ const ClientSide = ({ children }: { children: Node }): Node =>
     useClientSide() ? (
         children
     ) : (
-        <FontAwesomeIcon className={styles.spinner} icon={faSpinner} spin />
+        <div className={styles.spinner}>
+            <FontAwesomeIcon icon={faSpinner} spin />
+        </div>
     );
 
 export default ClientSide;
