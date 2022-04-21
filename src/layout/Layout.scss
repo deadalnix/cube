@@ -1,3 +1,5 @@
+$mobile_max_width: 1080px;
+
 $sidebar_width: 16rem;
 $transition_duration: 300ms;
 $transition_function: cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -150,7 +152,7 @@ $background-states-black: #1e1e2f;
 // special case for larger screen, but in this case,
 // .sidebarOpen doesn't do anything on large screen
 // and caceling its effet is error prone.
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: $mobile_max_width) {
     .sidebarOpen {
         .sidebar,
         .panel {
