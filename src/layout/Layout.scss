@@ -1,4 +1,4 @@
-$sidebar_width: 260px;
+$sidebar_width: 16rem;
 $transition_duration: 300ms;
 
 $default: #344675;
@@ -39,7 +39,7 @@ $background-states-black: #1e1e2f;
     top: 0;
     left: 0;
 
-    height: 100%;
+    height: 100vh;
     width: $sidebar_width;
 
     // Make it scrollable in case it is too long.
