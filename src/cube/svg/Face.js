@@ -10,8 +10,11 @@ import { type SvgProps, DefaultSvgProps } from "cube/svg/Props";
 import Outline from "cube/svg/Outline";
 import Facelets from "cube/svg/Facelets";
 
+import styles from "cube/svg/Cube.scss";
+
 type FaceProps = {
     ...SvgProps,
+    label?: string,
     ...
 };
 
@@ -19,6 +22,7 @@ const Face = ({
     dimention,
     colorList,
     stickers,
+    label,
     ...props
 }: FaceProps): Node => {
     const Stickers = stickers ?? makeDefaultStickers(dimention);
@@ -95,6 +99,7 @@ const Face = ({
                 />
                 {sideFacelets}
             </g>
+            {label && <text className={styles.label}>{label}</text>}
         </svg>
     );
 };

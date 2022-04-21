@@ -11,15 +11,7 @@ import { objectMap } from "cube/CubeUtils";
 
 import ClientSide from "components/ClientSide";
 
-import {
-    Row,
-    Col,
-    Button,
-    Card,
-    CardHeader,
-    CardTitle,
-    CardBody,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardTitle, CardBody } from "reactstrap";
 
 import styles from "views/PllTrainer.scss";
 
@@ -69,14 +61,7 @@ const PllButton = ({
     onClick: () => void,
 }): Node => (
     <Button className="text-center" onClick={onClick}>
-        <Row>
-            <Col>
-                <Face size="100%" stickers={pll.stickers} />
-            </Col>
-        </Row>
-        <Row>
-            <Col>{pll.name}</Col>
-        </Row>
+        <Face label={pll.name} stickers={pll.stickers} />
     </Button>
 );
 
