@@ -25,6 +25,8 @@
     scrollbar-width: thin;
     overflow: hidden;
 
+    background: linear-gradient(0deg, utils.$info-states 0%, utils.$info 100%);
+
     &:hover {
         overflow-y: auto;
     }
@@ -46,48 +48,8 @@
 
     width: calc(100% - utils.$sidebar_width);
     height: 100%;
-}
 
-[data="Primary"] {
-    .sidebar {
-        background: linear-gradient(
-            0deg,
-            utils.$primary-states 0%,
-            utils.$primary 100%
-        );
-    }
-
-    .panel {
-        border-top: 2px solid utils.$primary;
-    }
-}
-
-[data="Blue"] {
-    .sidebar {
-        background: linear-gradient(
-            0deg,
-            utils.$info-states 0%,
-            utils.$info 100%
-        );
-    }
-
-    .panel {
-        border-top: 2px solid utils.$info;
-    }
-}
-
-[data="Green"] {
-    .sidebar {
-        background: linear-gradient(
-            0deg,
-            utils.$success-states 0%,
-            utils.$success 100%
-        );
-    }
-
-    .panel {
-        border-top: 2px solid utils.$success;
-    }
+    border-top: 2px solid utils.$info;
 }
 
 .navbar {

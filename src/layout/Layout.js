@@ -4,7 +4,6 @@ import { useLocation, matchPath, NavLink, Link } from "react-router-dom";
 
 import routes from "routes.js";
 
-import Color from "layout/Color";
 import Footer from "layout/Footer";
 
 import logo from "assets/img/react-logo.png";
@@ -25,9 +24,6 @@ const Layout = ({ children }: LayoutProps): Node => {
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
     const closeSidebar = () => setSidebarOpen(false);
 
-    // eslint-disable-next-line no-unused-vars
-    const [color, setColor] = useState(Color.Blue);
-
     const title = (() => {
         for (const r of routes) {
             if (matchPath(r.path, location.pathname)) {
@@ -43,7 +39,6 @@ const Layout = ({ children }: LayoutProps): Node => {
             className={cx(styles.wrapper, {
                 [styles.sidebarOpen]: sidebarOpen,
             })}
-            data={color}
         >
             <div className={styles.sidebar}>
                 <Link to="" className={styles.brand}>
