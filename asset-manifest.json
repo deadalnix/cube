@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cube/static/css/main.b296074d.css",
-    "main.js": "/cube/static/js/main.57524895.js",
+    "main.css": "/cube/static/css/main.7852ec29.css",
+    "main.js": "/cube/static/js/main.8c0eac42.js",
     "static/js/787.a70a1d16.chunk.js": "/cube/static/js/787.a70a1d16.chunk.js",
     "static/media/fa-solid-900.ttf": "/cube/static/media/fa-solid-900.e615bbcb258550973c16.ttf",
     "static/media/fa-brands-400.ttf": "/cube/static/media/fa-brands-400.b823fc0dbb5a5f0c21bb.ttf",
@@ -11,12 +11,12 @@
     "static/media/react-logo.png": "/cube/static/media/react-logo.561f1671ed326d663356.png",
     "static/media/fa-regular-400.woff2": "/cube/static/media/fa-regular-400.0caf4c6cf244a90efcc5.woff2",
     "index.html": "/cube/index.html",
-    "main.b296074d.css.map": "/cube/static/css/main.b296074d.css.map",
-    "main.57524895.js.map": "/cube/static/js/main.57524895.js.map",
+    "main.7852ec29.css.map": "/cube/static/css/main.7852ec29.css.map",
+    "main.8c0eac42.js.map": "/cube/static/js/main.8c0eac42.js.map",
     "787.a70a1d16.chunk.js.map": "/cube/static/js/787.a70a1d16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b296074d.css",
-    "static/js/main.57524895.js"
+    "static/css/main.7852ec29.css",
+    "static/js/main.8c0eac42.js"
   ]
 }
