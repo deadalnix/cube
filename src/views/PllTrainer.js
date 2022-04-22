@@ -7,11 +7,8 @@ import { DefaultColorList } from "cube/svg/Props";
 
 import CubePLL, { type PllInfo, PllPatterns } from "cube/Pll";
 import { makeDefaultStickers } from "cube/Stickers";
-import { objectMap } from "cube/CubeUtils";
 
 import ClientSide from "components/ClientSide";
-
-import { Button, Card, CardHeader, CardTitle, CardBody } from "reactstrap";
 
 import styles from "views/PllTrainer.scss";
 
@@ -60,9 +57,13 @@ const PllButton = ({
     pll: PllInfo,
     onClick: () => void,
 }): Node => (
-    <Button className="text-center" onClick={onClick}>
-        <Face label={pll.name} stickers={pll.stickers} />
-    </Button>
+    <button type="button" className={styles.faceButton} onClick={onClick}>
+        <Face
+            className={styles.cube}
+            label={pll.name}
+            stickers={pll.stickers}
+        />
+    </button>
 );
 
 const PllTrainer = (): Node => {
@@ -83,7 +84,8 @@ const PllTrainer = (): Node => {
         }
     };
 
-    const buttons = objectMap(CubePLL, pll => (
+    // XXX: Object.values has type checking problems.
+    const buttons = Object.values(CubePLL).map((pll: any) => (
         <PllButton key={pll.name} pll={pll} onClick={() => selectAnswer(pll)} />
     ));
 
@@ -98,14 +100,7 @@ const PllTrainer = (): Node => {
                     />
                 </ClientSide>
             </div>
-            <Card className={"card-plain"}>
-                <CardHeader>
-                    <CardTitle tag="h3">PLL recognition trainer</CardTitle>
-                </CardHeader>
-                <CardBody className={styles.buttonGrid}>
-                    {Object.values(buttons)}
-                </CardBody>
-            </Card>
+            <div className={styles.buttonGrid}>{buttons}</div>
         </div>
     );
 };

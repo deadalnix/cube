@@ -27,6 +27,11 @@ $background-black: #1e1e24;
 $background-states-black: #1e1e2f;
 
 // Utilities
+%fullsize {
+    width: 100%;
+    height: 100%;
+}
+
 %sidebar-transition {
     transition: transform $transition_duration $transition_function;
 }
