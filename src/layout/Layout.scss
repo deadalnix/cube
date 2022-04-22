@@ -11,6 +11,11 @@
     );
 }
 
+%sidebar-transition {
+    transition: all utils.$transition_duration utils.$transition_function;
+    transition-property: left, transform;
+}
+
 .sidebar {
     @extend %sidebar-transition;
 
@@ -103,7 +108,7 @@
     .sidebarOpen {
         .sidebar,
         .panel {
-            transform: translate(utils.$sidebar_width, 0);
+            transform: translateX(utils.$sidebar_width);
         }
     }
 
