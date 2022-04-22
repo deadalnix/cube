@@ -1,0 +1,32 @@
+$mobile_max_width: 67.5rem;
+
+$sidebar_width: 16rem;
+$transition_duration: 300ms;
+$transition_function: cubic-bezier(0.685, 0.0473, 0.346, 1);
+
+$default: #344675;
+$primary: #e14eca;
+$secondary: #f4f5f7;
+$success: #00f2c3;
+$info: #1d8cf8;
+$warning: #ff8d72;
+$danger: #fd5d93;
+$black: #222a42;
+
+// gradient
+$default-states: #263148;
+$primary-states: #ba54f5;
+$success-states: #0098f0;
+$info-states: #3358f4;
+$warning-states: #ff6491;
+$danger-states: #ec250d;
+$black-states: #1d253b;
+
+// Background
+$background-black: #1e1e24;
+$background-states-black: #1e1e2f;
+
+// Utilities
+%sidebar-transition {
+    transition: transform $transition_duration $transition_function;
+}

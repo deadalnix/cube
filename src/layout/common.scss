@@ -1,9 +1,0 @@
-%scrollable {
-    -webkit-overflow-scrolling: touch;
-
-    @media (min-width: 991px) {
-        transition-property: top, bottom, width;
-        transition-duration: 0.2s, 0.2s, 0.35s;
-        transition-timing-function: linear, linear, ease;
-    }
-}
