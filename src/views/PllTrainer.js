@@ -3,10 +3,10 @@ import { type Node, useState } from "react";
 
 import Cube from "cube/svg/Cube";
 import Face from "cube/svg/Face";
-import { DefaultColorList } from "cube/svg/Props";
+import { DefaultColorList, DefaultOrientation } from "cube/svg/Props";
 
 import CubePLL, { type PllInfo, PllPatterns } from "cube/Pll";
-import { makeDefaultStickers } from "cube/Stickers";
+import { type Stickers, makeDefaultStickers } from "cube/Stickers";
 
 import ClientSide from "components/ClientSide";
 
@@ -50,6 +50,65 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
+const PllCube = ({
+    stickers,
+    colorList,
+    spin,
+    onSpinEnd,
+}: {
+    stickers: Stickers,
+    colorList: { [string]: string },
+    spin: boolean,
+    onSpinEnd: () => void,
+}): Node => {
+    const [orientation, setOrientation] = useState(DefaultOrientation);
+    const [spinAnimation, setSpinAnimation] = useState(null);
+
+    if (!spin && spinAnimation !== null) {
+        setSpinAnimation(null);
+    }
+
+    if (spin && spinAnimation === null) {
+        const StartTime = new Date().getTime();
+        const FromBeta = (orientation.beta - 360) % 360;
+        const ToBeta = DefaultOrientation.beta;
+
+        const id = setInterval(() => {
+            const ANIMATION_TIME = 300;
+
+            const time = new Date().getTime();
+            const t = (time - StartTime) / ANIMATION_TIME;
+
+            if (t < 1) {
+                const i = t * (2 - t);
+                setOrientation({
+                    alpha: DefaultOrientation.alpha,
+                    beta: FromBeta * (1 - i) + ToBeta * i,
+                });
+                return;
+            }
+
+            // We reached our destination.
+            setOrientation(DefaultOrientation);
+
+            // We are done, wrap it up.
+            clearInterval(id);
+            onSpinEnd();
+        }, 16);
+
+        setSpinAnimation(id);
+    }
+
+    return (
+        <Cube
+            stickers={stickers}
+            colorList={colorList}
+            orientation={orientation}
+            className={styles.cube}
+        />
+    );
+};
+
 const PllButton = ({
     pll,
     onClick,
@@ -73,6 +132,8 @@ const PllTrainer = (): Node => {
     const getColorList = () => selectRandomElement(ColorLists);
     const [colorList, setColorList] = useState(getColorList);
 
+    const [spin, setSpin] = useState(false);
+
     const setNewPosition = () => {
         setPosition(getPosition());
         setColorList(getColorList());
@@ -80,7 +141,7 @@ const PllTrainer = (): Node => {
 
     const selectAnswer = pll => {
         if (pll === position.pll) {
-            setNewPosition();
+            setSpin(true);
         }
     };
 
@@ -93,10 +154,14 @@ const PllTrainer = (): Node => {
         <div className={styles.container}>
             <div className={styles.topPanel}>
                 <ClientSide>
-                    <Cube
+                    <PllCube
                         stickers={position.stickers}
                         colorList={colorList}
-                        className={styles.cube}
+                        spin={spin}
+                        onSpinEnd={() => {
+                            setSpin(false);
+                            setNewPosition();
+                        }}
                     />
                 </ClientSide>
             </div>

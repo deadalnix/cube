@@ -63,9 +63,7 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
 
             // We are done, wrap it up.
             clearInterval(id);
-            if (animation === id) {
-                setAnimation(null);
-            }
+            setAnimation(a => (a === id ? null : a));
         }, 16);
 
         setAnimation(id);
