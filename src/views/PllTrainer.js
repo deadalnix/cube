@@ -1,5 +1,5 @@
 // @flow
-import { type Node, useState } from "react";
+import { type Node, useState, useRef } from "react";
 
 import Cube from "cube/svg/Cube";
 import Face from "cube/svg/Face";
@@ -50,6 +50,59 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
+class Animator<T> {
+    id: ?AnimationFrameID = null;
+    duration: number = 0;
+
+    step: (T, number) => void;
+    onStart: () => T;
+    onEnd: () => void;
+
+    constructor(
+        duration: number,
+        step: (T, number) => void,
+        onStart: () => T,
+        onEnd: () => void
+    ) {
+        this.duration = duration;
+        this.step = step;
+        this.onStart = onStart;
+        this.onEnd = onEnd;
+    }
+
+    start(): void {
+        // Just in case.
+        this.cancel();
+
+        const StartTime = performance.now();
+        const Data = this.onStart();
+
+        const animate = time => {
+            const t = (time - StartTime) / this.duration;
+            if (t >= 1) {
+                this.id = null;
+                this.onEnd();
+                return;
+            }
+
+            this.id = requestAnimationFrame(animate);
+            this.step(Data, t);
+        };
+
+        this.id = requestAnimationFrame(animate);
+    }
+
+    cancel(): boolean {
+        if (this.id == null) {
+            return false;
+        }
+
+        cancelAnimationFrame(this.id);
+        this.id = null;
+        return true;
+    }
+}
+
 const PllCube = ({
     stickers,
     colorList,
@@ -62,41 +115,53 @@ const PllCube = ({
     onSpinEnd: () => void,
 }): Node => {
     const [orientation, setOrientation] = useState(DefaultOrientation);
-    const [spinAnimation, setSpinAnimation] = useState(null);
+    const [isSpinning, setIsSpinning] = useState(false);
 
-    if (!spin && spinAnimation !== null) {
-        setSpinAnimation(null);
+    const spinAnimatorRef = useRef(null);
+    const clearSpinAnimator = () => {
+        if (spinAnimatorRef.current === null) {
+            return;
+        }
+
+        spinAnimatorRef.current.cancel();
+        spinAnimatorRef.current = null;
+    };
+
+    if (!spin && isSpinning) {
+        setIsSpinning(false);
+        clearSpinAnimator();
     }
 
-    if (spin && spinAnimation === null) {
-        const StartTime = new Date().getTime();
-        const FromBeta = (orientation.beta - 360) % 360;
-        const ToBeta = DefaultOrientation.beta;
+    if (spin && !isSpinning) {
+        clearSpinAnimator();
 
-        const id = setInterval(() => {
-            const ANIMATION_TIME = 300;
-
-            const time = new Date().getTime();
-            const t = (time - StartTime) / ANIMATION_TIME;
-
-            if (t < 1) {
+        const ANIMATION_TIME = 300;
+        const animator = new Animator(
+            ANIMATION_TIME,
+            (data, t) => {
                 const i = t * (2 - t);
                 setOrientation({
                     alpha: DefaultOrientation.alpha,
-                    beta: FromBeta * (1 - i) + ToBeta * i,
+                    beta: data.from * (1 - i) + data.to * i,
                 });
-                return;
+            },
+            () => ({
+                from: (orientation.beta - 360) % 360,
+                to: DefaultOrientation.beta,
+            }),
+            () => {
+                // We reached our destination.
+                setOrientation(DefaultOrientation);
+
+                // We are done, wrap it up.
+                clearSpinAnimator();
+                onSpinEnd();
             }
+        );
 
-            // We reached our destination.
-            setOrientation(DefaultOrientation);
-
-            // We are done, wrap it up.
-            clearInterval(id);
-            onSpinEnd();
-        }, 16);
-
-        setSpinAnimation(id);
+        spinAnimatorRef.current = animator;
+        animator.start();
+        setIsSpinning(true);
     }
 
     return (
