@@ -51,61 +51,94 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
+type CubeAnimation = null | "spin" | "shake";
+
 const PllCube = ({
     stickers,
     colorList,
-    spin,
-    onSpinEnd,
+    animation,
+    onAnimationEnd,
 }: {
     stickers: Stickers,
     colorList: { [string]: string },
-    spin: boolean,
-    onSpinEnd: () => void,
+    animation: CubeAnimation,
+    onAnimationEnd: () => void,
 }): Node => {
-    const [orientation, setOrientation] = useState(DefaultOrientation);
-    const [isSpinning, setIsSpinning] = useState(false);
+    const [beta, setBeta] = useState(DefaultOrientation.beta);
+    const [position, setPosition] = useState(0);
 
     const [startAnimation, cancelAnimation] = useAnimation();
+    const [currentAnimation, setCurrentAnimation] =
+        useState<CubeAnimation>(null);
 
-    if (!spin && isSpinning) {
-        setIsSpinning(false);
-        cancelAnimation();
-    }
+    const DefaultBeta = DefaultOrientation.beta;
 
-    const startSpinning = (from, to) => {
-        setIsSpinning(true);
-
+    const startSpinning = () => {
         const ANIMATION_TIME = 300;
+        const from = (beta - 360) % 360;
+        const to = DefaultBeta;
+
         startAnimation(
             ANIMATION_TIME,
             t => {
                 const i = t * (2 - t);
-                setOrientation({
-                    alpha: DefaultOrientation.alpha,
-                    beta: from * (1 - i) + to * i,
-                });
+                setBeta(from * (1 - i) + to * i);
             },
             () => {
                 // We reached our destination.
-                setOrientation(DefaultOrientation);
+                setBeta(to);
 
                 // We are done, wrap it up.
-                setIsSpinning(false);
-                onSpinEnd();
+                onAnimationEnd();
             }
         );
     };
 
-    if (spin && !isSpinning) {
-        startSpinning((orientation.beta - 360) % 360, DefaultOrientation.beta);
+    const startShaking = () => {
+        const ANIMATION_TIME = 200;
+        startAnimation(
+            ANIMATION_TIME,
+            t => setPosition(8 * t * (1 - t) * Math.sin(4 * Math.PI * t)),
+            () => {
+                // We reached our destination.
+                setPosition(0);
+
+                // We are done, wrap it up.
+                onAnimationEnd();
+            }
+        );
+    };
+
+    if (animation !== currentAnimation) {
+        setCurrentAnimation(animation);
+        switch (animation) {
+            case "spin":
+                setPosition(0);
+                startSpinning();
+                break;
+
+            case "shake":
+                setBeta(DefaultBeta);
+                startShaking();
+                break;
+
+            default:
+                cancelAnimation();
+        }
     }
 
     return (
         <Cube
             stickers={stickers}
             colorList={colorList}
-            orientation={orientation}
+            orientation={{
+                alpha: DefaultOrientation.alpha,
+                beta: beta,
+            }}
             className={styles.cube}
+            style={{
+                transform: `translateX(${position}%)`,
+            }}
         />
     );
 };
@@ -133,22 +166,19 @@ const PllTrainer = (): Node => {
     const getColorList = () => selectRandomElement(ColorLists);
     const [colorList, setColorList] = useState(getColorList);
 
-    const [spin, setSpin] = useState(false);
+    const [cubeAnimation, setCubeAnimation] = useState(null);
 
     const setNewPosition = () => {
         setPosition(getPosition());
         setColorList(getColorList());
     };
 
-    const selectAnswer = pll => {
-        if (pll === position.pll) {
-            setSpin(true);
-        }
-    };
+    const selectAnswer = pll => () =>
+        setCubeAnimation(pll === position.pll ? "spin" : "shake");
 
     // XXX: Object.values has type checking problems.
     const buttons = Object.values(CubePLL).map((pll: any) => (
-        <PllButton key={pll.name} pll={pll} onClick={() => selectAnswer(pll)} />
+        <PllButton key={pll.name} pll={pll} onClick={selectAnswer(pll)} />
     ));
 
     return (
@@ -158,10 +188,15 @@ const PllTrainer = (): Node => {
                     <PllCube
                         stickers={position.stickers}
                         colorList={colorList}
-                        spin={spin}
-                        onSpinEnd={() => {
-                            setSpin(false);
-                            setNewPosition();
+                        animation={cubeAnimation}
+                        onAnimationEnd={() => {
+                            setCubeAnimation(null);
+
+                            // If the animationw as a spin,
+                            // then we found the solution.
+                            if (cubeAnimation === "spin") {
+                                setNewPosition();
+                            }
                         }}
                     />
                 </ClientSide>
