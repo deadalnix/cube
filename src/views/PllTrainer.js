@@ -1,5 +1,5 @@
 // @flow
-import { type Node, useState, useRef } from "react";
+import { type Node, useState } from "react";
 
 import Cube from "cube/svg/Cube";
 import Face from "cube/svg/Face";
@@ -9,6 +9,7 @@ import CubePLL, { type PllInfo, PllPatterns } from "cube/Pll";
 import { type Stickers, makeDefaultStickers } from "cube/Stickers";
 
 import ClientSide from "components/ClientSide";
+import useAnimation from "components/useAnimation";
 
 import styles from "views/PllTrainer.scss";
 
@@ -50,52 +51,6 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
-const useAnimation = (): [
-    (number, (number) => void, () => void) => void,
-    () => boolean
-] => {
-    const idRef = useRef<?AnimationFrameID>(null);
-    const id = idRef.current;
-
-    const cancel = (): boolean => {
-        if (id == null) {
-            return false;
-        }
-
-        cancelAnimationFrame(id);
-        idRef.current = null;
-        return true;
-    };
-
-    const start = (
-        duration: number,
-        step: number => void,
-        onEnd: () => void
-    ) => {
-        // Just in case.
-        cancel();
-
-        const next = a => (idRef.current = requestAnimationFrame(a));
-
-        const StartTime = performance.now();
-        const animate = time => {
-            const t = (time - StartTime) / duration;
-            if (t >= 1) {
-                cancel();
-                onEnd();
-                return;
-            }
-
-            next(animate);
-            step(t);
-        };
-
-        next(animate);
-    };
-
-    return [start, cancel];
-};
-
 const PllCube = ({
     stickers,
     colorList,
@@ -117,11 +72,8 @@ const PllCube = ({
         cancelAnimation();
     }
 
-    if (spin && !isSpinning) {
+    const startSpinning = (from, to) => {
         setIsSpinning(true);
-
-        const From = (orientation.beta - 360) % 360;
-        const To = DefaultOrientation.beta;
 
         const ANIMATION_TIME = 300;
         startAnimation(
@@ -130,7 +82,7 @@ const PllCube = ({
                 const i = t * (2 - t);
                 setOrientation({
                     alpha: DefaultOrientation.alpha,
-                    beta: From * (1 - i) + To * i,
+                    beta: from * (1 - i) + to * i,
                 });
             },
             () => {
@@ -142,6 +94,10 @@ const PllCube = ({
                 onSpinEnd();
             }
         );
+    };
+
+    if (spin && !isSpinning) {
+        startSpinning((orientation.beta - 360) % 360, DefaultOrientation.beta);
     }
 
     return (

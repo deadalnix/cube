@@ -6,6 +6,8 @@ import Quaternion, { Slerp } from "math/Quaternion";
 import Cube, { type CubeProps } from "cube/svg/Cube";
 import { DefaultOrientation } from "cube/svg/Props";
 
+import useAnimation from "components/useAnimation";
+
 type RotatingCubeProps = {
     ...?CubeProps,
     orientation: {| alpha: number, beta: number |},
@@ -14,11 +16,10 @@ type RotatingCubeProps = {
 const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
     const [baseQ, setBaseQ] = useState(() => Quaternion.unit());
     const [currentQ, setCurrentQ] = useState(() => Quaternion.unit());
+    const [startAnimation /*, cancelAnimation */] = useAnimation();
 
     const [angles, setAngles] = useState(orientation);
-
     const [dragData, setDragData] = useState(null);
-    const [animation, setAnimation] = useState(null);
 
     const getCapture = e => {
         let target = e.target;
@@ -39,34 +40,14 @@ const RotatingCube = ({ orientation, ...props }: RotatingCubeProps): Node => {
     };
 
     const runAnimation = (from, to) => {
-        // Make sure we finish any in flight animation.
-        if (animation !== null) {
-            clearInterval(animation);
-            setAnimation(null);
-        }
-
         const slerp = new Slerp(from, to);
-        const StartTime = new Date().getTime();
 
-        const id = setInterval(() => {
-            const ANIMATION_TIME = 200;
-
-            const time = new Date().getTime();
-            const t = (time - StartTime) / ANIMATION_TIME;
-            if (t < 1) {
-                setCurrentQ(slerp.get(t));
-                return;
-            }
-
-            // We reached our destination.
-            setCurrentQ(to);
-
-            // We are done, wrap it up.
-            clearInterval(id);
-            setAnimation(a => (a === id ? null : a));
-        }, 16);
-
-        setAnimation(id);
+        const ANIMATION_TIME = 200;
+        startAnimation(
+            ANIMATION_TIME,
+            t => setCurrentQ(slerp.get(t)),
+            () => setCurrentQ(to)
+        );
     };
 
     const stopRotating = e => {
