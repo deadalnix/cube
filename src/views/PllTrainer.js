@@ -50,58 +50,51 @@ function selectRandomElement<T>(a: Array<T>): T {
     return a[Math.floor(Math.random() * a.length)];
 }
 
-class Animator<T> {
-    id: ?AnimationFrameID = null;
-    duration: number = 0;
+const useAnimation = (): [
+    (number, (number) => void, () => void) => void,
+    () => boolean
+] => {
+    const idRef = useRef<?AnimationFrameID>(null);
+    const id = idRef.current;
 
-    step: (T, number) => void;
-    onStart: () => T;
-    onEnd: () => void;
-
-    constructor(
-        duration: number,
-        step: (T, number) => void,
-        onStart: () => T,
-        onEnd: () => void
-    ) {
-        this.duration = duration;
-        this.step = step;
-        this.onStart = onStart;
-        this.onEnd = onEnd;
-    }
-
-    start(): void {
-        // Just in case.
-        this.cancel();
-
-        const StartTime = performance.now();
-        const Data = this.onStart();
-
-        const animate = time => {
-            const t = (time - StartTime) / this.duration;
-            if (t >= 1) {
-                this.id = null;
-                this.onEnd();
-                return;
-            }
-
-            this.id = requestAnimationFrame(animate);
-            this.step(Data, t);
-        };
-
-        this.id = requestAnimationFrame(animate);
-    }
-
-    cancel(): boolean {
-        if (this.id == null) {
+    const cancel = (): boolean => {
+        if (id == null) {
             return false;
         }
 
-        cancelAnimationFrame(this.id);
-        this.id = null;
+        cancelAnimationFrame(id);
+        idRef.current = null;
         return true;
-    }
-}
+    };
+
+    const start = (
+        duration: number,
+        step: number => void,
+        onEnd: () => void
+    ) => {
+        // Just in case.
+        cancel();
+
+        const next = a => (idRef.current = requestAnimationFrame(a));
+
+        const StartTime = performance.now();
+        const animate = time => {
+            const t = (time - StartTime) / duration;
+            if (t >= 1) {
+                cancel();
+                onEnd();
+                return;
+            }
+
+            next(animate);
+            step(t);
+        };
+
+        next(animate);
+    };
+
+    return [start, cancel];
+};
 
 const PllCube = ({
     stickers,
@@ -117,51 +110,38 @@ const PllCube = ({
     const [orientation, setOrientation] = useState(DefaultOrientation);
     const [isSpinning, setIsSpinning] = useState(false);
 
-    const spinAnimatorRef = useRef(null);
-    const clearSpinAnimator = () => {
-        if (spinAnimatorRef.current === null) {
-            return;
-        }
-
-        spinAnimatorRef.current.cancel();
-        spinAnimatorRef.current = null;
-    };
+    const [startAnimation, cancelAnimation] = useAnimation();
 
     if (!spin && isSpinning) {
         setIsSpinning(false);
-        clearSpinAnimator();
+        cancelAnimation();
     }
 
     if (spin && !isSpinning) {
-        clearSpinAnimator();
+        setIsSpinning(true);
+
+        const From = (orientation.beta - 360) % 360;
+        const To = DefaultOrientation.beta;
 
         const ANIMATION_TIME = 300;
-        const animator = new Animator(
+        startAnimation(
             ANIMATION_TIME,
-            (data, t) => {
+            t => {
                 const i = t * (2 - t);
                 setOrientation({
                     alpha: DefaultOrientation.alpha,
-                    beta: data.from * (1 - i) + data.to * i,
+                    beta: From * (1 - i) + To * i,
                 });
             },
-            () => ({
-                from: (orientation.beta - 360) % 360,
-                to: DefaultOrientation.beta,
-            }),
             () => {
                 // We reached our destination.
                 setOrientation(DefaultOrientation);
 
                 // We are done, wrap it up.
-                clearSpinAnimator();
+                setIsSpinning(false);
                 onSpinEnd();
             }
         );
-
-        spinAnimatorRef.current = animator;
-        animator.start();
-        setIsSpinning(true);
     }
 
     return (
