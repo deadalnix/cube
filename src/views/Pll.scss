@@ -1,4 +1,25 @@
-.algCell {
-    min-width: 300px;
-    max-width: 100% !important;
+@use "layout/utils";
+
+.pllGrid {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+
+    > h3 {
+        grid-column: 1 / -1;
+    }
+}
+
+.pllCard {
+    padding: 0.5em;
+
+    border-radius: 0.5em;
+    background: #27293d;
+
+    display: flex;
+    flex-flow: column;
+}
+
+.face {
+    @extend %fullsize;
 }

@@ -20,6 +20,10 @@
     @extend %fullsize;
 }
 
+.face {
+    @extend %fullsize;
+}
+
 .buttonGrid {
     @extend %fullsize;
 
@@ -32,13 +36,10 @@
 }
 
 .faceButton {
+    padding: 0;
+
     border: 0;
     border-radius: 0.5em;
 
     overflow: hidden;
-
-    background-color: utils.$default;
-    &:hover {
-        background-color: utils.$info;
-    }
 }

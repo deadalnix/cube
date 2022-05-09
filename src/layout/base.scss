@@ -52,7 +52,7 @@ button,
 input {
     @extend %color-transition;
 
-    padding: 0.5em 1em;
+    padding: 0.5em;
 
     border: 1px solid lighten(utils.$black, 5%);
     border-radius: 0.5em;
@@ -67,5 +67,12 @@ input {
     &::placeholder {
         color: utils.$gray-600;
         opacity: 1;
+    }
+}
+
+button {
+    background-color: utils.$default;
+    &:hover {
+        background-color: utils.$info;
     }
 }

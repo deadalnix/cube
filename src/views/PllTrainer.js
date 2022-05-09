@@ -152,7 +152,7 @@ const PllButton = ({
 }): Node => (
     <button type="button" className={styles.faceButton} onClick={onClick}>
         <Face
-            className={styles.cube}
+            className={styles.face}
             label={pll.name}
             stickers={pll.stickers}
         />

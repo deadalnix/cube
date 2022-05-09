@@ -6,16 +6,6 @@ import { getStickersRotator } from "cube/Stickers";
 import printAlg from "cube/AlgPrinter";
 import invertAlg from "cube/AlgInverter";
 
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardBody,
-    Input,
-    Row,
-    Col,
-} from "reactstrap";
-
 import styles from "views/Pll.scss";
 
 const PllCard = ({ pll: { name, alg } }: { pll: PllInfo }): Node => {
@@ -25,48 +15,28 @@ const PllCard = ({ pll: { name, alg } }: { pll: PllInfo }): Node => {
     sr.runAlg(inv);
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle tag="h4">{name}</CardTitle>
-            </CardHeader>
-            <CardBody>
-                <Row>
-                    <Col className="text-center">
-                        <Face
-                            style={{ height: "200px" }}
-                            stickers={sr.getStickers()}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Input placeholder={printAlg(alg)} type="text" />
-                    </Col>
-                </Row>
-            </CardBody>
-        </Card>
+        <div className={styles.pllCard}>
+            <Face
+                className={styles.face}
+                label={name}
+                stickers={sr.getStickers()}
+            />
+            <input type="text" placeholder={printAlg(alg)} />
+        </div>
     );
 };
 
 const PllGroup = ({ title, plls }): Node => (
-    <Card className={"card-plain"}>
-        <CardHeader>
-            <CardTitle tag="h3">{title}</CardTitle>
-        </CardHeader>
-        <CardBody>
-            <Row>
-                {plls.map(p => (
-                    <Col md="3" key={p.name} className={styles.algCell}>
-                        <PllCard pll={p} />
-                    </Col>
-                ))}
-            </Row>
-        </CardBody>
-    </Card>
+    <>
+        <h3>{title}</h3>
+        {plls.map(p => (
+            <PllCard key={p.name} pll={p} />
+        ))}
+    </>
 );
 
 const Pll = (): Node => (
-    <>
+    <div className={styles.pllGrid}>
         <PllGroup
             title="EPLL"
             plls={[CubePLL.H, CubePLL.Ua, CubePLL.Ub, CubePLL.Z]}
@@ -91,7 +61,7 @@ const Pll = (): Node => (
             title="Diagonal swaps"
             plls={[CubePLL.Y, CubePLL.V, CubePLL.Na, CubePLL.Nb]}
         />
-    </>
+    </div>
 );
 
 export default Pll;

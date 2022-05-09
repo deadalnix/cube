@@ -4,11 +4,6 @@ import { hydrate, render } from "react-dom";
 import App from "App";
 import reportWebVitals from "./reportWebVitals";
 
-import Bootstrap from "assets/bootstrap/global.scss";
-import { Util } from "reactstrap";
-
-Util.setGlobalCssModule(Bootstrap);
-
 const root = document.getElementById("root");
 const content = (
     <React.StrictMode>
