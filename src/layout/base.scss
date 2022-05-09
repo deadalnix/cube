@@ -1,0 +1,71 @@
+@use "layout/utils";
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: utils.$gray-700;
+    line-height: 1.5;
+    text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0.5em;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+
+    color: utils.$primary-states;
+
+    :hover,
+    :focus {
+        color: utils.$primary;
+    }
+}
+
+button,
+input {
+    @extend %color-transition;
+
+    padding: 0.5em 1em;
+
+    border: 1px solid lighten(utils.$black, 5%);
+    border-radius: 0.5em;
+
+    background: transparent padding-box;
+    overflow: visible;
+
+    &:focus {
+        border-color: utils.$primary;
+    }
+
+    &::placeholder {
+        color: utils.$gray-600;
+        opacity: 1;
+    }
+}
