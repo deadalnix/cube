@@ -1,3 +1,12 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .spinner {
     width: 100%;
     height: 100%;
@@ -9,5 +18,7 @@
     > svg {
         width: max(25%, 2em);
         height: max(25%, 2em);
+
+        animation: spin 2s ease infinite;
     }
 }

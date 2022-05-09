@@ -7,8 +7,9 @@ import routes from "routes.js";
 import Footer from "layout/Footer";
 
 import logo from "assets/img/react-logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+
+import { Icon } from "@iconify/react";
+import menuKebab from "@iconify/icons-charm/menu-kebab";
 
 import cx from "classnames";
 import styles from "layout/Layout.scss";
@@ -57,10 +58,7 @@ const Layout = ({ children }: LayoutProps): Node => {
                                 })
                             }
                         >
-                            <FontAwesomeIcon
-                                className={styles.navIcon}
-                                icon={prop.icon}
-                            />
+                            <Icon className={styles.navIcon} icon={prop.icon} />
                             {prop.name}
                         </NavLink>
                     ))}
@@ -80,7 +78,7 @@ const Layout = ({ children }: LayoutProps): Node => {
                         <h1>{title}</h1>
                     </nav>
                     <button className={styles.menuToggle}>
-                        <FontAwesomeIcon icon={faEllipsisV} />
+                        <Icon icon={menuKebab} />
                     </button>
                 </div>
                 <div className={styles.content}>{children}</div>

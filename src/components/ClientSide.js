@@ -1,8 +1,8 @@
 // @flow
 import { type Node, useState, useLayoutEffect } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify/react";
+import loadingOutlined from "@iconify/icons-ant-design/loading-outlined";
 
 import styles from "components/ClientSide.scss";
 
@@ -27,7 +27,7 @@ const ClientSide = ({ children }: { children: Node }): Node =>
         children
     ) : (
         <div className={styles.spinner}>
-            <FontAwesomeIcon icon={faSpinner} spin />
+            <Icon icon={loadingOutlined} />
         </div>
     );
 

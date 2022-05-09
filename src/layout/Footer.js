@@ -3,8 +3,8 @@ import { type Node } from "react";
 
 import styles from "layout/Footer.scss";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { Icon } from "@iconify/react";
+import heartFilled from "@iconify/icons-ant-design/heart-filled";
 
 const Footer = (): Node => (
     <footer className={styles.footer}>
@@ -14,7 +14,7 @@ const Footer = (): Node => (
         </nav>
         <div className={styles.copyright}>
             © {new Date().getFullYear()} made with{" "}
-            <FontAwesomeIcon icon={faHeart} /> by{" "}
+            <Icon icon={heartFilled} inline={true} /> by{" "}
             <a
                 href="https://github.com/deadalnix/cube"
                 target="_blank"
