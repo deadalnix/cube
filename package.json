@@ -11,10 +11,10 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-notification-alert": "^0.0.13",
-        "react-router-dom": "^6.2.1",
-        "react-scripts": "^5.0.0",
+        "react-router-dom": "^6.22.0",
+        "react-scripts": "^5.0.1",
         "react-snap": "^1.23.0",
-        "sass": "^1.49.9",
+        "sass": "^1.70.0",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
@@ -72,11 +72,11 @@
         "@iconify/icons-charm": "^1.2.2",
         "@iconify/react": "^3.2.1",
         "babel-plugin-transform-flow-enums": "^0.0.2",
-        "cssnano-preset-advanced": "^5.3.1",
+        "cssnano-preset-advanced": "^5.3.10",
         "customize-cra": "^1.0.0",
         "eslint-plugin-fb-flow": "^0.0.4",
         "eslint-plugin-ft-flow": "^2.0.1",
         "flow-bin": "^0.171.0",
-        "react-app-rewired": "^2.1.11"
+        "react-app-rewired": "^2.2.1"
     }
 }
